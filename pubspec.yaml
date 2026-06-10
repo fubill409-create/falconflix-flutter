@@ -52,6 +52,8 @@ dependencies:
   image_picker: ^1.1.2
   # Stripe 国际收款：原生 PaymentSheet（充值鹰币，美金信用卡）
   flutter_stripe: ^11.1.0
+  # iOS 充值走苹果内购（App Store 审核 3.1.1：数字内容必须 StoreKit）；Android 不用
+  in_app_purchase: ^3.2.3
   # 数字人通话：Simli 脸(WebRTC) + 麦克风 PCM16 + 中继 WS
   # 本地 vendored（third_party/simli_client）：仅改了 waitForIceGathering 的安卓兜底，
   # 修复部分机型死等 onIceGatheringState=Complete 导致的「ICE gathering timeout」。

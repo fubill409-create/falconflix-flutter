@@ -2513,6 +2513,12 @@ abstract class AppLocalizations {
   /// **'支付由 Stripe 安全处理 · 美金结算'**
   String get wallet_stripeNotice;
 
+  /// No description provided for @wallet_appStoreNotice.
+  ///
+  /// In zh, this message translates to:
+  /// **'通过 App Store 安全支付'**
+  String get wallet_appStoreNotice;
+
   /// No description provided for @wallet_loadFailed.
   ///
   /// In zh, this message translates to:
@@ -2578,6 +2584,18 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'支付失败，请稍后再试'**
   String get wallet_payFail;
+
+  /// No description provided for @wallet_iapUnavailable.
+  ///
+  /// In zh, this message translates to:
+  /// **'无法连接 App Store，请稍后再试'**
+  String get wallet_iapUnavailable;
+
+  /// No description provided for @wallet_iapVerifyFail.
+  ///
+  /// In zh, this message translates to:
+  /// **'支付确认失败，下次启动将自动重试'**
+  String get wallet_iapVerifyFail;
 
   /// No description provided for @wallet_balanceLabel.
   ///

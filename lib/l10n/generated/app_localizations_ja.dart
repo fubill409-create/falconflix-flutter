@@ -1291,6 +1291,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wallet_stripeNotice => '決済は Stripe による安全処理・USD';
 
   @override
+  String get wallet_appStoreNotice => 'App Store による安全な決済';
+
+  @override
   String get wallet_loadFailed => '読み込み失敗、再試行ください';
 
   @override
@@ -1326,6 +1329,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get wallet_payFail => '決済失敗、再試行ください';
+
+  @override
+  String get wallet_iapUnavailable => 'App Store に接続できません。後ほどお試しください';
+
+  @override
+  String get wallet_iapVerifyFail => '決済確認に失敗。次回起動時に自動再試行します';
 
   @override
   String get wallet_balanceLabel => 'イーグルコイン残高';

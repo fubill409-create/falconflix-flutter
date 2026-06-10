@@ -33,12 +33,14 @@ class RechargePack {
   final double rechargeAmount; // 美金价
   final double giftAmount; // 赠送（美金口径，展示用）
   final String amount; // 总得鹰币
+  final String appleProductId; // App Store 商品 id（如 ff_coins_1）；空 = iOS 不展示该套餐
 
   const RechargePack({
     required this.id,
     required this.rechargeAmount,
     required this.giftAmount,
     required this.amount,
+    this.appleProductId = '',
   });
 
   /// 总得鹰币（数字）。后端存字符串，可能带小数，统一取整展示。
@@ -88,6 +90,7 @@ class RechargePack {
         rechargeAmount: _d(j['rechargeAmount']),
         giftAmount: _d(j['giftAmount']),
         amount: (j['amount'] ?? '').toString(),
+        appleProductId: (j['appleProductId'] ?? '').toString().trim(),
       );
 }
 

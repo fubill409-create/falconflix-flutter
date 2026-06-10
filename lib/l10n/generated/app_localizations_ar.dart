@@ -1321,6 +1321,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get wallet_stripeNotice => 'الدفع مؤمَّن عبر Stripe · بالدولار';
 
   @override
+  String get wallet_appStoreNotice => 'دفع آمن عبر App Store';
+
+  @override
   String get wallet_loadFailed => 'فشل التحميل، يرجى إعادة المحاولة';
 
   @override
@@ -1356,6 +1359,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wallet_payFail => 'فشل الدفع، يرجى إعادة المحاولة';
+
+  @override
+  String get wallet_iapUnavailable => 'تعذّر الاتصال بـ App Store، يرجى إعادة المحاولة';
+
+  @override
+  String get wallet_iapVerifyFail => 'فشل تأكيد الدفع، ستتم إعادة المحاولة عند التشغيل القادم';
 
   @override
   String get wallet_balanceLabel => 'رصيد عملة النسر';

@@ -1335,6 +1335,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wallet_stripeNotice => 'Payments secured by Stripe · USD';
 
   @override
+  String get wallet_appStoreNotice => 'Payments secured by the App Store';
+
+  @override
   String get wallet_loadFailed => 'Failed to load, please retry';
 
   @override
@@ -1371,6 +1374,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wallet_payFail => 'Payment failed, please retry';
+
+  @override
+  String get wallet_iapUnavailable =>
+      'Cannot connect to the App Store, please retry';
+
+  @override
+  String get wallet_iapVerifyFail =>
+      'Payment verification failed, will retry next launch';
 
   @override
   String get wallet_balanceLabel => 'Eagle Coin Balance';

@@ -1343,6 +1343,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get wallet_stripeNotice => 'Paiement sécurisé par Stripe · USD';
 
   @override
+  String get wallet_appStoreNotice => 'Paiement sécurisé via l\'App Store';
+
+  @override
   String get wallet_loadFailed => 'Échec du chargement, veuillez réessayer';
 
   @override
@@ -1380,6 +1383,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get wallet_payFail => 'Échec du paiement, veuillez réessayer';
+
+  @override
+  String get wallet_iapUnavailable =>
+      'Connexion à l\'App Store impossible, veuillez réessayer';
+
+  @override
+  String get wallet_iapVerifyFail =>
+      'Échec de la vérification du paiement, nouvelle tentative au prochain lancement';
 
   @override
   String get wallet_balanceLabel => 'Solde Eagle Coins';

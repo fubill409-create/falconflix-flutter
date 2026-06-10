@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'dart:io' show Platform;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:in_app_purchase/in_app_purchase.dart' show ProductDetails;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../api/api.dart';
@@ -12,6 +16,7 @@ import '../models/ai_character.dart';
 import '../models/level_curve.dart';
 import '../models/recharge.dart';
 import '../models/short_drama.dart';
+import '../services/iap_service.dart';
 import '../state/app_settings.dart';
 import '../theme.dart';
 import '../ui/daynight.dart';
@@ -107,6 +112,10 @@ class _WalletScreenState extends State<WalletScreen>
   int _pendingCoins = 0;
   bool _verifying = false;
 
+  // iOS 苹果内购：appleProductId → App Store 商品（价取 StoreKit 本地化价）。
+  Map<String, ProductDetails> _iapProducts = const {};
+  StreamSubscription<IapResult>? _iapSub;
+
   // 累计「等级值」鹰币（= 历史实付美金 × 100，对齐 $10k=V50 锚点）；驱动 V1–V99 面子等级。
   // null = 尚未拉到（隐藏身份卡，避免闪 V1）。数据来自 /order/list?type=1 的已到账充值单求和。
   int? _paidCoins;
@@ -116,11 +125,16 @@ class _WalletScreenState extends State<WalletScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     if (auth.loggedIn) auth.refresh();
+    // iOS：订阅内购结果（全局 purchaseStream 在 IapService 里推进，这里只管 UI 反馈）。
+    if (Platform.isIOS) {
+      _iapSub = IapService.instance.results.listen(_onIapResult);
+    }
     _load();
   }
 
   @override
   void dispose() {
+    _iapSub?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -142,15 +156,33 @@ class _WalletScreenState extends State<WalletScreen>
     });
     try {
       final packs = await Api.getRechargePacks();
+      // iOS：套餐必须映射到 App Store 商品（审核 3.1.1）。缺 appleProductId
+      // 或 StoreKit 查不到的套餐不展示；商店不可用则走 IapStoreException 错误重试。
+      var products = const <String, ProductDetails>{};
+      if (Platform.isIOS) {
+        final ids = <String>{
+          for (final p in packs)
+            if (p.appleProductId.isNotEmpty) p.appleProductId,
+        };
+        products = await IapService.instance.queryProducts(ids);
+        packs.retainWhere((p) => products.containsKey(p.appleProductId));
+      }
       packs.sort((a, b) => a.rechargeAmount.compareTo(b.rechargeAmount));
       if (!mounted) return;
       setState(() {
+        _iapProducts = products;
         _packs = packs;
         // 默认选中中间档（更易转化）
         _selected = packs.length >= 2 ? packs.length ~/ 2 : 0;
         _loading = false;
       });
       _loadPaidCoins();
+    } on IapStoreException {
+      if (!mounted) return;
+      setState(() {
+        _error = AppLocalizations.of(context).wallet_iapUnavailable;
+        _loading = false;
+      });
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -238,7 +270,11 @@ class _WalletScreenState extends State<WalletScreen>
                 }),
                 const SizedBox(height: 14),
                 Center(
-                  child: Text(l.wallet_stripeNotice,
+                  // iOS 走苹果内购，不能出现第三方收银台文案（审核 3.1.1）。
+                  child: Text(
+                      Platform.isIOS
+                          ? l.wallet_appStoreNotice
+                          : l.wallet_stripeNotice,
                       style: TextStyle(color: p.textMuted, fontSize: 11)),
                 ),
               ],
@@ -404,7 +440,7 @@ class _WalletScreenState extends State<WalletScreen>
                           : unselPill,
                       borderRadius: BorderRadius.circular(999),
                     ),
-                    child: Text(p.priceLabel,
+                    child: Text(_priceLabel(p),
                         style: TextStyle(
                             color: sel ? Colors.white : pal.text,
                             fontSize: 12,
@@ -510,7 +546,7 @@ class _WalletScreenState extends State<WalletScreen>
         ),
       );
     }
-    final priceLabel = canPay ? packs[_selected].priceLabel : '';
+    final priceLabel = canPay ? _priceLabel(packs[_selected]) : '';
     final l = AppLocalizations.of(context);
     return Opacity(
       opacity: canPay ? 1 : 0.5,
@@ -520,10 +556,75 @@ class _WalletScreenState extends State<WalletScreen>
         height: 52,
         onTap: () {
           if (!canPay) return;
-          _startCheckout(packs[_selected]);
+          // iOS 走苹果内购（审核 3.1.1）；Android 维持 Stripe 网页收银台。
+          if (Platform.isIOS) {
+            _startIapPurchase(packs[_selected]);
+          } else {
+            _startCheckout(packs[_selected]);
+          }
         },
       ),
     );
+  }
+
+  /// 价签：iOS 用 App Store 本地化价（StoreKit 才是实际扣款方）；其余用后端美金价。
+  String _priceLabel(RechargePack pack) {
+    if (Platform.isIOS) {
+      final prod = _iapProducts[pack.appleProductId];
+      if (prod != null) return prod.price;
+    }
+    return pack.priceLabel;
+  }
+
+  // iOS 充值走苹果内购：buyConsumable 拉起 Apple 支付面板，后续由 IapService 的
+  // 全局 purchaseStream 推进（后端验证→completePurchase→刷余额），结果经
+  // _onIapResult 回到本页解除 _busy 并反馈。
+  Future<void> _startIapPurchase(RechargePack pack) async {
+    final l = AppLocalizations.of(context);
+    if (!auth.loggedIn) {
+      _toast(context, l.wallet_loginFirst);
+      return;
+    }
+    final product = _iapProducts[pack.appleProductId];
+    if (product == null) {
+      _toast(context, l.wallet_payFail);
+      return;
+    }
+    setState(() => _busy = true);
+    try {
+      final ok = await IapService.instance.buy(product);
+      if (!ok && mounted) {
+        setState(() => _busy = false);
+        _toast(context, l.wallet_openPayFail);
+      }
+    } catch (_) {
+      // 如 StoreKit 已有同商品在途交易等：提示失败，等 purchaseStream 收尾。
+      if (mounted) {
+        setState(() => _busy = false);
+        _toast(context, l.wallet_payFail);
+      }
+    }
+  }
+
+  /// 内购结果回包：成功庆祝（余额已由 IapService 刷过）；取消静默；失败 toast。
+  Future<void> _onIapResult(IapResult r) async {
+    if (!mounted) return;
+    setState(() => _busy = false);
+    final l = AppLocalizations.of(context);
+    switch (r.kind) {
+      case IapResultKind.success:
+        _loadPaidCoins();
+        await showRechargeCelebration(context, r.coins);
+        break;
+      case IapResultKind.verifyFail:
+        _toast(context, l.wallet_iapVerifyFail);
+        break;
+      case IapResultKind.error:
+        _toast(context, l.wallet_payFail);
+        break;
+      case IapResultKind.canceled:
+        break;
+    }
   }
 
   // 充值走 Stripe Checkout 托管收银台（浏览器/Custom Tab 打开网页收银）。

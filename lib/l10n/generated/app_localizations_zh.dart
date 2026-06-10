@@ -1290,6 +1290,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wallet_stripeNotice => '支付由 Stripe 安全处理 · 美金结算';
 
   @override
+  String get wallet_appStoreNotice => '通过 App Store 安全支付';
+
+  @override
   String get wallet_loadFailed => '加载失败，请稍后再试';
 
   @override
@@ -1325,6 +1328,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wallet_payFail => '支付失败，请稍后再试';
+
+  @override
+  String get wallet_iapUnavailable => '无法连接 App Store，请稍后再试';
+
+  @override
+  String get wallet_iapVerifyFail => '支付确认失败，下次启动将自动重试';
 
   @override
   String get wallet_balanceLabel => '鹰币余额';

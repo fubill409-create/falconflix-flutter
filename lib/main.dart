@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart' show kReleaseMode;
+import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:logging/logging.dart';
 import 'l10n/generated/app_localizations.dart';
+import 'services/iap_service.dart';
 import 'services/push_service.dart';
 import 'state/locale_notifier.dart';
 import 'theme.dart';
@@ -30,6 +31,9 @@ void main() async {
     // ignore: discarded_futures
     PushService.init();
   }
+  // iOS 苹果内购：全局监听 purchaseStream（含上次未完成交易的启动重放补验证）。
+  // 非 iOS 内部直接 return，Android 零影响。
+  if (!kIsWeb) IapService.instance.init();
   // 竖屏短剧 App：全局锁竖屏（横屏会破版，且审核员旋转 iPad 必试）
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp]);

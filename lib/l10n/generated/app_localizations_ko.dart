@@ -1291,6 +1291,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get wallet_stripeNotice => '결제는 Stripe 안전 처리 · USD';
 
   @override
+  String get wallet_appStoreNotice => 'App Store 안전 결제';
+
+  @override
   String get wallet_loadFailed => '불러오기 실패, 다시 시도하세요';
 
   @override
@@ -1326,6 +1329,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get wallet_payFail => '결제 실패, 다시 시도하세요';
+
+  @override
+  String get wallet_iapUnavailable => 'App Store에 연결할 수 없습니다. 다시 시도하세요';
+
+  @override
+  String get wallet_iapVerifyFail => '결제 확인 실패, 다음 실행 시 자동 재시도됩니다';
 
   @override
   String get wallet_balanceLabel => '이글 코인 잔액';

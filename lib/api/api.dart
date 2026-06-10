@@ -358,6 +358,30 @@ class Api {
     return session;
   }
 
+  /// iOS 苹果内购票据验证（POST /recharge/apple/verify，需登录）。
+  /// 购买成功后把 StoreKit 的 serverVerificationData 交后端向 Apple 验真并记账，
+  /// 成功返回本单到账鹰币数（data.coins；data.balance 由 auth.refresh 另行同步）。
+  /// 票据无效（422/400）或业务失败由 _decode 抛 ApiException；网络错误抛其它异常，
+  /// 调用方据此区分「验证失败」与「暂时性失败」（都不 finish 交易，留待重试）。
+  static Future<int> verifyApplePurchase({
+    required String productId,
+    required String transactionId,
+    required String payload,
+  }) async {
+    final body = await _postJson(
+      '/recharge/apple/verify',
+      {
+        'productId': productId,
+        'transactionId': transactionId,
+        'payload': payload,
+      },
+      auth: true,
+    );
+    final data = (body['data'] as Map?)?.cast<String, dynamic>() ?? const {};
+    final v = double.tryParse('${data['coins'] ?? ''}');
+    return v == null ? 0 : v.round();
+  }
+
   /// 充值记录（GET /order/list?type=1，需登录）。倒序返回本人的充值订单。
   /// 充值订单 type=1；后端按创建时间倒序，含 goodsName/payPrice/status/createTime。
   static Future<List<RechargeRecord>> rechargeHistory() async {
