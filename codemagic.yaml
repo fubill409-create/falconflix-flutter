@@ -1,0 +1,33 @@
+# Codemagic 云构建配置 — iOS 上架 App Store
+# 前提（在 Codemagic 网页后台完成一次即可）：
+#   1. 用 GitHub 登录 codemagic.io，添加本仓库为应用
+#   2. Teams → Integrations → App Store Connect：上传苹果 API 密钥，命名为 FalconFlix-ASC
+#      （密钥在 appstoreconnect.apple.com → 用户和访问 → 集成 → App Store Connect API 生成）
+workflows:
+  ios-release:
+    name: iOS App Store build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: FalconFlix-ASC
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: app.falconflix
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Flutter 依赖
+        script: flutter pub get
+      - name: 静态检查
+        script: flutter analyze --no-fatal-infos
+      - name: 构建 IPA
+        script: flutter build ipa --release
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
