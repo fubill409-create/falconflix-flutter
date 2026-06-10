@@ -22,8 +22,14 @@ workflows:
         script: flutter pub get
       - name: 静态检查
         script: flutter analyze --no-fatal-infos --no-fatal-warnings
+      # 关键：把 ios_signing 拉取的证书+描述文件套用到 Xcode 工程（切手动签名），
+      # 并生成 /Users/builder/export_options.plist 供 build ipa 导出使用。
+      - name: 配置代码签名
+        script: xcode-project use-profiles
       - name: 构建 IPA
-        script: flutter build ipa --release
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
