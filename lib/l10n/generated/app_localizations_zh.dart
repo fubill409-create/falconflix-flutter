@@ -1179,8 +1179,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get login_pwHint => '首次用密码登录将自动注册并设置该密码';
 
-  @override
-  String get login_devHint => '开发测试：验证码输入 749301 可直接登录';
 
   @override
   String get login_quickLogin => '快捷登录';
@@ -1210,7 +1208,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get login_codeSent => '验证码已发送，请查收邮箱';
 
   @override
-  String get login_emailNotConfigured => '邮件通道未开通，可用测试码 749301 登录';
+  String get login_emailNotConfigured => '邮件通道暂时不可用，请稍后重试';
 
   @override
   String get login_networkError => '登录失败，请检查网络后重试';

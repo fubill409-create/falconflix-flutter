@@ -62,7 +62,7 @@ class Api {
 
   // —— 登录 / 账户 ——
 
-  /// 邮箱验证码（生产真发邮件；开发期后端测试码 749301 可直接登录，无需收码）。
+  /// 邮箱验证码（生产真发邮件）。
   static Future<void> sendEmailCode(String email) =>
       _postJson('/login/sendEmailCode', {'email': email});
 

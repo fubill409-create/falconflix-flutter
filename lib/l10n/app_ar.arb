@@ -1,13 +1,11 @@
 {
   "@@locale": "ar",
   "appTitle": "FalconFlix",
-
   "tabHome": "الرئيسية",
   "tabTheater": "المسرح",
   "tabInteractive": "تفاعلي",
   "tabCharacter": "الشخصيات",
   "tabMe": "حسابي",
-
   "common_cancel": "إلغاء",
   "common_confirm": "تأكيد",
   "common_save": "حفظ",
@@ -27,7 +25,6 @@
   "common_edit": "تعديل",
   "common_delete": "حذف",
   "common_send": "إرسال",
-
   "me_title": "حسابي",
   "me_loginPrompt": "تسجيل الدخول / إنشاء حساب",
   "me_loginSubtitle": "سجّل الدخول للوصول إلى مكتبتك ومحفظتك والدراما التفاعلية",
@@ -55,7 +52,6 @@
   "me_rowHelpAbout": "المساعدة وحول التطبيق",
   "me_rowAbout": "حول FalconFlix",
   "me_logoutConfirm": "تسجيل الخروج من الحساب؟",
-
   "history_title": "سجل المشاهدة",
   "history_emptyTitle": "لا يوجد سجل مشاهدة",
   "history_emptyBody": "ستظهر هنا الحلقات التي شاهدتها لتعود إليها بسهولة.",
@@ -65,16 +61,33 @@
   "history_episodeFallback": "المسلسل كاملاً",
   "history_unknown": "(عنوان غير معروف)",
   "history_selectedCount": "تم تحديد {n}",
-  "@history_selectedCount": { "placeholders": { "n": { "type": "int" } } },
+  "@history_selectedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmTitle": "حذف {n} سجل؟",
-  "@history_delConfirmTitle": { "placeholders": { "n": { "type": "int" } } },
+  "@history_delConfirmTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmBody": "لا يمكن التراجع. لن يتأثر المسلسل، وسيُنشأ سجل جديد عند التشغيل التالي.",
   "history_clearConfirmTitle": "مسح كل سجل المشاهدة؟",
   "history_clearConfirmBody": "لا يمكن التراجع. ستُنشأ السجلات مجدداً عند التشغيل.",
   "history_toastDeleted": "تم حذف {n}",
-  "@history_toastDeleted": { "placeholders": { "n": { "type": "int" } } },
+  "@history_toastDeleted": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_toastCleared": "تم المسح",
-
   "orders_title": "طلباتي",
   "orders_tabFull": "مسلسل",
   "orders_tabEpisode": "حلقة",
@@ -90,13 +103,18 @@
   "orders_kvPayMethod": "طريقة الدفع",
   "orders_kvTime": "الوقت",
   "orders_orderCopied": "تم نسخ رقم الطلب · {orderNo}",
-  "@orders_orderCopied": { "placeholders": { "orderNo": { "type": "String" } } },
+  "@orders_orderCopied": {
+    "placeholders": {
+      "orderNo": {
+        "type": "String"
+      }
+    }
+  },
   "orders_paid": "مدفوع",
   "orders_pending": "قيد الانتظار",
   "orders_payEagle": "عملات Eagle",
   "orders_unknownTitle": "(عنوان غير معروف)",
   "orders_rechargeFallback": "شحن عملات Eagle",
-
   "inbox_title": "الإشعارات",
   "inbox_tabAll": "الكل",
   "inbox_tabRecharge": "شحن",
@@ -107,7 +125,6 @@
   "inbox_emptyTitle": "لا توجد رسائل",
   "inbox_emptyBody": "ستظهر هنا إيصالات الشحن، ومكافآت الدعوة، والعروض، وإشعارات النظام.",
   "inbox_loginBody": "سجّل الدخول لعرض الإشعارات.",
-
   "settings_title": "الإعدادات",
   "settings_sectionNotificationPlayback": "الإشعارات والتشغيل",
   "settings_sectionAccount": "الحساب",
@@ -122,8 +139,13 @@
   "settings_clearCacheBody": "يمسح فيديوهات الدراما التفاعلية المنزّلة وذاكرة الصور. لن تتأثر مشترياتك ولا تسجيل دخولك ولا إعداداتك.",
   "settings_clearCacheAction": "مسح الآن",
   "settings_clearCacheDone": "تم تحرير {size}",
-  "@settings_clearCacheDone": { "placeholders": { "size": { "type": "String" } } },
-
+  "@settings_clearCacheDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "notifyPrefs_title": "تفضيلات الإشعارات",
   "notifyPrefs_pushMaster": "المفتاح الرئيسي للإشعارات",
   "notifyPrefs_pushMasterDesc": "الإيقاف يوقف جميع الإشعارات. يبقى صندوق الرسائل داخل التطبيق يصل.",
@@ -138,8 +160,13 @@
   "notifyPrefs_interactive": "تحديثات الدراما التفاعلية",
   "notifyPrefs_interactiveDesc": "حلقات جديدة / فتح نهايات",
   "notifyPrefs_saveFailed": "فشل الحفظ: {msg}",
-  "@notifyPrefs_saveFailed": { "placeholders": { "msg": { "type": "String" } } },
-
+  "@notifyPrefs_saveFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "playPrefs_title": "التشغيل والتنزيلات",
   "playPrefs_autoplay": "تشغيل تلقائي للتالي",
   "playPrefs_autoplayDesc": "تشغيل الفيديو التالي تلقائياً بعد انتهاء واحد",
@@ -152,7 +179,6 @@
   "playPrefs_quality1080": "Full HD 1080p",
   "playPrefs_wifiOnlyDownload": "التنزيل عبر Wi-Fi فقط",
   "playPrefs_wifiOnlyDownloadDesc": "الفيديوهات التفاعلية والذاكرة المؤقتة دون اتصال فقط عبر Wi-Fi",
-
   "accountSec_title": "الحساب والأمان",
   "accountSec_sectionLogin": "تسجيل الدخول",
   "accountSec_sectionDeletion": "حذف الحساب",
@@ -168,18 +194,22 @@
   "accountSec_saveNewPw": "حفظ كلمة المرور الجديدة",
   "accountSec_saving": "جارٍ الحفظ…",
   "accountSec_pwUpdated": "تم تحديث كلمة المرور",
-
   "privacyPrefs_title": "الخصوصية",
   "privacyPrefs_sectionData": "بياناتي",
   "privacyPrefs_sectionLegal": "الشروط والسياسة",
   "privacyPrefs_rowExport": "تنزيل بياناتي",
   "privacyPrefs_rowExportDesc": "GDPR / CCPA: اطلب حزمة كاملة لبياناتك",
   "privacyPrefs_rowPolicy": "سياسة الخصوصية",
-
   "deleteAcc_title": "حذف الحساب",
   "deleteAcc_inProgress": "طلب حذف الحساب قيد التنفيذ",
   "deleteAcc_scheduledAt": "موعد التنفيذ: {time}",
-  "@deleteAcc_scheduledAt": { "placeholders": { "time": { "type": "String" } } },
+  "@deleteAcc_scheduledAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_pendingHint": "سجّل الدخول في أي وقت خلال فترة تهدئة 7 أيام لإلغاء الحذف.",
   "deleteAcc_cancelBtn": "إلغاء الحذف، متابعة الاستخدام",
   "deleteAcc_willDelete": "حذف الحساب سيزيل ما يلي",
@@ -192,10 +222,22 @@
   "deleteAcc_reasonLabel": "سبب الحذف (اختياري، لتحسين المنتج)",
   "deleteAcc_reasonHint": "أخبرنا بما لا يعجبك (اختياري)",
   "deleteAcc_typeToConfirm": "اكتب «{phrase}» للتأكيد",
-  "@deleteAcc_typeToConfirm": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeToConfirm": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_confirmPhrase": "احذف حسابي",
   "deleteAcc_typeMismatch": "يرجى كتابة «{phrase}» بدقة",
-  "@deleteAcc_typeMismatch": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeMismatch": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_submit": "إرسال طلب الحذف",
   "deleteAcc_finalTitle": "التأكيد النهائي",
   "deleteAcc_finalBody": "ستبدأ فترة تهدئة 7 أيام. سجّل الدخول خلالها للإلغاء.\n\nبعد الانقضاء، تُحذف البيانات نهائياً ولا يمكن استرجاعها.",
@@ -203,7 +245,6 @@
   "deleteAcc_submitted": "تم إرسال طلب الحذف، التنفيذ بعد 7 أيام",
   "deleteAcc_cancelled": "تم إلغاء طلب الحذف",
   "deleteAcc_thinkAgain": "ليس بعد، عودة",
-
   "dataExport_title": "تنزيل بياناتي",
   "dataExport_introTitle": "احصل على نسخة من بياناتك",
   "dataExport_introBody": "بموجب GDPR المادة 15 (الاتحاد الأوروبي) و CCPA (كاليفورنيا)، يحق لك الحصول على كل البيانات الشخصية التي نحتفظ بها عنك.\n\nبعد الإرسال، سننشئ ملف zip بشكل غير متزامن يحتوي على:\n  · الملف الشخصي / البريد / الهاتف\n  · رصيد عملات Eagle والمعاملات\n  · الطلبات وسجل المشاهدة والمحفوظات\n  · منشورات المجتمع وفتحات الدراما التفاعلية\n\nسنبلغك داخل التطبيق عند الجاهزية. رابط التنزيل صالح لمدة 7 أيام.",
@@ -213,12 +254,17 @@
   "dataExport_statusExpired": "منتهي · أعد الطلب",
   "dataExport_statusFailed": "فشل · أعد الطلب",
   "dataExport_expiresAt": "ينتهي الرابط في {time}",
-  "@dataExport_expiresAt": { "placeholders": { "time": { "type": "String" } } },
+  "@dataExport_expiresAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "dataExport_downloadBtn": "تنزيل",
   "dataExport_submitBtn": "طلب التنزيل",
   "dataExport_submitting": "جارٍ الإرسال…",
   "dataExport_submitted": "تم إرسال الطلب، سنبلغك عند الجاهزية",
-
   "helpAbout_title": "المساعدة وحول التطبيق",
   "helpAbout_sectionHelp": "المساعدة",
   "helpAbout_sectionAbout": "حول التطبيق",
@@ -228,7 +274,6 @@
   "helpAbout_rowSupportDesc": "محادثة تذكرة 1 إلى 1",
   "helpAbout_rowFeedback": "إرسال ملاحظات",
   "helpAbout_rowFeedbackDesc": "أفكار المنتج / تقارير الأخطاء",
-
   "faq_title": "مركز المساعدة",
   "faq_catAll": "الكل",
   "faq_catAccount": "الحساب",
@@ -238,7 +283,6 @@
   "faq_catOther": "أخرى",
   "faq_emptyTitle": "لا توجد أسئلة شائعة بعد",
   "faq_emptyBody": "إذا واجهتك مشكلة، يرجى فتح تذكرة دعم.",
-
   "tickets_title": "التواصل مع الدعم",
   "tickets_newBtn": "تذكرة جديدة",
   "tickets_emptyTitle": "لا توجد تذاكر",
@@ -249,12 +293,17 @@
   "tickets_speakerSelf": "أنا",
   "tickets_replyHint": "الرد…",
   "tickets_sendFailed": "فشل الإرسال: {msg}",
-  "@tickets_sendFailed": { "placeholders": { "msg": { "type": "String" } } },
+  "@tickets_sendFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "tickets_statusPending": "قيد الانتظار",
   "tickets_statusReplied": "تم الرد",
   "tickets_statusResolved": "تم الحل",
   "tickets_statusClosed": "مغلقة",
-
   "feedback_titleTicket": "تذكرة جديدة",
   "feedback_titleFeedback": "إرسال ملاحظات",
   "feedback_typeBug": "تقرير خطأ",
@@ -273,15 +322,19 @@
   "feedback_submitted": "تم الإرسال، سيرد الدعم",
   "feedback_minLength": "يرجى كتابة 5 أحرف على الأقل",
   "feedback_tip": "نصيحة: لتقارير الأخطاء، أرفق خطوات إعادة الإنتاج + لقطات الشاشة (قريباً) لتسريع الفرز.\nالإصدار: {version}",
-  "@feedback_tip": { "placeholders": { "version": { "type": "String" } } },
-
+  "@feedback_tip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "lang_zh": "中文",
   "lang_en": "English",
   "lang_ja": "日本語",
   "lang_ko": "한국어",
   "lang_ar": "العربية",
   "lang_fr": "Français",
-
   "home_noDramaData": "لا توجد دراما حتى الآن",
   "home_localOnlyLike": "المصدر المحلي لا يدعم الإعجاب",
   "home_localOnlyCollect": "المصدر المحلي لا يدعم الحفظ",
@@ -296,8 +349,13 @@
   "home_btnWatch": "شاهد",
   "home_btnDetails": "التفاصيل",
   "home_loadFailedFmt": "فشل التحميل\n{message}",
-  "@home_loadFailedFmt": { "placeholders": { "message": { "type": "String" } } },
-
+  "@home_loadFailedFmt": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreAll": "الكل",
   "theater_genreRomance": "رومانسي",
   "theater_genreUrban": "حضري",
@@ -310,12 +368,32 @@
   "theater_today": "اختيار اليوم",
   "theater_labelShort": "دراما قصيرة",
   "theater_continueWatch": "تابع · {name}",
-  "@theater_continueWatch": { "placeholders": { "name": { "type": "String" } } },
+  "@theater_continueWatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "theater_heatFmt": "{heat} مشاهدة",
-  "@theater_heatFmt": { "placeholders": { "heat": { "type": "String" } } },
+  "@theater_heatFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreHeatFmt": "{tag} · {heat} مشاهدة",
-  "@theater_genreHeatFmt": { "placeholders": { "tag": { "type": "String" }, "heat": { "type": "String" } } },
-
+  "@theater_genreHeatFmt": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      },
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cast_sectionPlaying": "البث الجاري والتجارب",
   "cast_oppRanking": "فرص الأدوار ›",
   "cast_universeTitle": "عالم الشخصيات الافتراضي",
@@ -325,26 +403,63 @@
   "cast_demoSub": "اختيارك — جملة واحدة تشعل دراما كاملة",
   "cast_inPlay": "يُبثّ الآن",
   "cast_heatTagFmt": "{heat} مشاهدة · {tag}",
-  "@cast_heatTagFmt": { "placeholders": { "heat": { "type": "String" }, "tag": { "type": "String" } } },
+  "@cast_heatTagFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
   "cast_heatOnlyFmt": "{heat} مشاهدة",
-  "@cast_heatOnlyFmt": { "placeholders": { "heat": { "type": "String" } } },
-
+  "@cast_heatOnlyFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cb_sectionSupport": "لوحة الدعم · مَن يدعمهم",
   "cb_goSupport": "ادعم · ساعدهم للبدء",
   "cb_seeBio": "عرض السيرة ›",
   "cb_pollHeatPct": "الدعم {pct}%",
-  "@cb_pollHeatPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_pollHeatPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_debuted": "بدأ التصوير",
   "cb_toDebutPct": "باقي {pct}% للبدء",
-  "@cb_toDebutPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_toDebutPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_totalSupport": "إجمالي الدعم",
   "cb_coinsFmt": "{coins} عملة نسر",
-  "@cb_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@cb_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "cb_topBacker": "الداعم الأول",
   "cb_emptyBackers": "لا داعمين بعد · كن أول الداعمين",
   "cb_titleSupportFmt": "{name} · لوحة الدعم",
-  "@cb_titleSupportFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@cb_titleSupportFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aid_titleHeader": "دراما تفاعلية بالذكاء الاصطناعي",
   "aid_aceBadge": "البطل",
   "aid_tagline": "خياراتك تعيد كتابة النهاية.",
@@ -357,7 +472,13 @@
   "aid_castingBadge": "اختيار الأدوار",
   "aid_producingBadge": "قيد الإنتاج",
   "aid_castVoteFmt": "صوّت للممثلين · {pct}%",
-  "@aid_castVoteFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aid_castVoteFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aid_manifesto1": "أنت لم تعد مجرد مشاهد للقصص.",
   "aid_manifesto2": "تختار بدلًا من البطل، فتعيد القصة كتابة نهايتك.",
   "aid_manifesto3": "كل اختيار هو حوار بينك وبين هذا العالم.",
@@ -380,37 +501,76 @@
   "aid_liveSub": "دراما تفاعلية حقيقية · خياراتك تعيد كتابة القصة",
   "aid_fallbackHook": "خياراتك تعيد كتابة قصتها",
   "aid_aceCardBadge": "البطل التفاعلي · قابل للعب",
-
   "player_btnLiked": "تم الإعجاب",
   "player_btnEpisodes": "الحلقات",
   "player_btnAiCast": "ظهور AI",
   "player_episodeNumFmt": "الحلقة {n}",
-  "@player_episodeNumFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_episodeNumFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_switchEpFmt": "التبديل إلى الحلقة {n} (الواجهة الخلفية قيد التطوير)",
-  "@player_switchEpFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_switchEpFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_unlockHint": "فُكّ القفل بعملة النسر من صفحة المسلسل",
   "player_comingSoonFmt": "{label} (قيد التطوير)",
-  "@player_comingSoonFmt": { "placeholders": { "label": { "type": "String" } } },
+  "@player_comingSoonFmt": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "player_sceneSame": "منتج من المشهد",
-
   "detail_unlockThis": "هذه الحلقة",
   "detail_unlockNext5": "الحلقات الـ 5 التالية",
   "detail_unlockNext10": "الحلقات الـ 10 التالية",
   "detail_unlockAll": "المسلسل كاملًا",
   "detail_episodeCountFmt": "{n} حلقة",
-  "@detail_episodeCountFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@detail_episodeCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "detail_drawerEpisodes": "قائمة الحلقات",
   "detail_unlockSuccess": "تم فك القفل!",
   "detail_coinBalanceFmt": "الرصيد {coins} عملة نسر",
-  "@detail_coinBalanceFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_coinBalanceFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playsCountFmt": "{n} مشاهدة",
-  "@detail_playsCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@detail_playsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "detail_priceUnlockFmt": "فك القفل بـ {coins} عملة نسر",
-  "@detail_priceUnlockFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_priceUnlockFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playNow": "تشغيل الآن",
   "detail_playThis": "تشغيل هذا المسلسل",
   "detail_noEpisodes": "لا توجد حلقات متاحة",
-
   "login_welcome": "مرحبًا بك في FalconFlix",
   "login_subtitle": "سجّل دخولك لفتح المسلسلات وعملة النسر والدراما التفاعلية",
   "login_emailLabel": "البريد الإلكتروني",
@@ -425,7 +585,6 @@
   "login_loggingIn": "جارٍ تسجيل الدخول…",
   "login_loginOrRegister": "تسجيل دخول / إنشاء حساب",
   "login_pwHint": "أول تسجيل دخول بكلمة مرور يُنشئ الحساب تلقائيًا بهذه الكلمة",
-  "login_devHint": "تجريبي: أدخل الرمز 749301 للدخول مباشرة",
   "login_quickLogin": "دخول سريع",
   "login_recommended": "موصى به",
   "login_success": "تم تسجيل الدخول",
@@ -435,30 +594,67 @@
   "login_passwordRequired": "يرجى إدخال كلمة المرور",
   "login_codeRequired": "يرجى إدخال رمز التحقق",
   "login_codeSent": "تم إرسال الرمز. يرجى مراجعة البريد.",
-  "login_emailNotConfigured": "قناة البريد غير مفعّلة؛ استخدم الرمز التجريبي 749301",
+  "login_emailNotConfigured": "خدمة البريد الإلكتروني غير متاحة مؤقتًا. يرجى المحاولة لاحقًا.",
   "login_networkError": "فشل تسجيل الدخول؛ يرجى التحقق من الشبكة وإعادة المحاولة",
   "login_oauthErrorFmt": "فشل تسجيل الدخول بـ {provider}: {code}",
-  "@login_oauthErrorFmt": { "placeholders": { "provider": { "type": "String" }, "code": { "type": "String" } } },
+  "@login_oauthErrorFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthRetryFmt": "فشل تسجيل الدخول بـ {provider}؛ أعد المحاولة لاحقًا",
-  "@login_oauthRetryFmt": { "placeholders": { "provider": { "type": "String" } } },
+  "@login_oauthRetryFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingFmt": "تسجيل الدخول بـ {name} قيد التطوير",
-  "@login_oauthComingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@login_oauthComingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingBody": "قريبًا — يمكنك الآن الدخول برمز البريد أو كلمة المرور.",
   "login_gotIt": "حسنًا",
   "login_googleNoToken": "Google لم يُرجع idToken؛ يرجى التحقق من بيانات الاعتماد",
-
   "about_tagline": "FalconFlix · دراما تستحق المشاهدة",
   "about_body": "FalconFlix منصة عالمية للدراما القصيرة المميزة — شاهد الدراما، تحدّث مع شخصيات الذكاء الاصطناعي، وتسوق أثناء المشاهدة. إنتاج بمستوى سينمائي وإبداع ذكاء اصطناعي يجعل كل لقطة جديرة بالبقاء.",
   "about_userAgreement": "شروط الخدمة",
   "about_privacyPolicy": "سياسة الخصوصية",
   "about_legalUpdatedFmt": "آخر تحديث: {date}",
-  "@about_legalUpdatedFmt": { "placeholders": { "date": { "type": "String" } } },
+  "@about_legalUpdatedFmt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "about_operatingEntity": "الجهة المشغّلة",
   "about_contactEmailFmt": "للتواصل: {email}",
-  "@about_contactEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@about_contactEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "about_aboutTitleFmt": "حول {appName}",
-  "@about_aboutTitleFmt": { "placeholders": { "appName": { "type": "String" } } },
-
+  "@about_aboutTitleFmt": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_title": "شحن عملة النسر",
   "wallet_chooseRecharge": "اختر باقة",
   "wallet_introNote": "عملة النسر تفتح الحلقات والميزات التفاعلية والدعم",
@@ -471,10 +667,22 @@
   "wallet_packsComingBody": "نُعدّ لك أفضل باقات عملة النسر",
   "wallet_coins": "عملة النسر",
   "wallet_giftFmt": "+{coins} مكافأة",
-  "@wallet_giftFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@wallet_giftFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_bestDeal": "الأفضل قيمةً",
   "wallet_payNowFmt": "ادفع {price} الآن",
-  "@wallet_payNowFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@wallet_payNowFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_payNow": "ادفع الآن",
   "wallet_loginFirst": "يرجى تسجيل الدخول أولًا",
   "wallet_openPayFail": "تعذّر فتح صفحة الدفع، يرجى إعادة المحاولة",
@@ -483,15 +691,35 @@
   "wallet_loginToView": "سجّل الدخول للعرض",
   "wallet_legendPeak": "قمة أسطورية · الحد الأقصى",
   "wallet_toLevelFmt": "إلى V{level}",
-  "@wallet_toLevelFmt": { "placeholders": { "level": { "type": "String" } } },
+  "@wallet_toLevelFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_paidUsdFmt": "إجمالي الشحن {amount}",
-  "@wallet_paidUsdFmt": { "placeholders": { "amount": { "type": "String" } } },
+  "@wallet_paidUsdFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_topUpToLevelFmt": "اشحن {amount} للوصول إلى V{level}",
-  "@wallet_topUpToLevelFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@wallet_topUpToLevelFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_successTitle": "نجح الشحن · تم الإيداع",
   "wallet_tapAnywhere": "اضغط في أي مكان للمتابعة",
   "wallet_successBarrier": "نجح الشحن",
-
   "creator_title": "مركز الشركاء",
   "creator_statSeries": "مسلسل",
   "creator_statPlays": "مشاهدة",
@@ -501,7 +729,6 @@
   "creator_menuRequirement": "متطلبات الرفع",
   "creator_menuRevenue": "قواعد الحصص",
   "creator_menuLangPriv": "اللغة والخصوصية",
-
   "invite_title": "ادعُ صديقًا",
   "invite_stepsTitle": "كيف يعمل",
   "invite_step1Title": "شارك رمز الدعوة",
@@ -515,17 +742,27 @@
   "invite_loginToGen": "سجّل الدخول لإنشاء رمز الدعوة الخاص بك",
   "invite_messageCopied": "تم نسخ الرسالة — أرسلها لصديقك",
   "invite_messageTemplateFmt": "🦅 أشاهد FalconFlix وهي رائعة! استخدم رمز دعوتي {code} عند التسجيل لنحصل كلانا على عملة النسر~",
-  "@invite_messageTemplateFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@invite_messageTemplateFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "invite_bigTitle": "ادعُ أصدقاءك وشاهدوا معًا",
   "invite_bigSub": "عندما يسجّل صديقك برمزك، تحصلان معًا على عملة النسر",
   "invite_myCode": "رمز دعوتي الخاص",
   "invite_copyBtn": "نسخ",
   "invite_codeCopiedFmt": "تم نسخ الرمز: {code}",
-  "@invite_codeCopiedFmt": { "placeholders": { "code": { "type": "String" } } },
-
+  "@invite_codeCopiedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "collect_emptyTitle": "لا توجد دراما محفوظة بعد",
   "collect_emptyBody": "اضغط «حفظ» على أي دراما لتظهر هنا للوصول السريع.",
-
   "au_title": "الفتح التلقائي",
   "au_introTitle": "لا تقطع المشاهدة",
   "au_introBody": "عند التفعيل، تُفتح الحلقة التالية تلقائيًا بعملة النسر لتستمر بالمشاهدة",
@@ -537,24 +774,32 @@
   "au_rule1": "تُفتح الحلقات المقفلة بالعملات مباشرة دون نوافذ",
   "au_rule2": "عند نقص الرصيد تُذكّرك بالشحن، دون خصم مفاجئ",
   "au_rule3": "يسري فقط على فتح الحلقة المنفردة؛ فتح المسلسل كاملًا يحتاج تأكيدًا يدويًا",
-
   "rh_title": "سجل الشحن",
   "rh_loginToView": "سجّل الدخول لعرض سجل الشحن",
   "rh_emptyBody": "لا توجد عمليات شحن بعد\nاشحن عملة النسر لفتح المزيد من الدراما",
   "rh_fallback": "شحن عملة النسر",
-
   "re_title": "بريد الإيصال",
   "re_invalidEmail": "يرجى إدخال بريد إلكتروني صالح",
   "re_saved": "تم حفظ بريد الإيصال",
   "re_label": "بريد الإيصال",
   "re_body": "بعد نجاح الشحن، يرسل Stripe الإيصال إلى هذا البريد، ويُملأ تلقائيًا في الشحن التالي.",
   "re_useAccountEmailFmt": "استخدم بريد الدخول {email}",
-  "@re_useAccountEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@re_useAccountEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "re_save": "حفظ",
-
   "common_comingSoonFmt": "{name} (قيد التطوير)",
-  "@common_comingSoonFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@common_comingSoonFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_episodeTitle": "الحلقات",
   "sheets_unlockAllBtn": "فتح الكل",
   "sheets_unlockTitle": "فتح",
@@ -563,18 +808,48 @@
   "sheets_networkErr": "خطأ في الشبكة، حاول مجددًا",
   "sheets_walletBalance": "رصيد العملات",
   "sheets_coinsFmt": "{coins} عملة",
-  "@sheets_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockShortFmt": "تحتاج {coins} عملة إضافية — اشحن لفتحها",
-  "@sheets_unlockShortFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockShortFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockNowFmt": "افتح الآن · {coins} عملة",
-  "@sheets_unlockNowFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockNowFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_coinsNotEnough": "عملات غير كافية · اشحن",
   "sheets_tierForeverFmt": "{count} حلقات · للأبد",
-  "@sheets_tierForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_tierForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockAllSub": "فتح المسلسل كاملاً",
   "sheets_unlockThisSub": "فتح هذه الحلقة",
   "sheets_unlockAllForeverFmt": "فتح كل {count} حلقات · للأبد",
-  "@sheets_unlockAllForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_unlockAllForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockThisForever": "فتح هذه الحلقة · للأبد",
   "sheets_coinsShort": "عملات",
   "sheets_vipDiscount": "سعر VIP أقل",
@@ -591,7 +866,16 @@
   "sheets_remixComingFooter": "ريمكس بالذكاء قريبًا · ترقّب",
   "sheets_fallbackTitle": "مسلسلات FalconFlix المميزة",
   "sheets_shareTextFmt": "{title} رائع — شاهده معي على FalconFlix! {url}",
-  "@sheets_shareTextFmt": { "placeholders": { "title": { "type": "String" }, "url": { "type": "String" } } },
+  "@sheets_shareTextFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_posterTitle": "ملصق",
   "sheets_posterMakeSub": "إنشاء ملصق خاص",
   "sheets_posterReady": "مشاركة الملصق",
@@ -599,31 +883,69 @@
   "sheets_posterGenFail": "فشل إنشاء الملصق",
   "sheets_posterExportFail": "فشل تصدير الملصق",
   "sheets_posterTagline": "امسح الرمز للمشاهدة معًا",
-
   "ixp_resumeTitle": "تابع من حيث توقفت",
   "ixp_resumeBody": "هل تريد المتابعة من آخر مكان أم البدء من جديد؟",
   "ixp_resumeFromStart": "من البداية",
   "ixp_resumeContinue": "متابعة",
   "ixp_fetchFailedFmt": "فشل تحميل القصة ({code})",
-  "@ixp_fetchFailedFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@ixp_fetchFailedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_dataAnomaly": "بيانات القصة غير صالحة (لا توجد نقطة بداية)",
   "ixp_loadErrorFmt": "خطأ في التحميل: {msg}",
-  "@ixp_loadErrorFmt": { "placeholders": { "msg": { "type": "String" } } },
+  "@ixp_loadErrorFmt": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeNotFoundFmt": "العقدة «{id}» غير موجودة",
-  "@ixp_nodeNotFoundFmt": { "placeholders": { "id": { "type": "String" } } },
+  "@ixp_nodeNotFoundFmt": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeJumpTitle": "الانتقال للعقدة · اختبار المالك",
   "ixp_nodeJumpBody": "مخفي عن المستخدمين العاديين. اضغط أي عقدة للانتقال مباشرة (دون تغيير الأعلام).",
   "ixp_segCountFmt": "{n} مقطع",
-  "@ixp_segCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ixp_segCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_lockedToastFmt": "فرع مدفوع (بعد الإطلاق {price} عملة) · تجربة مجانية هذه المرة",
-  "@ixp_lockedToastFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@ixp_lockedToastFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_fallbackTitle": "دراما تفاعلية",
   "ixp_btnSkip": "تخطي",
   "ixp_btnBack": "رجوع",
   "ixp_segGenerating": "هذا الجزء قيد الإنشاء…",
   "ixp_btnContinue": "متابعة",
   "ixp_prepFmt": "جاري التحضير {done} / {total}",
-  "@ixp_prepFmt": { "placeholders": { "done": { "type": "String" }, "total": { "type": "String" } } },
+  "@ixp_prepFmt": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_prep": "جاري التحضير…",
   "ixp_yourChoice": "دورك للاختيار",
   "ixp_endingFallback": "النهاية",
@@ -633,8 +955,13 @@
   "ixp_endingHidden": "نهاية خفية",
   "ixp_endingOpen": "نهاية مفتوحة",
   "ixp_optionsCountFmt": "{n} خيار",
-  "@ixp_optionsCountFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@ixp_optionsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_busyAiCreatingTitle": "تم تسليم الإبداع لـ AI من أجلك",
   "ip_busyAiCreatingSub": "نهايتك المخصصة قيد الإنشاء إطارًا بإطار…\nتستغرق عادةً بضع دقائق، سنخبرك عند الانتهاء — تجوّل بحرية",
   "ip_busyDirectorTitle": "المخرج يعود للشاشة · الممثلون يدخلون من أجلك",
@@ -642,29 +969,61 @@
   "ip_busyDoneTitle": "✦ نهايتك المخصصة جاهزة",
   "ip_busyDoneSub": "محفوظة للأبد في «نهاياتي الخاصة»",
   "ip_titleChipFmt": "تفاعلي · {n} نهاية",
-  "@ip_titleChipFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_titleChipFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_titleSub": "كل اختيار يغير النهاية",
   "ip_titleStart": "ابدأ القصة",
   "ip_btnContinue": "متابعة",
   "ip_voteFmt": "{n}% يختارون هذا",
-  "@ip_voteFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_voteFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_endingProgressFmt": "النهايات المفتوحة {got} / {total}",
-  "@ip_endingProgressFmt": { "placeholders": { "got": { "type": "String" }, "total": { "type": "String" } } },
+  "@ip_endingProgressFmt": {
+    "placeholders": {
+      "got": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ip_btnDex": "دليل النهايات",
   "ip_btnReplay": "جرّب اختيارًا آخر",
   "ip_dexTitle": "دليل النهايات",
   "ip_dexLocked": "؟؟؟",
   "ip_errorTitleFmt": "فشل التحقق من القصة\n{err}",
-  "@ip_errorTitleFmt": { "placeholders": { "err": { "type": "String" } } },
+  "@ip_errorTitleFmt": {
+    "placeholders": {
+      "err": {
+        "type": "String"
+      }
+    }
+  },
   "ip_unlockTitleAi": "اصنع نهاية مخصصة لك",
   "ip_unlockTitle": "افتح هذا الفرع",
   "ip_demoFree": "دراما تجريبية · تجربة مجانية",
   "ip_unlockBtnAi": "ابدأ الصنع من أجلي",
   "ip_unlockBtn": "افتح الفرع",
   "ip_unlockCancel": "ربما لاحقًا",
-
   "com_sceneSameFmt": "في هذا المشهد {n} منتجات",
-  "@com_sceneSameFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_sceneSameFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_sameInDrama": "كما في الدراما",
   "com_buyNow": "اشترِ الآن",
   "com_inStock": "متوفر · شحن مجاني",
@@ -673,14 +1032,26 @@
   "com_infoEpisode": "الحلقة المرتبطة",
   "com_infoScene": "يظهر في المشهد",
   "com_sceneTimeFmt": "من {sec}s",
-  "@com_sceneTimeFmt": { "placeholders": { "sec": { "type": "String" } } },
+  "@com_sceneTimeFmt": {
+    "placeholders": {
+      "sec": {
+        "type": "String"
+      }
+    }
+  },
   "com_descTitle": "وصف المنتج",
   "com_descBody": "منتجات مختارة من الدراما، يوفرها شركاء FalconFlix. الشحن من المنصة وإمكانية الإرجاع خلال 7 أيام. (نص توضيحي، يستبدل عند ربط منتج فعلي.)",
   "com_addCart": "أضف للسلة",
   "com_addCartToast": "أضيف للسلة (قيد التطوير)",
   "com_methodCoin": "رصيد العملات",
   "com_methodCoinBalanceFmt": "الرصيد {n}",
-  "@com_methodCoinBalanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_methodCoinBalanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_methodWechat": "WeChat Pay",
   "com_methodAlipay": "Alipay",
   "com_confirmOrder": "تأكيد الطلب",
@@ -694,7 +1065,6 @@
   "com_total": "الإجمالي",
   "com_submitOrder": "تقديم الطلب",
   "com_submitToast": "تم تقديم الطلب (الدفع قيد التطوير)",
-
   "ss_tier66_label": "إضاءة",
   "ss_tier66_meaning": "حظ سعيد",
   "ss_tier188_label": "باقة ورد",
@@ -708,24 +1078,80 @@
   "ss_tier9999_label": "دعم أسطوري",
   "ss_tier9999_meaning": "أنت رقم 1",
   "ss_callForFmt": "ادعم {name}",
-  "@ss_callForFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@ss_callForFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "ss_subtitle": "كلما زادت العملات · أسرعت ظهوره · ارتفع ترتيبك",
   "ss_balanceFmt": "رصيد العملات {n}",
-  "@ss_balanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss_balanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss_localNote": "تجريبي · الدعم محفوظ محليًا، التسوية بالعملات عند الإطلاق الرسمي",
   "ss_celebTitle": "تم الدعم!",
   "ss_forFmt": "{name} · {label}",
-  "@ss_forFmt": { "placeholders": { "name": { "type": "String" }, "label": { "type": "String" } } },
+  "@ss_forFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "ss_pillCoinsFmt": "+{coins} عملة",
-  "@ss_pillCoinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@ss_pillCoinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "ss_progressFmt": "الظهور +{delta}% · حاليًا {now}%",
-  "@ss_progressFmt": { "placeholders": { "delta": { "type": "String" }, "now": { "type": "String" } } },
+  "@ss_progressFmt": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
   "ss_kingFmt": "👑 أنت المعجب رقم 1 لـ TA! V{level} {tier}",
-  "@ss_kingFmt": { "placeholders": { "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_kingFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_guardianFmt": "أنت الحارس رقم {rank} لـ TA · V{level} {tier}",
-  "@ss_guardianFmt": { "placeholders": { "rank": { "type": "String" }, "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_guardianFmt": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_tapToContinue": "اضغط في أي مكان للمتابعة",
-
   "air_title": "ترتيب الاختيار",
   "air_sub": "تمتلئ الحرارة فتنطلق · كلما زاد الدعم ارتفع الترتيب",
   "air_segCharRank": "الشخصيات",
@@ -741,40 +1167,95 @@
   "air_debuted": "ظهر",
   "air_leading": "في المقدمة",
   "air_heatFmt": "الحرارة {pct}%",
-  "@air_heatFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@air_heatFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "air_doneShoot": "بدأ التصوير",
   "air_toGoFmt": "{n}% للظهور",
-  "@air_toGoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@air_toGoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "air_supportKingFmt": "كبير المعجبين: {name}",
-  "@air_supportKingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@air_supportKingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_emptyKingPlaceholder": "في انتظار بطل",
   "air_globalKing": "كبير المعجبين عالميًا",
   "air_tierBackFmt": "{tier} · يدعم {name}",
-  "@air_tierBackFmt": { "placeholders": { "tier": { "type": "String" }, "name": { "type": "String" } } },
+  "@air_tierBackFmt": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_guardFmt": "حارس {name}",
-  "@air_guardFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@air_guardFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_secVideos": "فيديوهات TA",
   "cd_secMoments": "لحظات أعمق",
   "cd_actUnlock": "افتح بالعملات",
   "cd_secCredits": "أعمال TA",
   "cd_secBoardFmt": "لوحة الدعم · {n} داعمًا",
-  "@cd_secBoardFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@cd_secBoardFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "cd_actImInToo": "أنا أيضًا ›",
   "cd_swipeHint": "اسحب للأسفل · ادعم · افتح",
   "cd_introBadge": "تعريف TA",
   "cd_debutProgress": "حملة الظهور",
   "cd_debutHint": "املأ لتبدأ التصوير · ممثلون حقيقيون + AI دراما تفاعلية مميزة",
   "cd_clipToastFmt": "تشغيل المقطع «{name}» · قيد التطوير",
-  "@cd_clipToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_clipToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_momentToastFmt": "فتح «{title}» · ميزة العملات قيد التطوير",
-  "@cd_momentToastFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@cd_momentToastFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "cd_creditToastFmt": "«{name}» · ميزة المشاهدة قيد التطوير",
-  "@cd_creditToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_creditToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_kingBadge": "كبير مشجعي العمل",
   "cd_btnSupport": "ادعم",
   "cd_btnChat": "دردشة · افتح",
-
   "sp_toolPosterName": "ملصق الدراما",
   "sp_toolPosterDesc": "ارفع صورة وجهك لإنشاء ملصق رأسي لك في هذه الدراما.",
   "sp_toolPosterCost": "~5-25 عملة",
@@ -791,7 +1272,13 @@
   "sp_sectionHeader": "ساحة AI",
   "sp_subtitle": "ألعاب AI خفيفة مرتبطة بمشاهدتك للدراما.",
   "sp_creatingFmt": "نُنشئ لـ «{title}»",
-  "@sp_creatingFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@sp_creatingFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "sp_chipLinked": "مرتبط بالقصة",
   "sp_chipMall": "متجر الدراما",
   "sp_putInDramaTitle": "ضع نفسك في الدراما",
@@ -801,10 +1288,22 @@
   "sp_sceneMallBody": "تصفح أدوات الشاشة، منتجات المشاهد، تعاونات المبدعين.",
   "spf_settingsTitle": "إعدادات الأداة",
   "spf_linkedToFmt": "مرتبط بـ «{title}»",
-  "@spf_linkedToFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@spf_linkedToFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "spf_chooseTool": "اختر أداة",
   "spf_genBtnFmt": "أنشئ · {cost}",
-  "@spf_genBtnFmt": { "placeholders": { "cost": { "type": "String" } } },
+  "@spf_genBtnFmt": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
   "spf_noPhotoBtn": "ارفع صورة أولاً",
   "spf_photoReady": "الصورة جاهزة",
   "spf_uploadPhoto": "ارفع صورتك",
@@ -814,12 +1313,17 @@
   "spf_generatingSub": "نضعك في الدراما، انتظر قليلاً",
   "spf_genDoneTag": "تم",
   "spf_genDoneTitleFmt": "{tool} · جاهز",
-  "@spf_genDoneTitleFmt": { "placeholders": { "tool": { "type": "String" } } },
+  "@spf_genDoneTitleFmt": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
   "spf_genDoneBody": "احفظ في أعمالك، شارك، أو أعد الإنشاء.",
   "spf_btnSave": "احفظ في أعمالي",
   "spf_savedToast": "تم الحفظ (قيد التطوير)",
   "spf_shareLabel": "إبداع AI",
-
   "cui_chipAI": "تفاعلي AI",
   "cui_chipMetaverse": "عالم الميتافيرس",
   "cui_title": "ميتافيرس الشخصيات",
@@ -834,7 +1338,6 @@
   "cui_step4Title": "ضيف الشرف & التعمق",
   "cui_step4Desc": "افتح قصصًا خاصة و«لحظات عميقة» — حتى اكتب نفسك في الدراما.",
   "cui_footer": "كل صوت تدلي به، يعيد كتابة من سيكون البطل التالي.",
-
   "com2_title": "المجتمع",
   "com2_chipPlaza": "ساحة المشاهدة",
   "com2_emptyHint": "لا منشورات بعد — كن الأول",
@@ -845,60 +1348,114 @@
   "com2_postHint": "شارك انطباعك عن هذه الدراما…",
   "com2_publish": "نشر",
   "com2_attachDrama": "أرفق هذه الدراما",
-
   "dhc_connected": "متصل",
   "dhc_connecting": "جاري الاتصال",
   "dhc_ended": "انتهى",
   "dhc_error": "خطأ",
   "dhc_connectingHint": "جاري الاتصال…انتظر قليلاً",
   "dhc_talkingFmt": "{name} يتحدث…",
-  "@dhc_talkingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@dhc_talkingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dhc_listening": "أستمع إليك…",
   "dhc_backLabel": "رجوع",
   "dhc_actorsReady": "الممثلون يأخذون أماكنهم…",
-
   "ss2_searchHint": "ابحث عن دراما / ممثل / وسم",
   "ss2_history": "بحث سابق",
   "ss2_clear": "مسح",
   "ss2_hot": "البحث الرائج",
   "ss2_hotBadge": "رائج",
   "ss2_noResultFmt": "لم نجد دراما لـ «{q}»",
-  "@ss2_noResultFmt": { "placeholders": { "q": { "type": "String" } } },
+  "@ss2_noResultFmt": {
+    "placeholders": {
+      "q": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_foundFmt": "وُجدت {n} دراما",
-  "@ss2_foundFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss2_foundFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_chipCEO": "الرئيس المتسلط",
   "ss2_chipTimeTravel": "السفر عبر الزمن",
   "ss2_chipMystery": "غموض",
   "ss2_chipModern": "رومانس حديث",
   "ss2_chipSweetPet": "حب لطيف",
-
   "rk_emptyCat": "لا ترتيب لهذا التصنيف بعد",
   "rk_hotTitle": "ترتيب الأكثر مشاهدة",
   "rk_hotSub": "ترتيب لحظي حسب حرارة اليوم",
   "rk_top1Today": "# 1  الأكثر سخونة اليوم",
   "rk_heatFmt": "{plays} حرارة · في صعود",
-  "@rk_heatFmt": { "placeholders": { "plays": { "type": "String" } } },
+  "@rk_heatFmt": {
+    "placeholders": {
+      "plays": {
+        "type": "String"
+      }
+    }
+  },
   "rk_chipUrban": "المدينة",
   "rk_chipFinished": "مكتمل",
   "rk_chipRomance": "رومانسي",
-
   "aic_lowEnergyNag": "أُهي… الطاقة على وشك النفاد، اشحنني قليلاً؟~",
   "aic_chargedReply": "شكرًا! عاد كل شيء، لنكمل~",
   "aic_chargeToast": "شحن · ميزة فواتير العملات قيد التطوير (مملوء وهميًا)",
   "aic_energyFmt": "الطاقة {pct}%",
-  "@aic_energyFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aic_energyFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aic_chargeBtnFmt": "اشحن لـ {name}",
-  "@aic_chargeBtnFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@aic_chargeBtnFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aic_hintFmt": "قل شيئًا لـ {name}…",
-  "@aic_hintFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@aic_hintFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lg_needLevelFmt": "{name} · يحتاج V{level}",
-  "@lg_needLevelFmt": { "placeholders": { "name": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_needLevelFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_topUpFmt": "اشحن {amount} للوصول إلى V{level}",
-  "@lg_topUpFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_topUpFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_btnTopUp": "اشحن للترقية",
   "lg_btnLater": "لاحقًا",
-
   "me_defaultName": "مشاهد FalconFlix",
   "me_avatarUpdated": "تم تحديث الصورة الشخصية",
   "me_avatarUpdateFailed": "فشل التحديث، حاول مجددًا",
@@ -909,8 +1466,13 @@
   "me_uploading": "جاري الرفع…",
   "me_changeAvatar": "تغيير الصورة",
   "me_copiedFmt": "تم النسخ: {value}",
-  "@me_copiedFmt": { "placeholders": { "value": { "type": "String" } } },
-
+  "@me_copiedFmt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "tier_commoner": "عادي",
   "tier_rookie": "مبتدئ",
   "tier_advanced": "متقدم",
@@ -918,23 +1480,43 @@
   "tier_tycoon": "قطب",
   "tier_deity": "إلهي",
   "tier_legend": "أسطورة",
-
   "rch_statusPaid": "تم الإيداع",
   "rch_statusPending": "بانتظار الدفع",
   "rch_statusCanceled": "ملغى",
   "rch_statusProcessing": "قيد المعالجة",
-
   "data_goodsCoinsFmt": "{n} عملة",
-  "@data_goodsCoinsFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@data_goodsCoinsFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_justNow": "الآن",
   "time_minutesAgoFmt": "قبل {n} د",
-  "@time_minutesAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_minutesAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_hoursAgoFmt": "قبل {n} س",
-  "@time_hoursAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_hoursAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_daysAgoFmt": "قبل {n} يوم",
-  "@time_daysAgoFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@time_daysAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "notify_typeRecharge": "شحن",
   "notify_typeInvite": "دعوة",
   "notify_typeSystem": "النظام",

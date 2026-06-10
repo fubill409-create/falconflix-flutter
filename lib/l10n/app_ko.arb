@@ -1,13 +1,11 @@
 {
   "@@locale": "ko",
   "appTitle": "FalconFlix",
-
   "tabHome": "홈",
   "tabTheater": "극장",
   "tabInteractive": "인터랙티브",
   "tabCharacter": "캐릭터",
   "tabMe": "마이",
-
   "common_cancel": "취소",
   "common_confirm": "확인",
   "common_save": "저장",
@@ -27,7 +25,6 @@
   "common_edit": "편집",
   "common_delete": "삭제",
   "common_send": "보내기",
-
   "me_title": "마이",
   "me_loginPrompt": "로그인 / 가입",
   "me_loginSubtitle": "로그인하면 라이브러리·지갑·인터랙티브 드라마를 이용할 수 있습니다",
@@ -55,7 +52,6 @@
   "me_rowHelpAbout": "도움말·앱 정보",
   "me_rowAbout": "FalconFlix 정보",
   "me_logoutConfirm": "로그아웃하시겠습니까?",
-
   "history_title": "시청 기록",
   "history_emptyTitle": "시청 기록이 없습니다",
   "history_emptyBody": "시청한 회차가 여기에 표시됩니다. 마지막으로 본 지점부터 이어 보세요.",
@@ -65,16 +61,33 @@
   "history_episodeFallback": "전체 시리즈",
   "history_unknown": "(알 수 없는 작품)",
   "history_selectedCount": "{n}개 선택됨",
-  "@history_selectedCount": { "placeholders": { "n": { "type": "int" } } },
+  "@history_selectedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmTitle": "{n}개 기록을 삭제하시겠습니까?",
-  "@history_delConfirmTitle": { "placeholders": { "n": { "type": "int" } } },
+  "@history_delConfirmTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmBody": "되돌릴 수 없습니다. 작품 자체에는 영향이 없으며, 다음 재생 시 새 기록이 생성됩니다.",
   "history_clearConfirmTitle": "모든 시청 기록을 삭제하시겠습니까?",
   "history_clearConfirmBody": "되돌릴 수 없습니다. 다음 재생 시 새 기록이 생성됩니다.",
   "history_toastDeleted": "{n}개 삭제됨",
-  "@history_toastDeleted": { "placeholders": { "n": { "type": "int" } } },
+  "@history_toastDeleted": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_toastCleared": "삭제했습니다",
-
   "orders_title": "주문 내역",
   "orders_tabFull": "시리즈",
   "orders_tabEpisode": "에피소드",
@@ -90,13 +103,18 @@
   "orders_kvPayMethod": "결제 수단",
   "orders_kvTime": "시간",
   "orders_orderCopied": "주문번호 복사됨 · {orderNo}",
-  "@orders_orderCopied": { "placeholders": { "orderNo": { "type": "String" } } },
+  "@orders_orderCopied": {
+    "placeholders": {
+      "orderNo": {
+        "type": "String"
+      }
+    }
+  },
   "orders_paid": "결제 완료",
   "orders_pending": "결제 대기",
   "orders_payEagle": "Eagle 코인",
   "orders_unknownTitle": "(알 수 없는 작품)",
   "orders_rechargeFallback": "Eagle 코인 충전",
-
   "inbox_title": "알림",
   "inbox_tabAll": "전체",
   "inbox_tabRecharge": "충전",
@@ -107,7 +125,6 @@
   "inbox_emptyTitle": "메시지가 없습니다",
   "inbox_emptyBody": "충전 완료·초대 보상·프로모션·시스템 알림이 여기에 표시됩니다.",
   "inbox_loginBody": "로그인하면 알림을 확인할 수 있습니다.",
-
   "settings_title": "설정",
   "settings_sectionNotificationPlayback": "알림과 재생",
   "settings_sectionAccount": "계정",
@@ -122,8 +139,13 @@
   "settings_clearCacheBody": "다운로드한 인터랙티브 영상과 이미지 캐시를 삭제합니다. 구매·로그인·설정은 영향이 없습니다.",
   "settings_clearCacheAction": "지금 삭제",
   "settings_clearCacheDone": "{size} 삭제 완료",
-  "@settings_clearCacheDone": { "placeholders": { "size": { "type": "String" } } },
-
+  "@settings_clearCacheDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "notifyPrefs_title": "알림 설정",
   "notifyPrefs_pushMaster": "푸시 전체 스위치",
   "notifyPrefs_pushMasterDesc": "끄면 모든 푸시가 멈춥니다. 앱 내 메시지는 계속 도착합니다.",
@@ -138,8 +160,13 @@
   "notifyPrefs_interactive": "인터랙티브 진행",
   "notifyPrefs_interactiveDesc": "시청 중 드라마의 신규 회차·엔딩 해제",
   "notifyPrefs_saveFailed": "저장 실패: {msg}",
-  "@notifyPrefs_saveFailed": { "placeholders": { "msg": { "type": "String" } } },
-
+  "@notifyPrefs_saveFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "playPrefs_title": "재생·다운로드",
   "playPrefs_autoplay": "자동 연속 재생",
   "playPrefs_autoplayDesc": "한 편이 끝나면 다음 편 자동 재생",
@@ -152,7 +179,6 @@
   "playPrefs_quality1080": "FHD 1080p",
   "playPrefs_wifiOnlyDownload": "Wi-Fi에서만 다운로드",
   "playPrefs_wifiOnlyDownloadDesc": "인터랙티브·오프라인 캐시는 Wi-Fi에서만",
-
   "accountSec_title": "계정과 보안",
   "accountSec_sectionLogin": "로그인",
   "accountSec_sectionDeletion": "계정 삭제",
@@ -168,18 +194,22 @@
   "accountSec_saveNewPw": "새 비밀번호 저장",
   "accountSec_saving": "저장 중…",
   "accountSec_pwUpdated": "비밀번호가 변경되었습니다",
-
   "privacyPrefs_title": "개인정보",
   "privacyPrefs_sectionData": "내 데이터",
   "privacyPrefs_sectionLegal": "약관과 정책",
   "privacyPrefs_rowExport": "내 데이터 다운로드",
   "privacyPrefs_rowExportDesc": "GDPR / CCPA: 전체 데이터를 묶어 다운로드 신청",
   "privacyPrefs_rowPolicy": "개인정보 처리방침",
-
   "deleteAcc_title": "계정 삭제",
   "deleteAcc_inProgress": "계정 삭제 신청 중",
   "deleteAcc_scheduledAt": "실행 예정: {time}",
-  "@deleteAcc_scheduledAt": { "placeholders": { "time": { "type": "String" } } },
+  "@deleteAcc_scheduledAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_pendingHint": "7일 유예 기간 중 언제든 로그인하면 삭제를 취소할 수 있습니다.",
   "deleteAcc_cancelBtn": "삭제 취소, 계정 유지",
   "deleteAcc_willDelete": "삭제하면 다음 항목이 사라집니다",
@@ -192,10 +222,22 @@
   "deleteAcc_reasonLabel": "삭제 사유 (선택, 제품 개선에 활용)",
   "deleteAcc_reasonHint": "의견을 들려주세요 (선택)",
   "deleteAcc_typeToConfirm": "확인을 위해 \"{phrase}\"를 입력해 주세요",
-  "@deleteAcc_typeToConfirm": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeToConfirm": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_confirmPhrase": "내 계정 삭제",
   "deleteAcc_typeMismatch": "\"{phrase}\"를 정확히 입력해 주세요",
-  "@deleteAcc_typeMismatch": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeMismatch": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_submit": "삭제 신청",
   "deleteAcc_finalTitle": "최종 확인",
   "deleteAcc_finalBody": "제출 후 7일 유예가 시작됩니다. 그동안 로그인하면 취소 가능합니다.\n\n만료되면 데이터가 영구 삭제되며 복구할 수 없습니다.",
@@ -203,7 +245,6 @@
   "deleteAcc_submitted": "삭제 신청 완료. 7일 뒤 실행됩니다.",
   "deleteAcc_cancelled": "삭제 신청을 취소했습니다",
   "deleteAcc_thinkAgain": "다시 생각해볼게요",
-
   "dataExport_title": "내 데이터 다운로드",
   "dataExport_introTitle": "내 데이터 사본 받기",
   "dataExport_introBody": "GDPR Article 15 (EU)·CCPA (캘리포니아)에 따라, 우리가 보유한 귀하의 개인 데이터 전체를 받을 권리가 있습니다.\n\n신청 후 ZIP으로 비동기 생성합니다:\n  · 프로필 / 이메일 / 전화\n  · Eagle 코인 잔액·내역\n  · 주문·시청 기록·찜\n  · 커뮤니티 글·인터랙티브 해제 기록\n\n준비되면 앱 내에서 알려드립니다. 다운로드 링크는 7일간 유효합니다.",
@@ -213,12 +254,17 @@
   "dataExport_statusExpired": "만료 · 다시 신청해 주세요",
   "dataExport_statusFailed": "생성 실패 · 다시 신청해 주세요",
   "dataExport_expiresAt": "링크 유효기간 {time}",
-  "@dataExport_expiresAt": { "placeholders": { "time": { "type": "String" } } },
+  "@dataExport_expiresAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "dataExport_downloadBtn": "다운로드",
   "dataExport_submitBtn": "다운로드 신청",
   "dataExport_submitting": "제출 중…",
   "dataExport_submitted": "신청 완료. 준비되면 알려드립니다.",
-
   "helpAbout_title": "도움말·앱 정보",
   "helpAbout_sectionHelp": "도움말",
   "helpAbout_sectionAbout": "앱 정보",
@@ -228,7 +274,6 @@
   "helpAbout_rowSupportDesc": "1:1 티켓 대화",
   "helpAbout_rowFeedback": "피드백",
   "helpAbout_rowFeedbackDesc": "제품 의견·버그 신고",
-
   "faq_title": "도움말 센터",
   "faq_catAll": "전체",
   "faq_catAccount": "계정",
@@ -238,7 +283,6 @@
   "faq_catOther": "기타",
   "faq_emptyTitle": "FAQ가 아직 없습니다",
   "faq_emptyBody": "문제가 있다면 \"고객 지원\"에서 티켓을 생성해 주세요.",
-
   "tickets_title": "고객 지원",
   "tickets_newBtn": "새 티켓",
   "tickets_emptyTitle": "티켓이 없습니다",
@@ -249,12 +293,17 @@
   "tickets_speakerSelf": "나",
   "tickets_replyHint": "답장…",
   "tickets_sendFailed": "전송 실패: {msg}",
-  "@tickets_sendFailed": { "placeholders": { "msg": { "type": "String" } } },
+  "@tickets_sendFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "tickets_statusPending": "대기 중",
   "tickets_statusReplied": "답변됨",
   "tickets_statusResolved": "해결됨",
   "tickets_statusClosed": "종료",
-
   "feedback_titleTicket": "새 티켓",
   "feedback_titleFeedback": "피드백",
   "feedback_typeBug": "버그 신고",
@@ -273,15 +322,19 @@
   "feedback_submitted": "제출되었습니다. 지원이 답변드립니다.",
   "feedback_minLength": "5자 이상 입력해 주세요",
   "feedback_tip": "팁: 버그 신고 시 재현 단계와 스크린샷(곧 지원)을 함께 보내면 빠르게 해결됩니다.\n버전: {version}",
-  "@feedback_tip": { "placeholders": { "version": { "type": "String" } } },
-
+  "@feedback_tip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "lang_zh": "中文",
   "lang_en": "English",
   "lang_ja": "日本語",
   "lang_ko": "한국어",
   "lang_ar": "العربية",
   "lang_fr": "Français",
-
   "home_noDramaData": "아직 드라마가 없어요",
   "home_localOnlyLike": "로컬 영상은 좋아요 미지원",
   "home_localOnlyCollect": "로컬 영상은 저장 미지원",
@@ -296,8 +349,13 @@
   "home_btnWatch": "보기",
   "home_btnDetails": "상세",
   "home_loadFailedFmt": "불러오기 실패\n{message}",
-  "@home_loadFailedFmt": { "placeholders": { "message": { "type": "String" } } },
-
+  "@home_loadFailedFmt": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreAll": "전체",
   "theater_genreRomance": "로맨스",
   "theater_genreUrban": "도시",
@@ -310,12 +368,32 @@
   "theater_today": "오늘의 추천",
   "theater_labelShort": "숏드라마",
   "theater_continueWatch": "이어보기 · {name}",
-  "@theater_continueWatch": { "placeholders": { "name": { "type": "String" } } },
+  "@theater_continueWatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "theater_heatFmt": "시청 {heat}",
-  "@theater_heatFmt": { "placeholders": { "heat": { "type": "String" } } },
+  "@theater_heatFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreHeatFmt": "{tag} · 시청 {heat}",
-  "@theater_genreHeatFmt": { "placeholders": { "tag": { "type": "String" }, "heat": { "type": "String" } } },
-
+  "@theater_genreHeatFmt": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      },
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cast_sectionPlaying": "방영 중 & 캐스팅",
   "cast_oppRanking": "캐스팅 기회 ›",
   "cast_universeTitle": "캐릭터 메타버스",
@@ -325,26 +403,63 @@
   "cast_demoSub": "당신의 선택 — 한 대사가 한 편을 깨운다",
   "cast_inPlay": "방영 중",
   "cast_heatTagFmt": "시청 {heat} · {tag}",
-  "@cast_heatTagFmt": { "placeholders": { "heat": { "type": "String" }, "tag": { "type": "String" } } },
+  "@cast_heatTagFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
   "cast_heatOnlyFmt": "시청 {heat}",
-  "@cast_heatOnlyFmt": { "placeholders": { "heat": { "type": "String" } } },
-
+  "@cast_heatOnlyFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cb_sectionSupport": "응원 랭킹 · 누가 응원하나",
   "cb_goSupport": "응원하기 · 데뷔로 보내기",
   "cb_seeBio": "프로필 보기 ›",
   "cb_pollHeatPct": "응원 {pct}%",
-  "@cb_pollHeatPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_pollHeatPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_debuted": "촬영 시작",
   "cb_toDebutPct": "시작까지 {pct}%",
-  "@cb_toDebutPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_toDebutPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_totalSupport": "누적 응원",
   "cb_coinsFmt": "{coins} 이글 코인",
-  "@cb_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@cb_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "cb_topBacker": "최고 후원자",
   "cb_emptyBackers": "아직 응원이 없어요 · 첫 후원자가 되세요",
   "cb_titleSupportFmt": "{name} · 응원 랭킹",
-  "@cb_titleSupportFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@cb_titleSupportFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aid_titleHeader": "AI 인터랙티브 드라마",
   "aid_aceBadge": "에이스",
   "aid_tagline": "당신의 선택이 결말을 바꾼다.",
@@ -357,7 +472,13 @@
   "aid_castingBadge": "캐스팅 중",
   "aid_producingBadge": "제작 중",
   "aid_castVoteFmt": "캐스팅 투표 · {pct}%",
-  "@aid_castVoteFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aid_castVoteFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aid_manifesto1": "당신은 더 이상 단순히 보는 시청자가 아닙니다.",
   "aid_manifesto2": "주인공을 대신해 선택하고, 이야기는 당신의 결말을 씁니다.",
   "aid_manifesto3": "선택 하나하나가 이 세계와의 대화입니다.",
@@ -380,37 +501,76 @@
   "aid_liveSub": "진짜 인터랙티브 드라마 · 당신의 선택이 이야기를 바꾼다",
   "aid_fallbackHook": "당신의 선택이 그녀의 이야기를 바꾼다",
   "aid_aceCardBadge": "에이스 인터랙티브 · 플레이 가능",
-
   "player_btnLiked": "좋아요 함",
   "player_btnEpisodes": "에피소드",
   "player_btnAiCast": "AI 카메오",
   "player_episodeNumFmt": "{n} 화",
-  "@player_episodeNumFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_episodeNumFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_switchEpFmt": "{n} 화로 전환 중 (백엔드 대응 중)",
-  "@player_switchEpFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_switchEpFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_unlockHint": "작품 상세 페이지에서 이글 코인으로 해제하세요",
   "player_comingSoonFmt": "{label} (개발 중)",
-  "@player_comingSoonFmt": { "placeholders": { "label": { "type": "String" } } },
+  "@player_comingSoonFmt": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "player_sceneSame": "작품 속 동일 아이템",
-
   "detail_unlockThis": "이 화",
   "detail_unlockNext5": "다음 5 화",
   "detail_unlockNext10": "다음 10 화",
   "detail_unlockAll": "전편",
   "detail_episodeCountFmt": "총 {n} 화",
-  "@detail_episodeCountFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@detail_episodeCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "detail_drawerEpisodes": "에피소드 목록",
   "detail_unlockSuccess": "잠금 해제!",
   "detail_coinBalanceFmt": "잔액 {coins} 이글 코인",
-  "@detail_coinBalanceFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_coinBalanceFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playsCountFmt": "{n} 회 시청",
-  "@detail_playsCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@detail_playsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "detail_priceUnlockFmt": "{coins} 이글 코인으로 해제",
-  "@detail_priceUnlockFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_priceUnlockFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playNow": "지금 재생",
   "detail_playThis": "이 작품 재생",
   "detail_noEpisodes": "재생 가능한 에피소드가 없습니다",
-
   "login_welcome": "FalconFlix에 오신 것을 환영합니다",
   "login_subtitle": "로그인하면 드라마, 이글 코인, 인터랙티브 콘텐츠 해제",
   "login_emailLabel": "이메일",
@@ -425,7 +585,6 @@
   "login_loggingIn": "로그인 중…",
   "login_loginOrRegister": "로그인 / 가입",
   "login_pwHint": "최초 비밀번호 로그인 시 자동 가입되어 해당 비밀번호로 설정됩니다",
-  "login_devHint": "개발 테스트: 인증번호 749301 입력 시 바로 로그인",
   "login_quickLogin": "간편 로그인",
   "login_recommended": "추천",
   "login_success": "로그인 성공",
@@ -435,30 +594,67 @@
   "login_passwordRequired": "비밀번호를 입력하세요",
   "login_codeRequired": "인증번호를 입력하세요",
   "login_codeSent": "인증번호를 보냈습니다. 메일을 확인해주세요.",
-  "login_emailNotConfigured": "메일 발송 미설정; 테스트 코드 749301 로 로그인 가능",
+  "login_emailNotConfigured": "이메일 발송이 일시적으로 불가합니다. 잠시 후 다시 시도해 주세요.",
   "login_networkError": "로그인 실패. 네트워크 확인 후 다시 시도하세요",
   "login_oauthErrorFmt": "{provider} 로그인 실패: {code}",
-  "@login_oauthErrorFmt": { "placeholders": { "provider": { "type": "String" }, "code": { "type": "String" } } },
+  "@login_oauthErrorFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthRetryFmt": "{provider} 로그인 실패. 잠시 후 다시 시도하세요",
-  "@login_oauthRetryFmt": { "placeholders": { "provider": { "type": "String" } } },
+  "@login_oauthRetryFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingFmt": "{name} 로그인 준비 중",
-  "@login_oauthComingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@login_oauthComingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingBody": "곧 지원됩니다~ 지금은 이메일 인증번호나 비밀번호로 로그인하세요.",
   "login_gotIt": "알겠습니다",
   "login_googleNoToken": "Google이 idToken을 반환하지 않습니다. 자격 증명을 확인하세요",
-
   "about_tagline": "FalconFlix · 볼 만한 드라마",
   "about_body": "FalconFlix는 글로벌 프리미엄 숏드라마 플랫폼입니다. 드라마를 정주행하고, AI 캐릭터와 대화하고, 보면서 쇼핑하세요. 시네마틱한 제작과 AI 창의력으로 매 프레임을 가치 있게.",
   "about_userAgreement": "이용약관",
   "about_privacyPolicy": "개인정보처리방침",
   "about_legalUpdatedFmt": "최근 업데이트: {date}",
-  "@about_legalUpdatedFmt": { "placeholders": { "date": { "type": "String" } } },
+  "@about_legalUpdatedFmt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "about_operatingEntity": "운영 주체",
   "about_contactEmailFmt": "연락처: {email}",
-  "@about_contactEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@about_contactEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "about_aboutTitleFmt": "{appName} 소개",
-  "@about_aboutTitleFmt": { "placeholders": { "appName": { "type": "String" } } },
-
+  "@about_aboutTitleFmt": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_title": "이글 코인 충전",
   "wallet_chooseRecharge": "패키지 선택",
   "wallet_introNote": "이글 코인으로 에피소드, 인터랙티브, 응원 잠금 해제",
@@ -471,10 +667,22 @@
   "wallet_packsComingBody": "가장 알찬 코인 묶음을 준비 중입니다",
   "wallet_coins": "이글 코인",
   "wallet_giftFmt": "+{coins} 보너스",
-  "@wallet_giftFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@wallet_giftFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_bestDeal": "최고의 가성비",
   "wallet_payNowFmt": "지금 {price} 결제",
-  "@wallet_payNowFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@wallet_payNowFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_payNow": "지금 결제",
   "wallet_loginFirst": "먼저 로그인하세요",
   "wallet_openPayFail": "결제 페이지를 열 수 없습니다. 다시 시도하세요",
@@ -483,15 +691,35 @@
   "wallet_loginToView": "로그인하여 보기",
   "wallet_legendPeak": "전설의 정점 · 최대치",
   "wallet_toLevelFmt": "V{level}까지",
-  "@wallet_toLevelFmt": { "placeholders": { "level": { "type": "String" } } },
+  "@wallet_toLevelFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_paidUsdFmt": "누적 충전 {amount}",
-  "@wallet_paidUsdFmt": { "placeholders": { "amount": { "type": "String" } } },
+  "@wallet_paidUsdFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_topUpToLevelFmt": "{amount} 더 충전하면 V{level}",
-  "@wallet_topUpToLevelFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@wallet_topUpToLevelFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_successTitle": "충전 성공 · 입금 완료",
   "wallet_tapAnywhere": "아무 곳이나 탭하여 계속",
   "wallet_successBarrier": "충전 성공",
-
   "creator_title": "파트너 센터",
   "creator_statSeries": "편",
   "creator_statPlays": "재생",
@@ -501,7 +729,6 @@
   "creator_menuRequirement": "업로드 요건",
   "creator_menuRevenue": "수익 배분 규정",
   "creator_menuLangPriv": "언어 및 개인정보",
-
   "invite_title": "친구 초대",
   "invite_stepsTitle": "초대 방법",
   "invite_step1Title": "초대 코드 공유",
@@ -515,17 +742,27 @@
   "invite_loginToGen": "로그인해야 초대 코드를 생성할 수 있어요",
   "invite_messageCopied": "메시지가 복사되었습니다. 친구에게 붙여넣기하세요",
   "invite_messageTemplateFmt": "🦅 FalconFlix에서 숏드라마 보는데 너무 재밌어! 가입할 때 내 초대 코드 {code} 입력하면 둘 다 이글 코인 받아~",
-  "@invite_messageTemplateFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@invite_messageTemplateFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "invite_bigTitle": "친구를 초대해 함께 보세요",
   "invite_bigSub": "친구가 당신의 코드로 가입하면 양쪽 모두 코인 획득",
   "invite_myCode": "내 전용 초대 코드",
   "invite_copyBtn": "복사",
   "invite_codeCopiedFmt": "코드 복사됨: {code}",
-  "@invite_codeCopiedFmt": { "placeholders": { "code": { "type": "String" } } },
-
+  "@invite_codeCopiedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "collect_emptyTitle": "저장한 작품이 없어요",
   "collect_emptyBody": "작품에서 '저장'을 누르면 여기에 표시됩니다.",
-
   "au_title": "자동 해제",
   "au_introTitle": "정주행 끊기지 않게",
   "au_introBody": "켜두면 다음 화를 자동으로 코인 해제해 끊김 없이 시청합니다",
@@ -537,24 +774,32 @@
   "au_rule1": "잠긴 화는 팝업 없이 코인으로 바로 해제",
   "au_rule2": "잔액 부족 시 충전을 알리며, 무단 차감 없음",
   "au_rule3": "단편 해제에만 적용; 전체 해제는 수동 확인 필요",
-
   "rh_title": "충전 내역",
   "rh_loginToView": "로그인하여 충전 내역 보기",
   "rh_emptyBody": "충전 내역이 없어요\n충전하여 더 많은 작품 해제",
   "rh_fallback": "이글 코인 충전",
-
   "re_title": "영수증 이메일",
   "re_invalidEmail": "유효한 이메일을 입력하세요",
   "re_saved": "영수증 이메일 저장됨",
   "re_label": "영수증 이메일",
   "re_body": "충전 성공 시 Stripe가 이 이메일로 영수증을 보내며 다음 결제 시 자동 입력됩니다.",
   "re_useAccountEmailFmt": "로그인 이메일 {email} 사용",
-  "@re_useAccountEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@re_useAccountEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "re_save": "저장",
-
   "common_comingSoonFmt": "{name} (개발 중)",
-  "@common_comingSoonFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@common_comingSoonFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_episodeTitle": "에피소드",
   "sheets_unlockAllBtn": "전체 잠금 해제",
   "sheets_unlockTitle": "잠금 해제",
@@ -563,18 +808,48 @@
   "sheets_networkErr": "네트워크 오류. 다시 시도해 주세요.",
   "sheets_walletBalance": "코인 잔액",
   "sheets_coinsFmt": "{coins} 코인",
-  "@sheets_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockShortFmt": "{coins} 코인 부족 — 충전 후 해제",
-  "@sheets_unlockShortFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockShortFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockNowFmt": "지금 해제 · {coins} 코인",
-  "@sheets_unlockNowFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockNowFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_coinsNotEnough": "코인 부족 · 충전하기",
   "sheets_tierForeverFmt": "{count}회 · 영구 시청",
-  "@sheets_tierForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_tierForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockAllSub": "전체 회차 해제",
   "sheets_unlockThisSub": "이 회차 해제",
   "sheets_unlockAllForeverFmt": "전체 {count}회 해제 · 영구 시청",
-  "@sheets_unlockAllForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_unlockAllForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockThisForever": "이 회차 해제 · 영구 시청",
   "sheets_coinsShort": "코인",
   "sheets_vipDiscount": "VIP 가격 더 저렴",
@@ -591,7 +866,16 @@
   "sheets_remixComingFooter": "AI 리믹스 출시 예정 · 기대해 주세요",
   "sheets_fallbackTitle": "FalconFlix 인기 드라마",
   "sheets_shareTextFmt": "{title} 정말 재밌어요! FalconFlix에서 함께 봐요! {url}",
-  "@sheets_shareTextFmt": { "placeholders": { "title": { "type": "String" }, "url": { "type": "String" } } },
+  "@sheets_shareTextFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_posterTitle": "포스터",
   "sheets_posterMakeSub": "전용 포스터 만들기",
   "sheets_posterReady": "포스터 공유",
@@ -599,31 +883,69 @@
   "sheets_posterGenFail": "포스터 생성 실패",
   "sheets_posterExportFail": "포스터 내보내기 실패",
   "sheets_posterTagline": "스캔하여 함께 시청하기",
-
   "ixp_resumeTitle": "이어서 보기",
   "ixp_resumeBody": "지난번 위치에서 이어 볼까요, 처음부터 다시 볼까요?",
   "ixp_resumeFromStart": "처음부터",
   "ixp_resumeContinue": "이어서",
   "ixp_fetchFailedFmt": "스토리 로드 실패 ({code})",
-  "@ixp_fetchFailedFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@ixp_fetchFailedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_dataAnomaly": "스토리 데이터 오류 (시작 노드 없음)",
   "ixp_loadErrorFmt": "로드 오류: {msg}",
-  "@ixp_loadErrorFmt": { "placeholders": { "msg": { "type": "String" } } },
+  "@ixp_loadErrorFmt": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeNotFoundFmt": "노드 「{id}」을 찾을 수 없음",
-  "@ixp_nodeNotFoundFmt": { "placeholders": { "id": { "type": "String" } } },
+  "@ixp_nodeNotFoundFmt": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeJumpTitle": "노드 이동 · 오너 테스트",
   "ixp_nodeJumpBody": "일반 사용자에게 표시되지 않음. 노드를 탭하여 직접 이동 (플래그 변경 없음).",
   "ixp_segCountFmt": "{n}개",
-  "@ixp_segCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ixp_segCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_lockedToastFmt": "유료 분기 (출시 후 {price} 코인) · 이번 회차 무료 체험",
-  "@ixp_lockedToastFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@ixp_lockedToastFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_fallbackTitle": "인터랙티브 드라마",
   "ixp_btnSkip": "건너뛰기",
   "ixp_btnBack": "뒤로",
   "ixp_segGenerating": "이 부분은 생성 중…",
   "ixp_btnContinue": "계속",
   "ixp_prepFmt": "준비 중 {done} / {total}",
-  "@ixp_prepFmt": { "placeholders": { "done": { "type": "String" }, "total": { "type": "String" } } },
+  "@ixp_prepFmt": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_prep": "준비 중…",
   "ixp_yourChoice": "당신의 차례",
   "ixp_endingFallback": "엔딩",
@@ -633,8 +955,13 @@
   "ixp_endingHidden": "히든엔딩",
   "ixp_endingOpen": "오픈엔딩",
   "ixp_optionsCountFmt": "{n}개 선택지",
-  "@ixp_optionsCountFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@ixp_optionsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_busyAiCreatingTitle": "AI에게 창작을 맡겼어요",
   "ip_busyAiCreatingSub": "당신만의 엔딩이 한 프레임씩 생성 중…\n보통 몇 분 걸려요, 완료되면 알려드릴게요 — 다른 곳도 둘러보세요",
   "ip_busyDirectorTitle": "감독이 모니터에 다시 앉음 · 배우들이 입장",
@@ -642,29 +969,61 @@
   "ip_busyDoneTitle": "✦ 당신만의 엔딩 완성",
   "ip_busyDoneSub": "「내 전용 엔딩」에 영구 저장됨",
   "ip_titleChipFmt": "인터랙티브 · {n}가지 엔딩",
-  "@ip_titleChipFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_titleChipFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_titleSub": "당신의 모든 선택이 결말을 바꿉니다",
   "ip_titleStart": "이야기 시작",
   "ip_btnContinue": "계속",
   "ip_voteFmt": "{n}% 가 이 선택",
-  "@ip_voteFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_voteFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_endingProgressFmt": "잠금 해제 엔딩 {got} / {total}",
-  "@ip_endingProgressFmt": { "placeholders": { "got": { "type": "String" }, "total": { "type": "String" } } },
+  "@ip_endingProgressFmt": {
+    "placeholders": {
+      "got": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ip_btnDex": "엔딩 도감",
   "ip_btnReplay": "다른 선택으로 다시",
   "ip_dexTitle": "엔딩 도감",
   "ip_dexLocked": "？？？",
   "ip_errorTitleFmt": "스토리 검증 실패\n{err}",
-  "@ip_errorTitleFmt": { "placeholders": { "err": { "type": "String" } } },
+  "@ip_errorTitleFmt": {
+    "placeholders": {
+      "err": {
+        "type": "String"
+      }
+    }
+  },
   "ip_unlockTitleAi": "당신만의 엔딩 맞춤 제작",
   "ip_unlockTitle": "이 스토리 분기 잠금 해제",
   "ip_demoFree": "샘플 드라마 · 무료 체험",
   "ip_unlockBtnAi": "맞춤 제작 시작",
   "ip_unlockBtn": "분기 잠금 해제",
   "ip_unlockCancel": "나중에",
-
   "com_sceneSameFmt": "이 장면에 {n}개",
-  "@com_sceneSameFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_sceneSameFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_sameInDrama": "드라마 속 아이템",
   "com_buyNow": "지금 구매",
   "com_inStock": "재고 있음 · 무료배송",
@@ -673,14 +1032,26 @@
   "com_infoEpisode": "관련 에피소드",
   "com_infoScene": "등장 장면",
   "com_sceneTimeFmt": "{sec}s 부터",
-  "@com_sceneTimeFmt": { "placeholders": { "sec": { "type": "String" } } },
+  "@com_sceneTimeFmt": {
+    "placeholders": {
+      "sec": {
+        "type": "String"
+      }
+    }
+  },
   "com_descTitle": "상품 설명",
   "com_descBody": "드라마 속 엄선 아이템, FalconFlix 파트너 제공. 플랫폼 발송 및 7일 무조건 반품 가능. (샘플 문구, 실제 상품 연결 후 교체)",
   "com_addCart": "장바구니 추가",
   "com_addCartToast": "장바구니에 추가됨 (개발 중)",
   "com_methodCoin": "코인 잔액",
   "com_methodCoinBalanceFmt": "잔 {n}",
-  "@com_methodCoinBalanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_methodCoinBalanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_methodWechat": "WeChat Pay",
   "com_methodAlipay": "Alipay",
   "com_confirmOrder": "주문 확인",
@@ -694,7 +1065,6 @@
   "com_total": "합계",
   "com_submitOrder": "주문하기",
   "com_submitToast": "주문 완료 (결제 기능 개발 중)",
-
   "ss_tier66_label": "라이트업",
   "ss_tier66_meaning": "행운의 66",
   "ss_tier188_label": "꽃다발 선물",
@@ -708,24 +1078,80 @@
   "ss_tier9999_label": "전설의 응원",
   "ss_tier9999_meaning": "당신이 1위",
   "ss_callForFmt": "{name}에게 응원",
-  "@ss_callForFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@ss_callForFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "ss_subtitle": "코인이 많을수록 · 데뷔가 빨라지고 · 순위가 높아져요",
   "ss_balanceFmt": "내 코인 잔액 {n}",
-  "@ss_balanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss_balanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss_localNote": "베타 · 응원은 로컬 저장, 정식 출시 후 코인 결제",
   "ss_celebTitle": "응원 완료!",
   "ss_forFmt": "{name} · {label}",
-  "@ss_forFmt": { "placeholders": { "name": { "type": "String" }, "label": { "type": "String" } } },
+  "@ss_forFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "ss_pillCoinsFmt": "+{coins} 코인",
-  "@ss_pillCoinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@ss_pillCoinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "ss_progressFmt": "데뷔 +{delta}% · 현재 {now}%",
-  "@ss_progressFmt": { "placeholders": { "delta": { "type": "String" }, "now": { "type": "String" } } },
+  "@ss_progressFmt": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
   "ss_kingFmt": "👑 당신이 TA의 1위 팬! V{level} {tier}",
-  "@ss_kingFmt": { "placeholders": { "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_kingFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_guardianFmt": "당신은 TA의 {rank}번째 가디언 · V{level} {tier}",
-  "@ss_guardianFmt": { "placeholders": { "rank": { "type": "String" }, "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_guardianFmt": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_tapToContinue": "탭하여 계속",
-
   "air_title": "캐스팅 랭킹",
   "air_sub": "열기 채우면 데뷔 · 응원이 클수록 순위 상승",
   "air_segCharRank": "캐릭터",
@@ -741,40 +1167,95 @@
   "air_debuted": "데뷔 완료",
   "air_leading": "선두",
   "air_heatFmt": "응원 열기 {pct}%",
-  "@air_heatFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@air_heatFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "air_doneShoot": "촬영 시작",
   "air_toGoFmt": "데뷔까지 {n}%",
-  "@air_toGoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@air_toGoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "air_supportKingFmt": "톱 팬: {name}",
-  "@air_supportKingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@air_supportKingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_emptyKingPlaceholder": "챔피언 모집 중",
   "air_globalKing": "전체 톱 팬",
   "air_tierBackFmt": "{tier} · {name} 응원",
-  "@air_tierBackFmt": { "placeholders": { "tier": { "type": "String" }, "name": { "type": "String" } } },
+  "@air_tierBackFmt": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_guardFmt": "{name} 수호",
-  "@air_guardFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@air_guardFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_secVideos": "TA의 영상",
   "cd_secMoments": "더 깊은 순간",
   "cd_actUnlock": "코인으로 잠금 해제",
   "cd_secCredits": "TA의 출연작",
   "cd_secBoardFmt": "응원 보드 · {n}명 지지자",
-  "@cd_secBoardFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@cd_secBoardFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "cd_actImInToo": "나도 함께 ›",
   "cd_swipeHint": "아래로 스와이프 · 응원 · 잠금 해제",
   "cd_introBadge": "TA의 자기소개",
   "cd_debutProgress": "데뷔 응원 진행",
   "cd_debutHint": "가득 차면 촬영 시작 · 실사+AI 프리미엄 인터랙티브 드라마",
   "cd_clipToastFmt": "클립 「{name}」 재생 · 개발 중",
-  "@cd_clipToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_clipToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_momentToastFmt": "「{title}」 잠금 해제 · 코인 기능 개발 중",
-  "@cd_momentToastFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@cd_momentToastFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "cd_creditToastFmt": "「{name}」· 감상 기능 개발 중",
-  "@cd_creditToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_creditToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_kingBadge": "작품 톱 팬",
   "cd_btnSupport": "응원",
   "cd_btnChat": "채팅 · 잠금 해제",
-
   "sp_toolPosterName": "드라마 포스터 생성",
   "sp_toolPosterDesc": "얼굴 사진을 올려 이 드라마 속 세로 포스터를 만들어요.",
   "sp_toolPosterCost": "약 5-25 코인",
@@ -791,7 +1272,13 @@
   "sp_sectionHeader": "AI 플레이",
   "sp_subtitle": "드라마 시청과 연결된 가벼운 AI 플레이.",
   "sp_creatingFmt": "「{title}」을(를) 위해 창작 중",
-  "@sp_creatingFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@sp_creatingFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "sp_chipLinked": "스토리 연동",
   "sp_chipMall": "드라마 몰",
   "sp_putInDramaTitle": "나를 드라마에 넣기",
@@ -801,10 +1288,22 @@
   "sp_sceneMallBody": "드라마 속 아이템, 씬 상품, 크리에이터 콜라보 굿즈 보기.",
   "spf_settingsTitle": "도구 설정",
   "spf_linkedToFmt": "「{title}」 연동",
-  "@spf_linkedToFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@spf_linkedToFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "spf_chooseTool": "도구 선택",
   "spf_genBtnFmt": "생성 · {cost}",
-  "@spf_genBtnFmt": { "placeholders": { "cost": { "type": "String" } } },
+  "@spf_genBtnFmt": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
   "spf_noPhotoBtn": "사진을 먼저 올려주세요",
   "spf_photoReady": "사진 준비됨",
   "spf_uploadPhoto": "사진 업로드",
@@ -814,12 +1313,17 @@
   "spf_generatingSub": "당신을 드라마에 넣고 있어요, 잠시만요",
   "spf_genDoneTag": "완료",
   "spf_genDoneTitleFmt": "{tool} · 완성",
-  "@spf_genDoneTitleFmt": { "placeholders": { "tool": { "type": "String" } } },
+  "@spf_genDoneTitleFmt": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
   "spf_genDoneBody": "내 작품에 저장, 공유, 또는 다시 생성.",
   "spf_btnSave": "내 작품에 저장",
   "spf_savedToast": "저장됨 (개발 중)",
   "spf_shareLabel": "AI 작품",
-
   "cui_chipAI": "AI 인터랙티브",
   "cui_chipMetaverse": "메타버스 세계관",
   "cui_title": "캐릭터 메타버스",
@@ -834,7 +1338,6 @@
   "cui_step4Title": "객연 & 깊이",
   "cui_step4Desc": "전용 스토리와 「깊은 순간」을 잠금 해제하고, 자신을 작품에 써넣어 보세요.",
   "cui_footer": "당신의 한 표 한 표가, 다음 주인공을 다시 쓰고 있어요.",
-
   "com2_title": "커뮤니티",
   "com2_chipPlaza": "시청 광장",
   "com2_emptyHint": "아직 게시물이 없어요 — 첫 글을 남겨보세요",
@@ -845,60 +1348,114 @@
   "com2_postHint": "이 드라마의 느낌, 공유해 보세요…",
   "com2_publish": "게시",
   "com2_attachDrama": "이 드라마 첨부",
-
   "dhc_connected": "연결됨",
   "dhc_connecting": "연결 중",
   "dhc_ended": "종료",
   "dhc_error": "오류",
   "dhc_connectingHint": "연결 중…잠시만요",
   "dhc_talkingFmt": "{name}이(가) 말하고 있어요…",
-  "@dhc_talkingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@dhc_talkingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dhc_listening": "듣고 있어요…",
   "dhc_backLabel": "뒤로",
   "dhc_actorsReady": "배우들이 자리를 잡고 있어요…",
-
   "ss2_searchHint": "드라마 / 배우 / 태그 검색",
   "ss2_history": "최근 검색",
   "ss2_clear": "지우기",
   "ss2_hot": "인기 검색",
   "ss2_hotBadge": "인기",
   "ss2_noResultFmt": "「{q}」 드라마를 찾지 못했어요",
-  "@ss2_noResultFmt": { "placeholders": { "q": { "type": "String" } } },
+  "@ss2_noResultFmt": {
+    "placeholders": {
+      "q": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_foundFmt": "{n}편 검색됨",
-  "@ss2_foundFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss2_foundFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_chipCEO": "재벌남",
   "ss2_chipTimeTravel": "타임슬립",
   "ss2_chipMystery": "미스터리",
   "ss2_chipModern": "현대 로맨스",
   "ss2_chipSweetPet": "달콤 로맨스",
-
   "rk_emptyCat": "이 카테고리는 랭킹이 없어요",
   "rk_hotTitle": "인기 랭킹",
   "rk_hotSub": "오늘의 열기로 실시간 정렬",
   "rk_top1Today": "# 1  오늘 최고",
   "rk_heatFmt": "{plays} 열기 · 상승 중",
-  "@rk_heatFmt": { "placeholders": { "plays": { "type": "String" } } },
+  "@rk_heatFmt": {
+    "placeholders": {
+      "plays": {
+        "type": "String"
+      }
+    }
+  },
   "rk_chipUrban": "도시",
   "rk_chipFinished": "완결",
   "rk_chipRomance": "로맨스",
-
   "aic_lowEnergyNag": "흐엥… 힘이 좀 빠졌어, 에너지 좀 줄래?~",
   "aic_chargedReply": "고마워! 완전 충전, 계속 얘기하자~",
   "aic_chargeToast": "충전 · 코인 결제 기능 개발 중 (만땅 mock)",
   "aic_energyFmt": "에너지 {pct}%",
-  "@aic_energyFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aic_energyFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aic_chargeBtnFmt": "{name}에게 충전",
-  "@aic_chargeBtnFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@aic_chargeBtnFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aic_hintFmt": "{name}에게 말 걸기…",
-  "@aic_hintFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@aic_hintFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lg_needLevelFmt": "{name} · V{level} 필요",
-  "@lg_needLevelFmt": { "placeholders": { "name": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_needLevelFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_topUpFmt": "{amount} 충전하면 V{level} 도달",
-  "@lg_topUpFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_topUpFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_btnTopUp": "충전하여 업그레이드",
   "lg_btnLater": "나중에",
-
   "me_defaultName": "FalconFlix 시청자",
   "me_avatarUpdated": "아바타 업데이트됨",
   "me_avatarUpdateFailed": "아바타 업데이트 실패, 다시 시도",
@@ -909,8 +1466,13 @@
   "me_uploading": "업로드 중…",
   "me_changeAvatar": "아바타 변경",
   "me_copiedFmt": "복사됨: {value}",
-  "@me_copiedFmt": { "placeholders": { "value": { "type": "String" } } },
-
+  "@me_copiedFmt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "tier_commoner": "평민",
   "tier_rookie": "입문",
   "tier_advanced": "중급",
@@ -918,23 +1480,43 @@
   "tier_tycoon": "거물",
   "tier_deity": "신급",
   "tier_legend": "전설",
-
   "rch_statusPaid": "입금됨",
   "rch_statusPending": "결제 대기",
   "rch_statusCanceled": "취소됨",
   "rch_statusProcessing": "처리 중",
-
   "data_goodsCoinsFmt": "{n} 코인",
-  "@data_goodsCoinsFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@data_goodsCoinsFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_justNow": "방금",
   "time_minutesAgoFmt": "{n}분 전",
-  "@time_minutesAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_minutesAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_hoursAgoFmt": "{n}시간 전",
-  "@time_hoursAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_hoursAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_daysAgoFmt": "{n}일 전",
-  "@time_daysAgoFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@time_daysAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "notify_typeRecharge": "충전",
   "notify_typeInvite": "초대",
   "notify_typeSystem": "시스템",

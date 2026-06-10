@@ -2320,11 +2320,6 @@ abstract class AppLocalizations {
   /// **'首次用密码登录将自动注册并设置该密码'**
   String get login_pwHint;
 
-  /// No description provided for @login_devHint.
-  ///
-  /// In zh, this message translates to:
-  /// **'开发测试：验证码输入 749301 可直接登录'**
-  String get login_devHint;
 
   /// No description provided for @login_quickLogin.
   ///
@@ -2383,7 +2378,7 @@ abstract class AppLocalizations {
   /// No description provided for @login_emailNotConfigured.
   ///
   /// In zh, this message translates to:
-  /// **'邮件通道未开通，可用测试码 749301 登录'**
+  /// **'邮件通道暂时不可用，请稍后重试'**
   String get login_emailNotConfigured;
 
   /// No description provided for @login_networkError.

@@ -1,13 +1,11 @@
 {
   "@@locale": "fr",
   "appTitle": "FalconFlix",
-
   "tabHome": "Accueil",
   "tabTheater": "Théâtre",
   "tabInteractive": "Interactif",
   "tabCharacter": "Casting",
   "tabMe": "Moi",
-
   "common_cancel": "Annuler",
   "common_confirm": "Confirmer",
   "common_save": "Enregistrer",
@@ -27,7 +25,6 @@
   "common_edit": "Modifier",
   "common_delete": "Supprimer",
   "common_send": "Envoyer",
-
   "me_title": "Moi",
   "me_loginPrompt": "Se connecter / S'inscrire",
   "me_loginSubtitle": "Connectez-vous pour accéder à votre bibliothèque, portefeuille et dramas interactifs",
@@ -55,7 +52,6 @@
   "me_rowHelpAbout": "Aide et À propos",
   "me_rowAbout": "À propos de FalconFlix",
   "me_logoutConfirm": "Se déconnecter du compte ?",
-
   "history_title": "Historique",
   "history_emptyTitle": "Aucun historique",
   "history_emptyBody": "Chaque épisode vu apparaîtra ici pour reprendre facilement où vous vous êtes arrêté.",
@@ -65,16 +61,33 @@
   "history_episodeFallback": "Série complète",
   "history_unknown": "(Titre inconnu)",
   "history_selectedCount": "{n} sélectionnés",
-  "@history_selectedCount": { "placeholders": { "n": { "type": "int" } } },
+  "@history_selectedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmTitle": "Supprimer {n} enregistrement(s) ?",
-  "@history_delConfirmTitle": { "placeholders": { "n": { "type": "int" } } },
+  "@history_delConfirmTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmBody": "Action irréversible. Le drama n'est pas affecté — un nouvel enregistrement sera créé à la prochaine lecture.",
   "history_clearConfirmTitle": "Effacer tout l'historique ?",
   "history_clearConfirmBody": "Action irréversible. De nouveaux enregistrements seront créés à la prochaine lecture.",
   "history_toastDeleted": "{n} supprimés",
-  "@history_toastDeleted": { "placeholders": { "n": { "type": "int" } } },
+  "@history_toastDeleted": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_toastCleared": "Effacé",
-
   "orders_title": "Mes commandes",
   "orders_tabFull": "Série",
   "orders_tabEpisode": "Épisode",
@@ -90,13 +103,18 @@
   "orders_kvPayMethod": "Méthode",
   "orders_kvTime": "Heure",
   "orders_orderCopied": "N° de commande copié · {orderNo}",
-  "@orders_orderCopied": { "placeholders": { "orderNo": { "type": "String" } } },
+  "@orders_orderCopied": {
+    "placeholders": {
+      "orderNo": {
+        "type": "String"
+      }
+    }
+  },
   "orders_paid": "Payé",
   "orders_pending": "En attente",
   "orders_payEagle": "Eagle Coins",
   "orders_unknownTitle": "(Titre inconnu)",
   "orders_rechargeFallback": "Recharge Eagle Coins",
-
   "inbox_title": "Notifications",
   "inbox_tabAll": "Tout",
   "inbox_tabRecharge": "Recharge",
@@ -107,7 +125,6 @@
   "inbox_emptyTitle": "Aucun message",
   "inbox_emptyBody": "Reçus de recharge, récompenses d'invitation, promos et avis système apparaîtront ici.",
   "inbox_loginBody": "Connectez-vous pour voir vos notifications.",
-
   "settings_title": "Paramètres",
   "settings_sectionNotificationPlayback": "Notifications et lecture",
   "settings_sectionAccount": "Compte",
@@ -122,8 +139,13 @@
   "settings_clearCacheBody": "Efface les vidéos interactives téléchargées et le cache d'images. Vos achats, connexion et paramètres ne sont pas affectés.",
   "settings_clearCacheAction": "Vider maintenant",
   "settings_clearCacheDone": "{size} libérés",
-  "@settings_clearCacheDone": { "placeholders": { "size": { "type": "String" } } },
-
+  "@settings_clearCacheDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "notifyPrefs_title": "Notifications",
   "notifyPrefs_pushMaster": "Interrupteur push principal",
   "notifyPrefs_pushMasterDesc": "Désactiver met en pause toutes les notifications push. La boîte de réception in-app reste active.",
@@ -138,8 +160,13 @@
   "notifyPrefs_interactive": "Mises à jour interactives",
   "notifyPrefs_interactiveDesc": "Nouveaux épisodes / fins débloquées",
   "notifyPrefs_saveFailed": "Échec de l'enregistrement : {msg}",
-  "@notifyPrefs_saveFailed": { "placeholders": { "msg": { "type": "String" } } },
-
+  "@notifyPrefs_saveFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "playPrefs_title": "Lecture et téléchargements",
   "playPrefs_autoplay": "Lecture auto suivante",
   "playPrefs_autoplayDesc": "Lecture auto de la vidéo suivante",
@@ -152,7 +179,6 @@
   "playPrefs_quality1080": "Full HD 1080p",
   "playPrefs_wifiOnlyDownload": "Téléchargements Wi-Fi uniquement",
   "playPrefs_wifiOnlyDownloadDesc": "Vidéos interactives et cache hors ligne uniquement en Wi-Fi",
-
   "accountSec_title": "Compte et sécurité",
   "accountSec_sectionLogin": "Connexion",
   "accountSec_sectionDeletion": "Suppression du compte",
@@ -168,18 +194,22 @@
   "accountSec_saveNewPw": "Enregistrer le nouveau mot de passe",
   "accountSec_saving": "Enregistrement…",
   "accountSec_pwUpdated": "Mot de passe mis à jour",
-
   "privacyPrefs_title": "Confidentialité",
   "privacyPrefs_sectionData": "Mes données",
   "privacyPrefs_sectionLegal": "Conditions et politique",
   "privacyPrefs_rowExport": "Télécharger mes données",
   "privacyPrefs_rowExportDesc": "GDPR / CCPA : demander un export complet de vos données",
   "privacyPrefs_rowPolicy": "Politique de confidentialité",
-
   "deleteAcc_title": "Supprimer le compte",
   "deleteAcc_inProgress": "Suppression en cours",
   "deleteAcc_scheduledAt": "Programmé : {time}",
-  "@deleteAcc_scheduledAt": { "placeholders": { "time": { "type": "String" } } },
+  "@deleteAcc_scheduledAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_pendingHint": "Connectez-vous à tout moment pendant les 7 jours de réflexion pour annuler. Le compte reprendra normalement après annulation.",
   "deleteAcc_cancelBtn": "Annuler la suppression",
   "deleteAcc_willDelete": "La suppression effacera",
@@ -192,10 +222,22 @@
   "deleteAcc_reasonLabel": "Raison (optionnel, nous aide à améliorer)",
   "deleteAcc_reasonHint": "Dites-nous ce qui ne va pas (optionnel)",
   "deleteAcc_typeToConfirm": "Saisissez \"{phrase}\" pour confirmer",
-  "@deleteAcc_typeToConfirm": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeToConfirm": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_confirmPhrase": "SUPPRIMER MON COMPTE",
   "deleteAcc_typeMismatch": "Veuillez saisir \"{phrase}\" exactement",
-  "@deleteAcc_typeMismatch": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeMismatch": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_submit": "Soumettre la suppression",
   "deleteAcc_finalTitle": "Confirmation finale",
   "deleteAcc_finalBody": "Démarre 7 jours de réflexion. Connectez-vous pendant cette période pour annuler.\n\nÀ l'expiration, les données sont supprimées définitivement.",
@@ -203,7 +245,6 @@
   "deleteAcc_submitted": "Demande de suppression envoyée — exécution dans 7 jours",
   "deleteAcc_cancelled": "Suppression annulée",
   "deleteAcc_thinkAgain": "Pas encore, revenir",
-
   "dataExport_title": "Télécharger mes données",
   "dataExport_introTitle": "Obtenir une copie de vos données",
   "dataExport_introBody": "Conformément au RGPD Article 15 (UE) et au CCPA (Californie), vous avez le droit de recevoir toutes les données personnelles que nous détenons sur vous.\n\nAprès soumission, nous générons un fichier zip de manière asynchrone :\n  · Profil / email / téléphone\n  · Solde et transactions Eagle Coins\n  · Commandes, historique, favoris\n  · Posts communauté, débloquages interactifs\n\nLorsque prêt, nous vous notifierons in-app. Le lien de téléchargement est valable 7 jours.",
@@ -213,12 +254,17 @@
   "dataExport_statusExpired": "Expiré · refaire la demande",
   "dataExport_statusFailed": "Échec · refaire la demande",
   "dataExport_expiresAt": "Lien expire {time}",
-  "@dataExport_expiresAt": { "placeholders": { "time": { "type": "String" } } },
+  "@dataExport_expiresAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "dataExport_downloadBtn": "Télécharger",
   "dataExport_submitBtn": "Demander le téléchargement",
   "dataExport_submitting": "Envoi…",
   "dataExport_submitted": "Demande envoyée — nous vous notifierons quand prêt",
-
   "helpAbout_title": "Aide et À propos",
   "helpAbout_sectionHelp": "Aide",
   "helpAbout_sectionAbout": "À propos",
@@ -228,7 +274,6 @@
   "helpAbout_rowSupportDesc": "Discussion 1-à-1 par ticket",
   "helpAbout_rowFeedback": "Envoyer un avis",
   "helpAbout_rowFeedbackDesc": "Idées produit / rapports de bug",
-
   "faq_title": "Centre d'aide",
   "faq_catAll": "Tout",
   "faq_catAccount": "Compte",
@@ -238,7 +283,6 @@
   "faq_catOther": "Autre",
   "faq_emptyTitle": "Aucune FAQ",
   "faq_emptyBody": "En cas de problème, ouvrez un ticket de support.",
-
   "tickets_title": "Contacter le support",
   "tickets_newBtn": "Nouveau ticket",
   "tickets_emptyTitle": "Aucun ticket",
@@ -249,12 +293,17 @@
   "tickets_speakerSelf": "Moi",
   "tickets_replyHint": "Répondre…",
   "tickets_sendFailed": "Échec d'envoi : {msg}",
-  "@tickets_sendFailed": { "placeholders": { "msg": { "type": "String" } } },
+  "@tickets_sendFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "tickets_statusPending": "En attente",
   "tickets_statusReplied": "Répondu",
   "tickets_statusResolved": "Résolu",
   "tickets_statusClosed": "Fermé",
-
   "feedback_titleTicket": "Nouveau ticket",
   "feedback_titleFeedback": "Envoyer un avis",
   "feedback_typeBug": "Rapport de bug",
@@ -273,15 +322,19 @@
   "feedback_submitted": "Envoyé — le support répondra",
   "feedback_minLength": "Veuillez écrire au moins 5 caractères",
   "feedback_tip": "Astuce : pour un bug, ajoutez les étapes de reproduction + captures (bientôt) pour un tri plus rapide.\nVersion : {version}",
-  "@feedback_tip": { "placeholders": { "version": { "type": "String" } } },
-
+  "@feedback_tip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "lang_zh": "中文",
   "lang_en": "English",
   "lang_ja": "日本語",
   "lang_ko": "한국어",
   "lang_ar": "العربية",
   "lang_fr": "Français",
-
   "home_noDramaData": "Aucune série pour l'instant",
   "home_localOnlyLike": "Source locale : like non pris en charge",
   "home_localOnlyCollect": "Source locale : enregistrement non pris en charge",
@@ -296,8 +349,13 @@
   "home_btnWatch": "Regarder",
   "home_btnDetails": "Détails",
   "home_loadFailedFmt": "Échec du chargement\n{message}",
-  "@home_loadFailedFmt": { "placeholders": { "message": { "type": "String" } } },
-
+  "@home_loadFailedFmt": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreAll": "Tout",
   "theater_genreRomance": "Romance",
   "theater_genreUrban": "Urbain",
@@ -310,12 +368,32 @@
   "theater_today": "Coup de cœur du jour",
   "theater_labelShort": "Mini-série",
   "theater_continueWatch": "Reprendre · {name}",
-  "@theater_continueWatch": { "placeholders": { "name": { "type": "String" } } },
+  "@theater_continueWatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "theater_heatFmt": "{heat} vues",
-  "@theater_heatFmt": { "placeholders": { "heat": { "type": "String" } } },
+  "@theater_heatFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreHeatFmt": "{tag} · {heat} vues",
-  "@theater_genreHeatFmt": { "placeholders": { "tag": { "type": "String" }, "heat": { "type": "String" } } },
-
+  "@theater_genreHeatFmt": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      },
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cast_sectionPlaying": "À l'écran & Castings",
   "cast_oppRanking": "Tableau d'opportunités ›",
   "cast_universeTitle": "Métavers des personnages",
@@ -325,26 +403,63 @@
   "cast_demoSub": "À vous de choisir — une réplique allume un drama entier",
   "cast_inPlay": "À l'écran",
   "cast_heatTagFmt": "{heat} vues · {tag}",
-  "@cast_heatTagFmt": { "placeholders": { "heat": { "type": "String" }, "tag": { "type": "String" } } },
+  "@cast_heatTagFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
   "cast_heatOnlyFmt": "{heat} vues",
-  "@cast_heatOnlyFmt": { "placeholders": { "heat": { "type": "String" } } },
-
+  "@cast_heatOnlyFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cb_sectionSupport": "Tableau des soutiens · Qui vote pour eux",
   "cb_goSupport": "Soutenir · Lancez leur carrière",
   "cb_seeBio": "Voir le profil ›",
   "cb_pollHeatPct": "Soutien {pct}%",
-  "@cb_pollHeatPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_pollHeatPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_debuted": "En tournage",
   "cb_toDebutPct": "{pct}% avant tournage",
-  "@cb_toDebutPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_toDebutPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_totalSupport": "Soutien total",
   "cb_coinsFmt": "{coins} Eagle Coins",
-  "@cb_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@cb_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "cb_topBacker": "Premier soutien",
   "cb_emptyBackers": "Aucun soutien · Soyez le premier",
   "cb_titleSupportFmt": "{name} · Tableau des soutiens",
-  "@cb_titleSupportFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@cb_titleSupportFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aid_titleHeader": "Drama interactif IA",
   "aid_aceBadge": "Pépite",
   "aid_tagline": "Vos choix réécrivent la fin.",
@@ -357,7 +472,13 @@
   "aid_castingBadge": "Casting en cours",
   "aid_producingBadge": "En production",
   "aid_castVoteFmt": "Votez pour le casting · {pct}%",
-  "@aid_castVoteFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aid_castVoteFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aid_manifesto1": "Vous ne regardez plus simplement des histoires.",
   "aid_manifesto2": "Vous choisissez pour le héros, et l'histoire réécrit la fin pour vous.",
   "aid_manifesto3": "Chaque choix est un dialogue entre vous et ce monde.",
@@ -380,37 +501,76 @@
   "aid_liveSub": "Vrai drama interactif · Vos choix réécrivent l'histoire",
   "aid_fallbackHook": "Vos choix réécrivent son histoire",
   "aid_aceCardBadge": "Drama interactif signature · Jouable",
-
   "player_btnLiked": "Aimé",
   "player_btnEpisodes": "Épisodes",
   "player_btnAiCast": "Caméo IA",
   "player_episodeNumFmt": "Épisode {n}",
-  "@player_episodeNumFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_episodeNumFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_switchEpFmt": "Passage à l'épisode {n} (backend en cours)",
-  "@player_switchEpFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_switchEpFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_unlockHint": "Débloquez en Eagle Coins sur la page de la série",
   "player_comingSoonFmt": "{label} (à venir)",
-  "@player_comingSoonFmt": { "placeholders": { "label": { "type": "String" } } },
+  "@player_comingSoonFmt": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "player_sceneSame": "Vu dans la scène",
-
   "detail_unlockThis": "Cet épisode",
   "detail_unlockNext5": "5 épisodes suivants",
   "detail_unlockNext10": "10 épisodes suivants",
   "detail_unlockAll": "Série complète",
   "detail_episodeCountFmt": "{n} épisodes",
-  "@detail_episodeCountFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@detail_episodeCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "detail_drawerEpisodes": "Liste des épisodes",
   "detail_unlockSuccess": "Débloqué !",
   "detail_coinBalanceFmt": "Solde : {coins} Eagle Coins",
-  "@detail_coinBalanceFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_coinBalanceFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playsCountFmt": "{n} vues",
-  "@detail_playsCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@detail_playsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "detail_priceUnlockFmt": "Débloquer pour {coins} Eagle Coins",
-  "@detail_priceUnlockFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_priceUnlockFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playNow": "Lire maintenant",
   "detail_playThis": "Lire cette série",
   "detail_noEpisodes": "Aucun épisode disponible",
-
   "login_welcome": "Bienvenue sur FalconFlix",
   "login_subtitle": "Connectez-vous pour débloquer séries, Eagle Coins, drama interactif",
   "login_emailLabel": "E-mail",
@@ -425,7 +585,6 @@
   "login_loggingIn": "Connexion…",
   "login_loginOrRegister": "Connexion / Inscription",
   "login_pwHint": "La première connexion par mot de passe crée le compte avec ce mot de passe",
-  "login_devHint": "Test : entrez 749301 pour passer",
   "login_quickLogin": "Connexion rapide",
   "login_recommended": "Recommandé",
   "login_success": "Connecté",
@@ -435,30 +594,67 @@
   "login_passwordRequired": "Veuillez saisir votre mot de passe",
   "login_codeRequired": "Veuillez saisir le code",
   "login_codeSent": "Code envoyé. Vérifiez votre boîte mail.",
-  "login_emailNotConfigured": "Canal e-mail non configuré ; utilisez le code test 749301",
+  "login_emailNotConfigured": "Service e-mail temporairement indisponible. Veuillez réessayer plus tard.",
   "login_networkError": "Échec de connexion ; vérifiez le réseau et réessayez",
   "login_oauthErrorFmt": "Échec de connexion {provider} : {code}",
-  "@login_oauthErrorFmt": { "placeholders": { "provider": { "type": "String" }, "code": { "type": "String" } } },
+  "@login_oauthErrorFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthRetryFmt": "Échec de connexion {provider} ; veuillez réessayer plus tard",
-  "@login_oauthRetryFmt": { "placeholders": { "provider": { "type": "String" } } },
+  "@login_oauthRetryFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingFmt": "Connexion {name} bientôt disponible",
-  "@login_oauthComingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@login_oauthComingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingBody": "Bientôt prêt — connectez-vous par code e-mail ou mot de passe pour l'instant.",
   "login_gotIt": "Compris",
   "login_googleNoToken": "Google n'a pas retourné d'idToken ; vérifiez les identifiants",
-
   "about_tagline": "FalconFlix · Du drama à voir",
   "about_body": "FalconFlix est une plateforme mondiale de mini-séries premium — bingez, discutez avec des personnages IA, achetez en regardant. Production cinéma et créativité IA pour que chaque image vaille le coup.",
   "about_userAgreement": "Conditions d'utilisation",
   "about_privacyPolicy": "Politique de confidentialité",
   "about_legalUpdatedFmt": "Dernière mise à jour : {date}",
-  "@about_legalUpdatedFmt": { "placeholders": { "date": { "type": "String" } } },
+  "@about_legalUpdatedFmt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "about_operatingEntity": "Entité exploitante",
   "about_contactEmailFmt": "Contact : {email}",
-  "@about_contactEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@about_contactEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "about_aboutTitleFmt": "À propos de {appName}",
-  "@about_aboutTitleFmt": { "placeholders": { "appName": { "type": "String" } } },
-
+  "@about_aboutTitleFmt": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_title": "Recharger Eagle Coins",
   "wallet_chooseRecharge": "Choisir un pack",
   "wallet_introNote": "Les Eagle Coins débloquent épisodes, jeux interactifs et soutiens",
@@ -471,10 +667,22 @@
   "wallet_packsComingBody": "Nous préparons les meilleurs packs Eagle Coins pour vous",
   "wallet_coins": "Eagle Coins",
   "wallet_giftFmt": "+{coins} bonus",
-  "@wallet_giftFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@wallet_giftFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_bestDeal": "Meilleure valeur",
   "wallet_payNowFmt": "Payer {price} maintenant",
-  "@wallet_payNowFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@wallet_payNowFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_payNow": "Payer",
   "wallet_loginFirst": "Veuillez vous connecter d'abord",
   "wallet_openPayFail": "Impossible d'ouvrir la page de paiement, réessayez",
@@ -483,15 +691,35 @@
   "wallet_loginToView": "Connectez-vous pour voir",
   "wallet_legendPeak": "Sommet légendaire · Au max",
   "wallet_toLevelFmt": "jusqu'à V{level}",
-  "@wallet_toLevelFmt": { "placeholders": { "level": { "type": "String" } } },
+  "@wallet_toLevelFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_paidUsdFmt": "Total rechargé {amount}",
-  "@wallet_paidUsdFmt": { "placeholders": { "amount": { "type": "String" } } },
+  "@wallet_paidUsdFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_topUpToLevelFmt": "Rechargez {amount} de plus pour V{level}",
-  "@wallet_topUpToLevelFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@wallet_topUpToLevelFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_successTitle": "Recharge réussie · Crédité",
   "wallet_tapAnywhere": "Appuyez n'importe où pour continuer",
   "wallet_successBarrier": "Recharge réussie",
-
   "creator_title": "Centre Partenaires",
   "creator_statSeries": "Séries",
   "creator_statPlays": "Vues",
@@ -501,7 +729,6 @@
   "creator_menuRequirement": "Exigences d'upload",
   "creator_menuRevenue": "Règles de partage",
   "creator_menuLangPriv": "Langues & confidentialité",
-
   "invite_title": "Inviter des amis",
   "invite_stepsTitle": "Comment ça marche",
   "invite_step1Title": "Partagez votre code",
@@ -515,17 +742,27 @@
   "invite_loginToGen": "Connectez-vous pour générer votre code",
   "invite_messageCopied": "Message copié — collez-le pour votre ami",
   "invite_messageTemplateFmt": "🦅 Je regarde FalconFlix, c'est top ! Utilise mon code d'invitation {code} à l'inscription, on gagne chacun des Eagle Coins~",
-  "@invite_messageTemplateFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@invite_messageTemplateFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "invite_bigTitle": "Invitez des amis, regardez ensemble",
   "invite_bigSub": "Quand un ami s'inscrit avec votre code, vous gagnez tous les deux",
   "invite_myCode": "Mon code d'invitation",
   "invite_copyBtn": "Copier",
   "invite_codeCopiedFmt": "Code copié : {code}",
-  "@invite_codeCopiedFmt": { "placeholders": { "code": { "type": "String" } } },
-
+  "@invite_codeCopiedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "collect_emptyTitle": "Aucune série enregistrée",
   "collect_emptyBody": "Appuyez sur « Enregistrer » dans une série pour la retrouver ici.",
-
   "au_title": "Déverrouillage auto",
   "au_introTitle": "Ne coupez pas le binge",
   "au_introBody": "Activé, l'épisode suivant se déverrouille automatiquement avec des Eagle Coins",
@@ -537,24 +774,32 @@
   "au_rule1": "Les épisodes verrouillés se débloquent en coins, sans popup",
   "au_rule2": "Si le solde est bas, on vous propose de recharger ; pas de débit surprise",
   "au_rule3": "Épisodes uniquement ; le déverrouillage série entière nécessite confirmation manuelle",
-
   "rh_title": "Historique des recharges",
   "rh_loginToView": "Connectez-vous pour voir l'historique",
   "rh_emptyBody": "Aucune recharge\nRechargez pour débloquer plus de séries",
   "rh_fallback": "Recharge Eagle Coins",
-
   "re_title": "E-mail du reçu",
   "re_invalidEmail": "Veuillez saisir un e-mail valide",
   "re_saved": "E-mail du reçu enregistré",
   "re_label": "E-mail du reçu",
   "re_body": "Après une recharge réussie, Stripe envoie le reçu à cet e-mail ; il sera pré-rempli au prochain paiement.",
   "re_useAccountEmailFmt": "Utiliser l'e-mail de connexion {email}",
-  "@re_useAccountEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@re_useAccountEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "re_save": "Enregistrer",
-
   "common_comingSoonFmt": "{name} (à venir)",
-  "@common_comingSoonFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@common_comingSoonFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_episodeTitle": "Épisodes",
   "sheets_unlockAllBtn": "Tout débloquer",
   "sheets_unlockTitle": "Débloquer",
@@ -563,18 +808,48 @@
   "sheets_networkErr": "Erreur réseau. Réessayez.",
   "sheets_walletBalance": "Solde de pièces",
   "sheets_coinsFmt": "{coins} pièces",
-  "@sheets_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockShortFmt": "Il manque {coins} pièces — rechargez pour débloquer",
-  "@sheets_unlockShortFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockShortFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockNowFmt": "Débloquer · {coins} pièces",
-  "@sheets_unlockNowFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockNowFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_coinsNotEnough": "Pièces insuffisantes · Recharger",
   "sheets_tierForeverFmt": "{count} épisodes · pour toujours",
-  "@sheets_tierForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_tierForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockAllSub": "Débloquer la série",
   "sheets_unlockThisSub": "Débloquer cet épisode",
   "sheets_unlockAllForeverFmt": "Débloquer les {count} épisodes · pour toujours",
-  "@sheets_unlockAllForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_unlockAllForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockThisForever": "Débloquer cet épisode · pour toujours",
   "sheets_coinsShort": "pièces",
   "sheets_vipDiscount": "Tarif VIP plus bas",
@@ -591,7 +866,16 @@
   "sheets_remixComingFooter": "Remix IA arrive bientôt — restez connecté",
   "sheets_fallbackTitle": "Drama premium sur FalconFlix",
   "sheets_shareTextFmt": "{title} est génial — viens regarder sur FalconFlix ! {url}",
-  "@sheets_shareTextFmt": { "placeholders": { "title": { "type": "String" }, "url": { "type": "String" } } },
+  "@sheets_shareTextFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_posterTitle": "Poster",
   "sheets_posterMakeSub": "Créer un poster signature",
   "sheets_posterReady": "Partager le poster",
@@ -599,31 +883,69 @@
   "sheets_posterGenFail": "Échec de génération du poster",
   "sheets_posterExportFail": "Échec d'export du poster",
   "sheets_posterTagline": "Scanne pour regarder ensemble",
-
   "ixp_resumeTitle": "Reprends où tu t'es arrêté",
   "ixp_resumeBody": "Reprendre depuis ta dernière position ou recommencer depuis le début ?",
   "ixp_resumeFromStart": "Recommencer",
   "ixp_resumeContinue": "Continuer",
   "ixp_fetchFailedFmt": "Échec du chargement ({code})",
-  "@ixp_fetchFailedFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@ixp_fetchFailedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_dataAnomaly": "Données invalides (pas de nœud de départ)",
   "ixp_loadErrorFmt": "Erreur de chargement : {msg}",
-  "@ixp_loadErrorFmt": { "placeholders": { "msg": { "type": "String" } } },
+  "@ixp_loadErrorFmt": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeNotFoundFmt": "Nœud « {id} » introuvable",
-  "@ixp_nodeNotFoundFmt": { "placeholders": { "id": { "type": "String" } } },
+  "@ixp_nodeNotFoundFmt": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeJumpTitle": "Saut de nœud · test owner",
   "ixp_nodeJumpBody": "Masqué pour les utilisateurs normaux. Touche un nœud pour y sauter directement (les flags restent inchangés).",
   "ixp_segCountFmt": "{n} segs",
-  "@ixp_segCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ixp_segCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_lockedToastFmt": "Branche payante (après lancement {price} pièces) · gratuit cette fois",
-  "@ixp_lockedToastFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@ixp_lockedToastFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_fallbackTitle": "Drama interactif",
   "ixp_btnSkip": "Passer",
   "ixp_btnBack": "Retour",
   "ixp_segGenerating": "Cette partie est en cours de génération…",
   "ixp_btnContinue": "Continuer",
   "ixp_prepFmt": "Préparation {done} / {total}",
-  "@ixp_prepFmt": { "placeholders": { "done": { "type": "String" }, "total": { "type": "String" } } },
+  "@ixp_prepFmt": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_prep": "Préparation…",
   "ixp_yourChoice": "À toi de choisir",
   "ixp_endingFallback": "Fin",
@@ -633,8 +955,13 @@
   "ixp_endingHidden": "Fin cachée",
   "ixp_endingOpen": "Fin ouverte",
   "ixp_optionsCountFmt": "{n} options",
-  "@ixp_optionsCountFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@ixp_optionsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_busyAiCreatingTitle": "L'IA crée pour toi",
   "ip_busyAiCreatingSub": "Ta fin sur mesure se génère image par image…\nÇa prend quelques minutes, on te préviendra — explore autre chose en attendant",
   "ip_busyDirectorTitle": "Le réalisateur reprend sa place · La distribution entre pour toi",
@@ -642,29 +969,61 @@
   "ip_busyDoneTitle": "✦ Ta fin personnalisée est prête",
   "ip_busyDoneSub": "Sauvegardée pour toujours dans « Mes fins exclusives »",
   "ip_titleChipFmt": "Interactif · {n} fins",
-  "@ip_titleChipFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_titleChipFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_titleSub": "Chaque choix réécrit la fin",
   "ip_titleStart": "Commencer l'histoire",
   "ip_btnContinue": "Continuer",
   "ip_voteFmt": "{n}% choisissent ça",
-  "@ip_voteFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_voteFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_endingProgressFmt": "Fins débloquées {got} / {total}",
-  "@ip_endingProgressFmt": { "placeholders": { "got": { "type": "String" }, "total": { "type": "String" } } },
+  "@ip_endingProgressFmt": {
+    "placeholders": {
+      "got": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ip_btnDex": "Dex des fins",
   "ip_btnReplay": "Essayer un autre choix",
   "ip_dexTitle": "Dex des fins",
   "ip_dexLocked": "? ? ?",
   "ip_errorTitleFmt": "Validation de l'histoire échouée\n{err}",
-  "@ip_errorTitleFmt": { "placeholders": { "err": { "type": "String" } } },
+  "@ip_errorTitleFmt": {
+    "placeholders": {
+      "err": {
+        "type": "String"
+      }
+    }
+  },
   "ip_unlockTitleAi": "Crée une fin rien qu'à toi",
   "ip_unlockTitle": "Débloquer cette branche",
   "ip_demoFree": "Drama démo · essai gratuit",
   "ip_unlockBtnAi": "Commencer à créer pour moi",
   "ip_unlockBtn": "Débloquer la branche",
   "ip_unlockCancel": "Plus tard",
-
   "com_sceneSameFmt": "{n} articles dans cette scène",
-  "@com_sceneSameFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_sceneSameFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_sameInDrama": "Vu dans la série",
   "com_buyNow": "Acheter",
   "com_inStock": "En stock · livraison offerte",
@@ -673,14 +1032,26 @@
   "com_infoEpisode": "Épisode lié",
   "com_infoScene": "Apparaît dans la scène",
   "com_sceneTimeFmt": "à partir de {sec}s",
-  "@com_sceneTimeFmt": { "placeholders": { "sec": { "type": "String" } } },
+  "@com_sceneTimeFmt": {
+    "placeholders": {
+      "sec": {
+        "type": "String"
+      }
+    }
+  },
   "com_descTitle": "Description",
   "com_descBody": "Articles vus à l'écran, sélectionnés par les partenaires FalconFlix. Expédition par la plateforme, retours 7 jours sans question. (Texte d'exemple, remplacé lors de la connexion produit réelle.)",
   "com_addCart": "Ajouter au panier",
   "com_addCartToast": "Ajouté au panier (à venir)",
   "com_methodCoin": "Solde de pièces",
   "com_methodCoinBalanceFmt": "Solde {n}",
-  "@com_methodCoinBalanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_methodCoinBalanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_methodWechat": "WeChat Pay",
   "com_methodAlipay": "Alipay",
   "com_confirmOrder": "Vérifier la commande",
@@ -694,7 +1065,6 @@
   "com_total": "Total",
   "com_submitOrder": "Valider la commande",
   "com_submitToast": "Commande validée (paiement à venir)",
-
   "ss_tier66_label": "Illuminer",
   "ss_tier66_meaning": "Porte-bonheur",
   "ss_tier188_label": "Bouquet",
@@ -708,24 +1078,80 @@
   "ss_tier9999_label": "Légendaire",
   "ss_tier9999_meaning": "Tu es n°1",
   "ss_callForFmt": "Soutenir {name}",
-  "@ss_callForFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@ss_callForFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "ss_subtitle": "Plus de pièces · début plus rapide · meilleur classement",
   "ss_balanceFmt": "Mon solde {n}",
-  "@ss_balanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss_balanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss_localNote": "Beta · soutiens enregistrés localement, paiement en pièces au lancement",
   "ss_celebTitle": "Soutien envoyé !",
   "ss_forFmt": "Pour {name} · {label}",
-  "@ss_forFmt": { "placeholders": { "name": { "type": "String" }, "label": { "type": "String" } } },
+  "@ss_forFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "ss_pillCoinsFmt": "+{coins} pièces",
-  "@ss_pillCoinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@ss_pillCoinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "ss_progressFmt": "Début +{delta}% · maintenant {now}%",
-  "@ss_progressFmt": { "placeholders": { "delta": { "type": "String" }, "now": { "type": "String" } } },
+  "@ss_progressFmt": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
   "ss_kingFmt": "👑 Tu es le fan n°1 de TA ! V{level} {tier}",
-  "@ss_kingFmt": { "placeholders": { "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_kingFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_guardianFmt": "Tu es le gardien n°{rank} de TA · V{level} {tier}",
-  "@ss_guardianFmt": { "placeholders": { "rank": { "type": "String" }, "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_guardianFmt": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_tapToContinue": "Touche n'importe où pour continuer",
-
   "air_title": "Classement de casting",
   "air_sub": "Remplis la jauge pour débuter · plus de soutien, meilleur rang",
   "air_segCharRank": "Personnages",
@@ -741,40 +1167,95 @@
   "air_debuted": "Débuté",
   "air_leading": "En tête",
   "air_heatFmt": "Chaleur {pct}%",
-  "@air_heatFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@air_heatFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "air_doneShoot": "Tournage en cours",
   "air_toGoFmt": "{n}% avant débuts",
-  "@air_toGoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@air_toGoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "air_supportKingFmt": "Top fan : {name}",
-  "@air_supportKingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@air_supportKingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_emptyKingPlaceholder": "Champion recherché",
   "air_globalKing": "Top fan global",
   "air_tierBackFmt": "{tier} · soutient {name}",
-  "@air_tierBackFmt": { "placeholders": { "tier": { "type": "String" }, "name": { "type": "String" } } },
+  "@air_tierBackFmt": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_guardFmt": "Protège {name}",
-  "@air_guardFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@air_guardFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_secVideos": "Vidéos de TA",
   "cd_secMoments": "Moments intimes",
   "cd_actUnlock": "Débloquer en pièces",
   "cd_secCredits": "Dramas de TA",
   "cd_secBoardFmt": "Board de soutien · {n} supporters",
-  "@cd_secBoardFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@cd_secBoardFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "cd_actImInToo": "Je participe ›",
   "cd_swipeHint": "Scroll pour découvrir · soutenir · débloquer",
   "cd_introBadge": "Présentation de TA",
   "cd_debutProgress": "Campagne de début",
   "cd_debutHint": "Remplir pour lancer le tournage · acteurs réels + IA, drama interactif premium",
   "cd_clipToastFmt": "Lire le clip « {name} » · à venir",
-  "@cd_clipToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_clipToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_momentToastFmt": "Débloquer « {title} » · fonction pièces à venir",
-  "@cd_momentToastFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@cd_momentToastFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "cd_creditToastFmt": "« {name} » · fonction de visionnage à venir",
-  "@cd_creditToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_creditToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_kingBadge": "Top fan du drama",
   "cd_btnSupport": "Soutenir",
   "cd_btnChat": "Chat · débloquer",
-
   "sp_toolPosterName": "Poster du drama",
   "sp_toolPosterDesc": "Charge ton visage pour générer un poster vertical de toi dans ce drama.",
   "sp_toolPosterCost": "~5-25 pièces",
@@ -791,7 +1272,13 @@
   "sp_sectionHeader": "Playground IA",
   "sp_subtitle": "Mini-jeux IA liés à ton drama préféré.",
   "sp_creatingFmt": "Création pour « {title} »",
-  "@sp_creatingFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@sp_creatingFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "sp_chipLinked": "Lié à l'histoire",
   "sp_chipMall": "Mall drama",
   "sp_putInDramaTitle": "Mets-toi dans le drama",
@@ -801,10 +1288,22 @@
   "sp_sceneMallBody": "Parcours les articles à l'écran, produits de scène et collabs créateurs.",
   "spf_settingsTitle": "Paramètres de l'outil",
   "spf_linkedToFmt": "Lié à « {title} »",
-  "@spf_linkedToFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@spf_linkedToFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "spf_chooseTool": "Choisir un outil",
   "spf_genBtnFmt": "Générer · {cost}",
-  "@spf_genBtnFmt": { "placeholders": { "cost": { "type": "String" } } },
+  "@spf_genBtnFmt": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
   "spf_noPhotoBtn": "Charge d'abord une photo",
   "spf_photoReady": "Photo prête",
   "spf_uploadPhoto": "Charge ta photo",
@@ -814,12 +1313,17 @@
   "spf_generatingSub": "On te place dans le drama, patience",
   "spf_genDoneTag": "Terminé",
   "spf_genDoneTitleFmt": "{tool} · prêt",
-  "@spf_genDoneTitleFmt": { "placeholders": { "tool": { "type": "String" } } },
+  "@spf_genDoneTitleFmt": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
   "spf_genDoneBody": "Sauve dans tes œuvres, partage, ou régénère.",
   "spf_btnSave": "Enregistrer dans mes œuvres",
   "spf_savedToast": "Enregistré (à venir)",
   "spf_shareLabel": "Création IA",
-
   "cui_chipAI": "Interactif IA",
   "cui_chipMetaverse": "Univers métavers",
   "cui_title": "Métavers des personnages",
@@ -834,7 +1338,6 @@
   "cui_step4Title": "Cameo & immersion",
   "cui_step4Desc": "Débloque des histoires privées et des « moments profonds » — écris-toi même dans le drama.",
   "cui_footer": "Chaque vote que tu lances réécrit qui sera le prochain protagoniste.",
-
   "com2_title": "Communauté",
   "com2_chipPlaza": "Place des dramas",
   "com2_emptyHint": "Aucun post pour l'instant — sois le premier",
@@ -845,60 +1348,114 @@
   "com2_postHint": "Partage ce que ce drama t'a fait, recommande-le…",
   "com2_publish": "Publier",
   "com2_attachDrama": "Joindre ce drama",
-
   "dhc_connected": "Connecté",
   "dhc_connecting": "Connexion",
   "dhc_ended": "Terminé",
   "dhc_error": "Erreur",
   "dhc_connectingHint": "Connexion en cours…patiente",
   "dhc_talkingFmt": "{name} parle…",
-  "@dhc_talkingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@dhc_talkingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dhc_listening": "Je t'écoute…",
   "dhc_backLabel": "Retour",
   "dhc_actorsReady": "Les acteurs prennent place…",
-
   "ss2_searchHint": "Cherche drama / acteur / tag",
   "ss2_history": "Recherches récentes",
   "ss2_clear": "Effacer",
   "ss2_hot": "Recherches tendance",
   "ss2_hotBadge": "Tendance",
   "ss2_noResultFmt": "Aucun drama trouvé pour « {q} »",
-  "@ss2_noResultFmt": { "placeholders": { "q": { "type": "String" } } },
+  "@ss2_noResultFmt": {
+    "placeholders": {
+      "q": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_foundFmt": "{n} dramas trouvés",
-  "@ss2_foundFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss2_foundFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_chipCEO": "Crush patron",
   "ss2_chipTimeTravel": "Voyage temporel",
   "ss2_chipMystery": "Mystère",
   "ss2_chipModern": "Romance moderne",
   "ss2_chipSweetPet": "Romance sucrée",
-
   "rk_emptyCat": "Pas de classement dans cette catégorie",
   "rk_hotTitle": "Classement tendance",
   "rk_hotSub": "Tri en direct selon la chaleur du jour",
   "rk_top1Today": "# 1  le plus chaud aujourd'hui",
   "rk_heatFmt": "{plays} chaleur · en hausse",
-  "@rk_heatFmt": { "placeholders": { "plays": { "type": "String" } } },
+  "@rk_heatFmt": {
+    "placeholders": {
+      "plays": {
+        "type": "String"
+      }
+    }
+  },
   "rk_chipUrban": "Urbain",
   "rk_chipFinished": "Terminé",
   "rk_chipRomance": "Romance",
-
   "aic_lowEnergyNag": "Oh… j'ai un peu fatigué, recharge-moi s'il te plaît~",
   "aic_chargedReply": "Merci ! Pleine forme, on continue~",
   "aic_chargeToast": "Recharge · facturation en pièces en cours (mock plein)",
   "aic_energyFmt": "Énergie {pct}%",
-  "@aic_energyFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aic_energyFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aic_chargeBtnFmt": "Recharger pour {name}",
-  "@aic_chargeBtnFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@aic_chargeBtnFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aic_hintFmt": "Dis quelque chose à {name}…",
-  "@aic_hintFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@aic_hintFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lg_needLevelFmt": "{name} · V{level} requis",
-  "@lg_needLevelFmt": { "placeholders": { "name": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_needLevelFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_topUpFmt": "Recharge {amount} pour atteindre V{level}",
-  "@lg_topUpFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_topUpFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_btnTopUp": "Recharger pour upgrader",
   "lg_btnLater": "Plus tard",
-
   "me_defaultName": "Spectateur FalconFlix",
   "me_avatarUpdated": "Avatar mis à jour",
   "me_avatarUpdateFailed": "Échec de mise à jour, réessayez",
@@ -909,8 +1466,13 @@
   "me_uploading": "Envoi…",
   "me_changeAvatar": "Changer l'avatar",
   "me_copiedFmt": "Copié : {value}",
-  "@me_copiedFmt": { "placeholders": { "value": { "type": "String" } } },
-
+  "@me_copiedFmt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "tier_commoner": "Roturier",
   "tier_rookie": "Débutant",
   "tier_advanced": "Avancé",
@@ -918,23 +1480,43 @@
   "tier_tycoon": "Tycoon",
   "tier_deity": "Divin",
   "tier_legend": "Légende",
-
   "rch_statusPaid": "Crédité",
   "rch_statusPending": "En attente",
   "rch_statusCanceled": "Annulé",
   "rch_statusProcessing": "En cours",
-
   "data_goodsCoinsFmt": "{n} pièces",
-  "@data_goodsCoinsFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@data_goodsCoinsFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_justNow": "À l'instant",
   "time_minutesAgoFmt": "il y a {n} min",
-  "@time_minutesAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_minutesAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_hoursAgoFmt": "il y a {n} h",
-  "@time_hoursAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_hoursAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_daysAgoFmt": "il y a {n} j",
-  "@time_daysAgoFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@time_daysAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "notify_typeRecharge": "Recharge",
   "notify_typeInvite": "Invitation",
   "notify_typeSystem": "Système",

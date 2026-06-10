@@ -1204,8 +1204,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login_pwHint =>
       'أول تسجيل دخول بكلمة مرور يُنشئ الحساب تلقائيًا بهذه الكلمة';
 
-  @override
-  String get login_devHint => 'تجريبي: أدخل الرمز 749301 للدخول مباشرة';
 
   @override
   String get login_quickLogin => 'دخول سريع';
@@ -1237,7 +1235,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get login_emailNotConfigured =>
-      'قناة البريد غير مفعّلة؛ استخدم الرمز التجريبي 749301';
+      'خدمة البريد الإلكتروني غير متاحة مؤقتًا. يرجى المحاولة لاحقًا.';
 
   @override
   String get login_networkError =>

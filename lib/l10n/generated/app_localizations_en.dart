@@ -1218,8 +1218,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login_pwHint =>
       'First-time password sign-in will auto-register and set this password';
 
-  @override
-  String get login_devHint => 'Dev: enter code 749301 to bypass';
 
   @override
   String get login_quickLogin => 'Quick Sign-in';
@@ -1251,7 +1249,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login_emailNotConfigured =>
-      'Email channel not configured; use test code 749301';
+      'Email service is temporarily unavailable. Please try again later.';
 
   @override
   String get login_networkError =>

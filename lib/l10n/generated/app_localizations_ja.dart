@@ -1180,8 +1180,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get login_pwHint => '初回パスワードログインで自動登録されます';
 
-  @override
-  String get login_devHint => '開発テスト：認証コード 749301 で直接ログイン可';
 
   @override
   String get login_quickLogin => '簡単ログイン';
@@ -1211,7 +1209,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get login_codeSent => '認証コードを送信しました。メールをご確認ください。';
 
   @override
-  String get login_emailNotConfigured => 'メール送信未設定；テストコード 749301 でログイン可';
+  String get login_emailNotConfigured => 'メール送信が一時的に利用できません。後でもう一度お試しください。';
 
   @override
   String get login_networkError => 'ログイン失敗。ネットワークをご確認のうえ再試行してください';

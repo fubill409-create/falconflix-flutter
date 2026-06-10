@@ -1180,8 +1180,6 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get login_pwHint => '최초 비밀번호 로그인 시 자동 가입되어 해당 비밀번호로 설정됩니다';
 
-  @override
-  String get login_devHint => '개발 테스트: 인증번호 749301 입력 시 바로 로그인';
 
   @override
   String get login_quickLogin => '간편 로그인';
@@ -1211,7 +1209,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get login_codeSent => '인증번호를 보냈습니다. 메일을 확인해주세요.';
 
   @override
-  String get login_emailNotConfigured => '메일 발송 미설정; 테스트 코드 749301 로 로그인 가능';
+  String get login_emailNotConfigured => '이메일 발송이 일시적으로 불가합니다. 잠시 후 다시 시도해 주세요.';
 
   @override
   String get login_networkError => '로그인 실패. 네트워크 확인 후 다시 시도하세요';

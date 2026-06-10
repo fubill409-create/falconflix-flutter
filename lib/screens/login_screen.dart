@@ -14,7 +14,7 @@ import '../theme.dart';
 import '../ui/kit.dart';
 
 /// 仪式感登录页：金鹰品牌 + 渐变环境光 + 玻璃卡。
-/// 邮箱 + 验证码登录（开发期测试码 749301 可直登）。成功后 pop(true)。
+/// 邮箱 + 验证码登录。成功后 pop(true)。
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -379,15 +379,14 @@ class _LoginScreenState extends State<LoginScreen> {
             glow: FF.purple,
             onTap: _submitting ? () {} : _login,
           ),
-          const SizedBox(height: 12),
-          Center(
-            child: Text(
-                _passwordMode
-                    ? AppLocalizations.of(context).login_pwHint
-                    : AppLocalizations.of(context).login_devHint,
-                style: TextStyle(
-                    color: FF.dim.withValues(alpha: 0.7), fontSize: 11)),
-          ),
+          if (_passwordMode) ...[
+            const SizedBox(height: 12),
+            Center(
+              child: Text(AppLocalizations.of(context).login_pwHint,
+                  style: TextStyle(
+                      color: FF.dim.withValues(alpha: 0.7), fontSize: 11)),
+            ),
+          ],
         ],
       ),
     );
@@ -440,13 +439,16 @@ class _LoginScreenState extends State<LoginScreen> {
               label: 'LINE',
               onTap: _lineLogin,
             ),
-            const SizedBox(width: 26),
-            _socialIconBtn(
-              glyph: const _FacebookGlyph(size: 18),
-              bg: const Color(0xFF1877F2),
-              label: 'Facebook',
-              onTap: _facebookLogin,
-            ),
+            // Facebook 未配置 AppId 时整个按钮不渲染——绝不给审核员留"正在接入中"的半成品入口
+            if (kFacebookAppId.isNotEmpty) ...[
+              const SizedBox(width: 26),
+              _socialIconBtn(
+                glyph: const _FacebookGlyph(size: 18),
+                bg: const Color(0xFF1877F2),
+                label: 'Facebook',
+                onTap: _facebookLogin,
+              ),
+            ],
           ],
         ),
       ],

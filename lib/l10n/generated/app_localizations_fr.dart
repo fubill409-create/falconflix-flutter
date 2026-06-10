@@ -1226,8 +1226,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_pwHint =>
       'La première connexion par mot de passe crée le compte avec ce mot de passe';
 
-  @override
-  String get login_devHint => 'Test : entrez 749301 pour passer';
 
   @override
   String get login_quickLogin => 'Connexion rapide';
@@ -1259,7 +1257,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get login_emailNotConfigured =>
-      'Canal e-mail non configuré ; utilisez le code test 749301';
+      'Service e-mail temporairement indisponible. Veuillez réessayer plus tard.';
 
   @override
   String get login_networkError =>

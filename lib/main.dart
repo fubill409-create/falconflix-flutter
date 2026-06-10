@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,6 +30,9 @@ void main() async {
     // ignore: discarded_futures
     PushService.init();
   }
+  // 竖屏短剧 App：全局锁竖屏（横屏会破版，且审核员旋转 iPad 必试）
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp]);
   // 全屏 edge-to-edge：视频画到系统状态栏/手势条底下，消除上下黑边
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -63,7 +67,9 @@ class FalconFlixApp extends StatelessWidget {
         ],
         home: const SplashScreen(),
         // 全局版本角标——一处覆盖所有页面，右上角，不挡操作。
+        // 仅内测包显示；正式包（App Store 审核/上架）必须隐藏，否则像测试版。
         builder: (context, child) {
+          if (kReleaseMode) return child!;
           return Stack(
             children: [
               ?child,

@@ -1,13 +1,11 @@
 {
   "@@locale": "ja",
   "appTitle": "FalconFlix",
-
   "tabHome": "ホーム",
   "tabTheater": "劇場",
   "tabInteractive": "インタラクティブ",
   "tabCharacter": "キャラ",
   "tabMe": "マイ",
-
   "common_cancel": "キャンセル",
   "common_confirm": "確認",
   "common_save": "保存",
@@ -27,7 +25,6 @@
   "common_edit": "編集",
   "common_delete": "削除",
   "common_send": "送信",
-
   "me_title": "マイ",
   "me_loginPrompt": "ログイン / 新規登録",
   "me_loginSubtitle": "ログインしてライブラリ・ウォレット・インタラクティブドラマを使う",
@@ -55,7 +52,6 @@
   "me_rowHelpAbout": "ヘルプ・このアプリ",
   "me_rowAbout": "FalconFlix について",
   "me_logoutConfirm": "ログアウトしますか？",
-
   "history_title": "視聴履歴",
   "history_emptyTitle": "まだ視聴履歴がありません",
   "history_emptyBody": "視聴した話数がここに表示されます。続きから簡単に再生できます。",
@@ -65,16 +61,33 @@
   "history_episodeFallback": "シリーズ全体",
   "history_unknown": "（不明なタイトル）",
   "history_selectedCount": "{n} 件選択中",
-  "@history_selectedCount": { "placeholders": { "n": { "type": "int" } } },
+  "@history_selectedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmTitle": "{n} 件の履歴を削除しますか？",
-  "@history_delConfirmTitle": { "placeholders": { "n": { "type": "int" } } },
+  "@history_delConfirmTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmBody": "この操作は取り消せません。作品自体には影響しません。再生時に新しい履歴が作成されます。",
   "history_clearConfirmTitle": "全ての視聴履歴を削除しますか？",
   "history_clearConfirmBody": "この操作は取り消せません。再生時に新しい履歴が作成されます。",
   "history_toastDeleted": "{n} 件削除しました",
-  "@history_toastDeleted": { "placeholders": { "n": { "type": "int" } } },
+  "@history_toastDeleted": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_toastCleared": "削除しました",
-
   "orders_title": "ご注文",
   "orders_tabFull": "シリーズ",
   "orders_tabEpisode": "1 話",
@@ -90,13 +103,18 @@
   "orders_kvPayMethod": "支払方法",
   "orders_kvTime": "日時",
   "orders_orderCopied": "注文番号をコピーしました · {orderNo}",
-  "@orders_orderCopied": { "placeholders": { "orderNo": { "type": "String" } } },
+  "@orders_orderCopied": {
+    "placeholders": {
+      "orderNo": {
+        "type": "String"
+      }
+    }
+  },
   "orders_paid": "決済済",
   "orders_pending": "未決済",
   "orders_payEagle": "Eagle コイン",
   "orders_unknownTitle": "（不明なタイトル）",
   "orders_rechargeFallback": "Eagle コインチャージ",
-
   "inbox_title": "通知",
   "inbox_tabAll": "すべて",
   "inbox_tabRecharge": "チャージ",
@@ -107,7 +125,6 @@
   "inbox_emptyTitle": "メッセージはまだありません",
   "inbox_emptyBody": "チャージ完了、招待報酬、キャンペーン、システム通知が届きます。",
   "inbox_loginBody": "ログインすると通知を確認できます。",
-
   "settings_title": "設定",
   "settings_sectionNotificationPlayback": "通知と再生",
   "settings_sectionAccount": "アカウント",
@@ -122,8 +139,13 @@
   "settings_clearCacheBody": "ダウンロード済の動画と画像キャッシュを削除します。購入履歴・ログイン・設定は影響を受けません。",
   "settings_clearCacheAction": "今すぐ削除",
   "settings_clearCacheDone": "{size} のキャッシュを削除しました",
-  "@settings_clearCacheDone": { "placeholders": { "size": { "type": "String" } } },
-
+  "@settings_clearCacheDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "notifyPrefs_title": "通知設定",
   "notifyPrefs_pushMaster": "プッシュ通知 全体",
   "notifyPrefs_pushMasterDesc": "オフにするとプッシュは停止しますが、アプリ内メッセージは届きます",
@@ -138,8 +160,13 @@
   "notifyPrefs_interactive": "インタラクティブ進捗",
   "notifyPrefs_interactiveDesc": "視聴中ドラマの新章・エンディング解放",
   "notifyPrefs_saveFailed": "保存失敗：{msg}",
-  "@notifyPrefs_saveFailed": { "placeholders": { "msg": { "type": "String" } } },
-
+  "@notifyPrefs_saveFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "playPrefs_title": "再生・ダウンロード設定",
   "playPrefs_autoplay": "次を自動再生",
   "playPrefs_autoplayDesc": "1 本見終わると次を自動再生",
@@ -152,7 +179,6 @@
   "playPrefs_quality1080": "フル HD 1080p",
   "playPrefs_wifiOnlyDownload": "Wi-Fi 時のみダウンロード",
   "playPrefs_wifiOnlyDownloadDesc": "インタラクティブ動画・オフライン保存は Wi-Fi 時のみ",
-
   "accountSec_title": "アカウントとセキュリティ",
   "accountSec_sectionLogin": "ログイン",
   "accountSec_sectionDeletion": "アカウント削除",
@@ -168,18 +194,22 @@
   "accountSec_saveNewPw": "新しいパスワードを保存",
   "accountSec_saving": "保存中…",
   "accountSec_pwUpdated": "パスワードを更新しました",
-
   "privacyPrefs_title": "プライバシー",
   "privacyPrefs_sectionData": "マイデータ",
   "privacyPrefs_sectionLegal": "規約とポリシー",
   "privacyPrefs_rowExport": "データダウンロード",
   "privacyPrefs_rowExportDesc": "GDPR / CCPA 準拠：全データの一括ダウンロードを申請",
   "privacyPrefs_rowPolicy": "プライバシーポリシー",
-
   "deleteAcc_title": "アカウント削除",
   "deleteAcc_inProgress": "アカウント削除を申請中",
   "deleteAcc_scheduledAt": "実行予定：{time}",
-  "@deleteAcc_scheduledAt": { "placeholders": { "time": { "type": "String" } } },
+  "@deleteAcc_scheduledAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_pendingHint": "7 日間のクーリング期間中は、ログインすることで削除をキャンセルできます。",
   "deleteAcc_cancelBtn": "削除を取り消す",
   "deleteAcc_willDelete": "アカウントを削除すると以下が消えます",
@@ -192,10 +222,22 @@
   "deleteAcc_reasonLabel": "削除理由（任意・改善に役立てます）",
   "deleteAcc_reasonHint": "ご意見をお聞かせください（任意）",
   "deleteAcc_typeToConfirm": "「{phrase}」と入力して確認してください",
-  "@deleteAcc_typeToConfirm": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeToConfirm": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_confirmPhrase": "アカウント削除",
   "deleteAcc_typeMismatch": "「{phrase}」を正確に入力してください",
-  "@deleteAcc_typeMismatch": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeMismatch": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_submit": "削除を申請",
   "deleteAcc_finalTitle": "最終確認",
   "deleteAcc_finalBody": "送信後、7 日間のクーリング期間が始まります。その間にログインすれば取消可。\n\n期限を過ぎるとデータは永久に削除され、復元できません。",
@@ -203,7 +245,6 @@
   "deleteAcc_submitted": "申請を受け付けました。7 日後に実行されます。",
   "deleteAcc_cancelled": "削除申請を取り消しました",
   "deleteAcc_thinkAgain": "やめておく",
-
   "dataExport_title": "データダウンロード",
   "dataExport_introTitle": "あなたのデータの控えを取得",
   "dataExport_introBody": "GDPR Article 15（EU）と CCPA（カリフォルニア）に基づき、当社が保有するあなたの個人データ全件を受け取る権利があります。\n\n申請後、ZIP で非同期に作成します：\n  · プロフィール / メール / 電話\n  · Eagle コイン残高と履歴\n  · 注文、視聴履歴、お気に入り\n  · コミュニティ投稿、インタラクティブ解放履歴\n\n準備完了したらアプリ内通知でお知らせします。ダウンロードリンクの有効期限は 7 日です。",
@@ -213,12 +254,17 @@
   "dataExport_statusExpired": "期限切れ · 再申請してください",
   "dataExport_statusFailed": "生成失敗 · 再申請してください",
   "dataExport_expiresAt": "リンク有効期限 {time}",
-  "@dataExport_expiresAt": { "placeholders": { "time": { "type": "String" } } },
+  "@dataExport_expiresAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "dataExport_downloadBtn": "ダウンロード",
   "dataExport_submitBtn": "ダウンロードを申請",
   "dataExport_submitting": "送信中…",
   "dataExport_submitted": "申請を受け付けました。準備完了次第お知らせします。",
-
   "helpAbout_title": "ヘルプ・このアプリ",
   "helpAbout_sectionHelp": "ヘルプ",
   "helpAbout_sectionAbout": "このアプリ",
@@ -228,7 +274,6 @@
   "helpAbout_rowSupportDesc": "1 対 1 のチケットチャット",
   "helpAbout_rowFeedback": "フィードバック",
   "helpAbout_rowFeedbackDesc": "提案・バグ報告",
-
   "faq_title": "ヘルプセンター",
   "faq_catAll": "すべて",
   "faq_catAccount": "アカウント",
@@ -238,7 +283,6 @@
   "faq_catOther": "その他",
   "faq_emptyTitle": "FAQ はまだありません",
   "faq_emptyBody": "問題が発生した場合は「サポートに連絡」からチケットを作成してください。",
-
   "tickets_title": "サポートに連絡",
   "tickets_newBtn": "新規チケット",
   "tickets_emptyTitle": "チケットはまだありません",
@@ -249,12 +293,17 @@
   "tickets_speakerSelf": "自分",
   "tickets_replyHint": "返信…",
   "tickets_sendFailed": "送信失敗：{msg}",
-  "@tickets_sendFailed": { "placeholders": { "msg": { "type": "String" } } },
+  "@tickets_sendFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "tickets_statusPending": "対応待ち",
   "tickets_statusReplied": "返信済",
   "tickets_statusResolved": "解決済",
   "tickets_statusClosed": "クローズ",
-
   "feedback_titleTicket": "新規チケット",
   "feedback_titleFeedback": "フィードバック",
   "feedback_typeBug": "バグ報告",
@@ -273,15 +322,19 @@
   "feedback_submitted": "送信しました。サポートから返信します。",
   "feedback_minLength": "5 文字以上で入力してください",
   "feedback_tip": "ヒント：バグ報告では再現手順 + スクリーンショット（近日対応）を添えると早く特定できます。\nバージョン：{version}",
-  "@feedback_tip": { "placeholders": { "version": { "type": "String" } } },
-
+  "@feedback_tip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "lang_zh": "中文",
   "lang_en": "English",
   "lang_ja": "日本語",
   "lang_ko": "한국어",
   "lang_ar": "العربية",
   "lang_fr": "Français",
-
   "home_noDramaData": "まだドラマがありません",
   "home_localOnlyLike": "ローカル動画はいいね非対応",
   "home_localOnlyCollect": "ローカル動画は保存非対応",
@@ -296,8 +349,13 @@
   "home_btnWatch": "観る",
   "home_btnDetails": "詳細",
   "home_loadFailedFmt": "読み込み失敗\n{message}",
-  "@home_loadFailedFmt": { "placeholders": { "message": { "type": "String" } } },
-
+  "@home_loadFailedFmt": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreAll": "すべて",
   "theater_genreRomance": "恋愛",
   "theater_genreUrban": "都市",
@@ -310,12 +368,32 @@
   "theater_today": "今日のおすすめ",
   "theater_labelShort": "ショートドラマ",
   "theater_continueWatch": "続きを見る · {name}",
-  "@theater_continueWatch": { "placeholders": { "name": { "type": "String" } } },
+  "@theater_continueWatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "theater_heatFmt": "視聴 {heat}",
-  "@theater_heatFmt": { "placeholders": { "heat": { "type": "String" } } },
+  "@theater_heatFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreHeatFmt": "{tag} · 視聴 {heat}",
-  "@theater_genreHeatFmt": { "placeholders": { "tag": { "type": "String" }, "heat": { "type": "String" } } },
-
+  "@theater_genreHeatFmt": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      },
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cast_sectionPlaying": "配信中＆オーディション中",
   "cast_oppRanking": "キャスティング機会 ›",
   "cast_universeTitle": "キャラクターメタバース",
@@ -325,26 +403,63 @@
   "cast_demoSub": "君が選ぶ──一言からドラマが始まる",
   "cast_inPlay": "配信中",
   "cast_heatTagFmt": "視聴 {heat} · {tag}",
-  "@cast_heatTagFmt": { "placeholders": { "heat": { "type": "String" }, "tag": { "type": "String" } } },
+  "@cast_heatTagFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
   "cast_heatOnlyFmt": "視聴 {heat}",
-  "@cast_heatOnlyFmt": { "placeholders": { "heat": { "type": "String" } } },
-
+  "@cast_heatOnlyFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cb_sectionSupport": "応援ランキング · TAを推す人たち",
   "cb_goSupport": "応援する · TAをデビューへ",
   "cb_seeBio": "プロフィールを見る ›",
   "cb_pollHeatPct": "応援 {pct}%",
-  "@cb_pollHeatPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_pollHeatPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_debuted": "撮影開始済み",
   "cb_toDebutPct": "デビューまで {pct}%",
-  "@cb_toDebutPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_toDebutPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_totalSupport": "累計応援",
   "cb_coinsFmt": "{coins} イーグルコイン",
-  "@cb_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@cb_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "cb_topBacker": "一番の応援者",
   "cb_emptyBackers": "まだ応援者がいません · TAの一番手になろう",
   "cb_titleSupportFmt": "{name} · 応援ランキング",
-  "@cb_titleSupportFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@cb_titleSupportFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aid_titleHeader": "AI インタラクティブドラマ",
   "aid_aceBadge": "エース",
   "aid_tagline": "あなたの選択が、結末を書き換える。",
@@ -357,7 +472,13 @@
   "aid_castingBadge": "キャスティング中",
   "aid_producingBadge": "制作中",
   "aid_castVoteFmt": "キャストに投票 · {pct}%",
-  "@aid_castVoteFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aid_castVoteFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aid_manifesto1": "あなたはもう、ただ物語を見るだけじゃない。",
   "aid_manifesto2": "主人公の代わりに選択する──物語があなたの結末を書く。",
   "aid_manifesto3": "一つひとつの選択が、世界との対話になる。",
@@ -380,37 +501,76 @@
   "aid_liveSub": "本物のインタラクティブドラマ · あなたの選択が物語を変える",
   "aid_fallbackHook": "あなたの選択が、彼女の物語を変える",
   "aid_aceCardBadge": "エースインタラクティブ · プレイ可能",
-
   "player_btnLiked": "いいね済み",
   "player_btnEpisodes": "エピソード",
   "player_btnAiCast": "AI カメオ",
   "player_episodeNumFmt": "第 {n} 話",
-  "@player_episodeNumFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_episodeNumFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_switchEpFmt": "第 {n} 話へ切替（バックエンド対応中）",
-  "@player_switchEpFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_switchEpFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_unlockHint": "作品ページからイーグルコインで解放してください",
   "player_comingSoonFmt": "{label}（開発中）",
-  "@player_comingSoonFmt": { "placeholders": { "label": { "type": "String" } } },
+  "@player_comingSoonFmt": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "player_sceneSame": "劇中アイテム",
-
   "detail_unlockThis": "本話",
   "detail_unlockNext5": "次 5 話",
   "detail_unlockNext10": "次 10 話",
   "detail_unlockAll": "全話",
   "detail_episodeCountFmt": "全 {n} 話",
-  "@detail_episodeCountFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@detail_episodeCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "detail_drawerEpisodes": "話一覧",
   "detail_unlockSuccess": "解放完了",
   "detail_coinBalanceFmt": "残高 {coins} イーグルコイン",
-  "@detail_coinBalanceFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_coinBalanceFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playsCountFmt": "{n} 回視聴",
-  "@detail_playsCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@detail_playsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "detail_priceUnlockFmt": "{coins} イーグルコインで解放",
-  "@detail_priceUnlockFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_priceUnlockFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playNow": "今すぐ再生",
   "detail_playThis": "この作品を再生",
   "detail_noEpisodes": "再生可能なエピソードがありません",
-
   "login_welcome": "FalconFlix へようこそ",
   "login_subtitle": "ログインで視聴・イーグルコイン・インタラクティブドラマ解放",
   "login_emailLabel": "メール",
@@ -425,7 +585,6 @@
   "login_loggingIn": "ログイン中…",
   "login_loginOrRegister": "ログイン / 登録",
   "login_pwHint": "初回パスワードログインで自動登録されます",
-  "login_devHint": "開発テスト：認証コード 749301 で直接ログイン可",
   "login_quickLogin": "簡単ログイン",
   "login_recommended": "おすすめ",
   "login_success": "ログイン成功",
@@ -435,30 +594,67 @@
   "login_passwordRequired": "パスワードをご入力ください",
   "login_codeRequired": "認証コードをご入力ください",
   "login_codeSent": "認証コードを送信しました。メールをご確認ください。",
-  "login_emailNotConfigured": "メール送信未設定；テストコード 749301 でログイン可",
+  "login_emailNotConfigured": "メール送信が一時的に利用できません。後でもう一度お試しください。",
   "login_networkError": "ログイン失敗。ネットワークをご確認のうえ再試行してください",
   "login_oauthErrorFmt": "{provider} ログイン失敗：{code}",
-  "@login_oauthErrorFmt": { "placeholders": { "provider": { "type": "String" }, "code": { "type": "String" } } },
+  "@login_oauthErrorFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthRetryFmt": "{provider} ログイン失敗。しばらくしてから再試行してください",
-  "@login_oauthRetryFmt": { "placeholders": { "provider": { "type": "String" } } },
+  "@login_oauthRetryFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingFmt": "{name} ログインは準備中",
-  "@login_oauthComingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@login_oauthComingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingBody": "まもなく対応〜今はメールコードまたはパスワードでログインください。",
   "login_gotIt": "了解しました",
   "login_googleNoToken": "Google が idToken を返しません。資格情報をご確認ください",
-
   "about_tagline": "FalconFlix · 見る価値のあるドラマ",
   "about_body": "FalconFlix はグローバル向けプレミアム短編ドラマプラットフォームです。ドラマを観る、AI キャラと話す、見ながらショッピング。映画級の制作と AI のクリエイティブで、一フレームごとに価値を。",
   "about_userAgreement": "利用規約",
   "about_privacyPolicy": "プライバシーポリシー",
   "about_legalUpdatedFmt": "最終更新：{date}",
-  "@about_legalUpdatedFmt": { "placeholders": { "date": { "type": "String" } } },
+  "@about_legalUpdatedFmt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "about_operatingEntity": "運営会社",
   "about_contactEmailFmt": "連絡先：{email}",
-  "@about_contactEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@about_contactEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "about_aboutTitleFmt": "{appName} について",
-  "@about_aboutTitleFmt": { "placeholders": { "appName": { "type": "String" } } },
-
+  "@about_aboutTitleFmt": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_title": "イーグルコインをチャージ",
   "wallet_chooseRecharge": "パックを選ぶ",
   "wallet_introNote": "イーグルコインでエピソードや応援機能を解放",
@@ -471,10 +667,22 @@
   "wallet_packsComingBody": "お得なコインパックを準備中",
   "wallet_coins": "イーグルコイン",
   "wallet_giftFmt": "+{coins} ボーナス",
-  "@wallet_giftFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@wallet_giftFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_bestDeal": "一番お得",
   "wallet_payNowFmt": "今すぐ {price} で支払う",
-  "@wallet_payNowFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@wallet_payNowFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_payNow": "今すぐ支払う",
   "wallet_loginFirst": "先にログインしてください",
   "wallet_openPayFail": "決済ページを開けません。再試行ください",
@@ -483,15 +691,35 @@
   "wallet_loginToView": "ログインして表示",
   "wallet_legendPeak": "レジェンド到達・MAX",
   "wallet_toLevelFmt": "V{level} まで",
-  "@wallet_toLevelFmt": { "placeholders": { "level": { "type": "String" } } },
+  "@wallet_toLevelFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_paidUsdFmt": "累計チャージ {amount}",
-  "@wallet_paidUsdFmt": { "placeholders": { "amount": { "type": "String" } } },
+  "@wallet_paidUsdFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_topUpToLevelFmt": "あと {amount} で V{level}",
-  "@wallet_topUpToLevelFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@wallet_topUpToLevelFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_successTitle": "チャージ成功・反映済み",
   "wallet_tapAnywhere": "画面をタップして続行",
   "wallet_successBarrier": "チャージ成功",
-
   "creator_title": "パートナーセンター",
   "creator_statSeries": "本",
   "creator_statPlays": "再生",
@@ -501,7 +729,6 @@
   "creator_menuRequirement": "アップロード要件",
   "creator_menuRevenue": "配分ルール",
   "creator_menuLangPriv": "言語とプライバシー",
-
   "invite_title": "友達を招待",
   "invite_stepsTitle": "招待の流れ",
   "invite_step1Title": "招待コードをシェア",
@@ -515,17 +742,27 @@
   "invite_loginToGen": "ログインして招待コードを発行",
   "invite_messageCopied": "メッセージをコピーしました。友達に送ってください",
   "invite_messageTemplateFmt": "🦅 FalconFlix で短編ドラマ観てるんだけど超おもしろい！登録時に招待コード {code} を入れて、二人ともコインゲット〜",
-  "@invite_messageTemplateFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@invite_messageTemplateFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "invite_bigTitle": "友達を招待して一緒に観よう",
   "invite_bigSub": "友達があなたのコードで登録すると、双方がコインを獲得",
   "invite_myCode": "あなたの招待コード",
   "invite_copyBtn": "コピー",
   "invite_codeCopiedFmt": "コード {code} をコピーしました",
-  "@invite_codeCopiedFmt": { "placeholders": { "code": { "type": "String" } } },
-
+  "@invite_codeCopiedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "collect_emptyTitle": "まだお気に入りなし",
   "collect_emptyBody": "ドラマで「保存」をタップすると、ここに表示されます。",
-
   "au_title": "自動解放",
   "au_introTitle": "視聴を止めない",
   "au_introBody": "オンにすると、次の話を自動でコイン解放し続けて視聴できます",
@@ -537,24 +774,32 @@
   "au_rule1": "ロック中のエピソードはポップアップなしで自動解放",
   "au_rule2": "残高不足時はチャージを促します。勝手な引き落としはありません",
   "au_rule3": "単話解放のみ対象。全話解放は手動確認が必要",
-
   "rh_title": "チャージ履歴",
   "rh_loginToView": "ログインして履歴を表示",
   "rh_emptyBody": "チャージ履歴なし\nチャージしてもっと観よう",
   "rh_fallback": "コインチャージ",
-
   "re_title": "領収書メール",
   "re_invalidEmail": "有効なメールアドレスをご入力ください",
   "re_saved": "領収書メールを保存しました",
   "re_label": "領収書メール",
   "re_body": "チャージ成功後、Stripe から領収書がこのメールに送信されます。次回のチェックアウトでも自動入力されます。",
   "re_useAccountEmailFmt": "ログインメール {email} を使う",
-  "@re_useAccountEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@re_useAccountEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "re_save": "保存",
-
   "common_comingSoonFmt": "{name}（開発中）",
-  "@common_comingSoonFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@common_comingSoonFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_episodeTitle": "エピソード",
   "sheets_unlockAllBtn": "すべて解放",
   "sheets_unlockTitle": "解放",
@@ -563,18 +808,48 @@
   "sheets_networkErr": "ネットワークエラー。再試行してください。",
   "sheets_walletBalance": "コイン残高",
   "sheets_coinsFmt": "{coins} コイン",
-  "@sheets_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockShortFmt": "あと {coins} コイン不足 — チャージで解放",
-  "@sheets_unlockShortFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockShortFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockNowFmt": "今すぐ解放 · {coins} コイン",
-  "@sheets_unlockNowFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockNowFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_coinsNotEnough": "コイン不足 · チャージへ",
   "sheets_tierForeverFmt": "{count} 話 · 永久視聴",
-  "@sheets_tierForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_tierForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockAllSub": "全話を解放",
   "sheets_unlockThisSub": "この話を解放",
   "sheets_unlockAllForeverFmt": "全 {count} 話を解放 · 永久視聴",
-  "@sheets_unlockAllForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_unlockAllForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockThisForever": "この話を解放 · 永久視聴",
   "sheets_coinsShort": "コイン",
   "sheets_vipDiscount": "VIPはさらにお得",
@@ -591,7 +866,16 @@
   "sheets_remixComingFooter": "AIリミックスは近日公開 · お楽しみに",
   "sheets_fallbackTitle": "FalconFlixの良作ドラマ",
   "sheets_shareTextFmt": "{title} が面白すぎる！FalconFlixで一緒に見よう！{url}",
-  "@sheets_shareTextFmt": { "placeholders": { "title": { "type": "String" }, "url": { "type": "String" } } },
+  "@sheets_shareTextFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_posterTitle": "ポスター",
   "sheets_posterMakeSub": "オリジナルポスターを作成",
   "sheets_posterReady": "ポスターをシェア",
@@ -599,31 +883,69 @@
   "sheets_posterGenFail": "ポスター生成に失敗",
   "sheets_posterExportFail": "ポスター書き出しに失敗",
   "sheets_posterTagline": "スキャンして一緒に観よう",
-
   "ixp_resumeTitle": "前回の続きから",
   "ixp_resumeBody": "前回の場所から続きを見ますか？それとも最初から見直しますか？",
   "ixp_resumeFromStart": "最初から",
   "ixp_resumeContinue": "続きから",
   "ixp_fetchFailedFmt": "ストーリー取得失敗（{code}）",
-  "@ixp_fetchFailedFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@ixp_fetchFailedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_dataAnomaly": "ストーリーデータ異常（起点ノードなし）",
   "ixp_loadErrorFmt": "読み込みエラー：{msg}",
-  "@ixp_loadErrorFmt": { "placeholders": { "msg": { "type": "String" } } },
+  "@ixp_loadErrorFmt": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeNotFoundFmt": "ノード「{id}」が見つかりません",
-  "@ixp_nodeNotFoundFmt": { "placeholders": { "id": { "type": "String" } } },
+  "@ixp_nodeNotFoundFmt": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeJumpTitle": "ノードジャンプ · オーナーテスト",
   "ixp_nodeJumpBody": "通常ユーザーには非表示。任意のノードをタップで直接移動（フラグは変えません）。",
   "ixp_segCountFmt": "{n} 段",
-  "@ixp_segCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ixp_segCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_lockedToastFmt": "有料分岐（公開後 {price} コイン）· 今回は無料体験",
-  "@ixp_lockedToastFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@ixp_lockedToastFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_fallbackTitle": "インタラクティブドラマ",
   "ixp_btnSkip": "スキップ",
   "ixp_btnBack": "戻る",
   "ixp_segGenerating": "このパートはまだ生成中…",
   "ixp_btnContinue": "続ける",
   "ixp_prepFmt": "準備中 {done} / {total}",
-  "@ixp_prepFmt": { "placeholders": { "done": { "type": "String" }, "total": { "type": "String" } } },
+  "@ixp_prepFmt": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_prep": "準備中…",
   "ixp_yourChoice": "あなたの選択",
   "ixp_endingFallback": "エンディング",
@@ -633,8 +955,13 @@
   "ixp_endingHidden": "隠しエンド",
   "ixp_endingOpen": "オープンエンド",
   "ixp_optionsCountFmt": "{n} 選択肢",
-  "@ixp_optionsCountFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@ixp_optionsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_busyAiCreatingTitle": "AIに創作を依頼しました",
   "ip_busyAiCreatingSub": "あなた専用のエンディングを1フレームずつ生成中…\n数分かかります、完了次第お知らせします — ほかも楽しんでてね",
   "ip_busyDirectorTitle": "監督がモニター前に着席 · キャストが入場",
@@ -642,29 +969,61 @@
   "ip_busyDoneTitle": "✦ あなた専用のエンディングが完成",
   "ip_busyDoneSub": "「マイ専用エンディング」に永久保存しました",
   "ip_titleChipFmt": "インタラクティブ · {n} 種のエンディング",
-  "@ip_titleChipFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_titleChipFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_titleSub": "あなたの選択ひとつひとつが、結末を書き換える",
   "ip_titleStart": "物語を始める",
   "ip_btnContinue": "続ける",
   "ip_voteFmt": "{n}% の人がこの選択",
-  "@ip_voteFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_voteFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_endingProgressFmt": "解放エンディング {got} / {total}",
-  "@ip_endingProgressFmt": { "placeholders": { "got": { "type": "String" }, "total": { "type": "String" } } },
+  "@ip_endingProgressFmt": {
+    "placeholders": {
+      "got": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ip_btnDex": "エンディング図鑑",
   "ip_btnReplay": "別の選択でもう一度",
   "ip_dexTitle": "エンディング図鑑",
   "ip_dexLocked": "？？？",
   "ip_errorTitleFmt": "ストーリー検証エラー\n{err}",
-  "@ip_errorTitleFmt": { "placeholders": { "err": { "type": "String" } } },
+  "@ip_errorTitleFmt": {
+    "placeholders": {
+      "err": {
+        "type": "String"
+      }
+    }
+  },
   "ip_unlockTitleAi": "あなただけのエンディングを創る",
   "ip_unlockTitle": "このストーリー分岐を解放",
   "ip_demoFree": "サンプルドラマ · 無料体験",
   "ip_unlockBtnAi": "私のために創り始める",
   "ip_unlockBtn": "分岐を解放",
   "ip_unlockCancel": "やめておく",
-
   "com_sceneSameFmt": "このシーンに {n} 件",
-  "@com_sceneSameFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_sceneSameFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_sameInDrama": "劇中アイテム",
   "com_buyNow": "今すぐ購入",
   "com_inStock": "在庫あり · 送料無料",
@@ -673,14 +1032,26 @@
   "com_infoEpisode": "関連エピソード",
   "com_infoScene": "登場シーン",
   "com_sceneTimeFmt": "{sec}s から",
-  "@com_sceneTimeFmt": { "placeholders": { "sec": { "type": "String" } } },
+  "@com_sceneTimeFmt": {
+    "placeholders": {
+      "sec": {
+        "type": "String"
+      }
+    }
+  },
   "com_descTitle": "商品説明",
   "com_descBody": "劇中アイテムをFalconFlix厳選パートナーが提供。プラットフォームから発送、7日間返品可能。（サンプル文、実商品連携後に置換）",
   "com_addCart": "カートに追加",
   "com_addCartToast": "カートに追加しました（開発中）",
   "com_methodCoin": "コイン残高",
   "com_methodCoinBalanceFmt": "残 {n}",
-  "@com_methodCoinBalanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_methodCoinBalanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_methodWechat": "WeChat Pay",
   "com_methodAlipay": "Alipay",
   "com_confirmOrder": "注文を確認",
@@ -694,7 +1065,6 @@
   "com_total": "合計",
   "com_submitOrder": "注文を確定",
   "com_submitToast": "注文完了（決済機能は開発中）",
-
   "ss_tier66_label": "ライトアップ",
   "ss_tier66_meaning": "ラッキー66",
   "ss_tier188_label": "花束を贈る",
@@ -708,24 +1078,80 @@
   "ss_tier9999_label": "伝説の応援",
   "ss_tier9999_meaning": "あなたが1位",
   "ss_callForFmt": "{name} に応援",
-  "@ss_callForFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@ss_callForFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "ss_subtitle": "コインが多いほど · デビューが早まる · 順位が上がる",
   "ss_balanceFmt": "コイン残高 {n}",
-  "@ss_balanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss_balanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss_localNote": "ベータ · 応援はローカル保存、正式版でコイン決済",
   "ss_celebTitle": "応援完了！",
   "ss_forFmt": "{name} · {label}",
-  "@ss_forFmt": { "placeholders": { "name": { "type": "String" }, "label": { "type": "String" } } },
+  "@ss_forFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "ss_pillCoinsFmt": "+{coins} コイン",
-  "@ss_pillCoinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@ss_pillCoinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "ss_progressFmt": "デビュー +{delta}% · 現在 {now}%",
-  "@ss_progressFmt": { "placeholders": { "delta": { "type": "String" }, "now": { "type": "String" } } },
+  "@ss_progressFmt": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
   "ss_kingFmt": "👑 あなたが TA の1位ファン！V{level} {tier}",
-  "@ss_kingFmt": { "placeholders": { "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_kingFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_guardianFmt": "あなたは TA の第 {rank} 番ガーディアン · V{level} {tier}",
-  "@ss_guardianFmt": { "placeholders": { "rank": { "type": "String" }, "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_guardianFmt": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_tapToContinue": "タップで続行",
-
   "air_title": "キャスティングランキング",
   "air_sub": "熱量が満タンでデビュー · 応援が熱いほど上位に",
   "air_segCharRank": "キャラ",
@@ -741,40 +1167,95 @@
   "air_debuted": "デビュー済",
   "air_leading": "首位",
   "air_heatFmt": "応援熱度 {pct}%",
-  "@air_heatFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@air_heatFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "air_doneShoot": "撮影開始",
   "air_toGoFmt": "デビューまで {n}%",
-  "@air_toGoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@air_toGoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "air_supportKingFmt": "トップファン: {name}",
-  "@air_supportKingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@air_supportKingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_emptyKingPlaceholder": "チャンピオン募集中",
   "air_globalKing": "全体トップファン",
   "air_tierBackFmt": "{tier} · 推し {name}",
-  "@air_tierBackFmt": { "placeholders": { "tier": { "type": "String" }, "name": { "type": "String" } } },
+  "@air_tierBackFmt": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_guardFmt": "{name} を守護",
-  "@air_guardFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@air_guardFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_secVideos": "TA の動画",
   "cd_secMoments": "もっと深く知る",
   "cd_actUnlock": "コインで解放",
   "cd_secCredits": "TA の出演ドラマ",
   "cd_secBoardFmt": "応援ボード · {n} 人の支持者",
-  "@cd_secBoardFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@cd_secBoardFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "cd_actImInToo": "私も参加 ›",
   "cd_swipeHint": "下にスワイプ · 応援 · 解放",
   "cd_introBadge": "TA の自己紹介",
   "cd_debutProgress": "デビュー応援進捗",
   "cd_debutHint": "満タンで撮影開始 · 実写＋AIのプレミアム作品",
   "cd_clipToastFmt": "クリップ「{name}」を再生 · 開発中",
-  "@cd_clipToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_clipToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_momentToastFmt": "「{title}」を解放 · コイン機能開発中",
-  "@cd_momentToastFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@cd_momentToastFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "cd_creditToastFmt": "『{name}』· 視聴機能開発中",
-  "@cd_creditToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_creditToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_kingBadge": "作品トップファン",
   "cd_btnSupport": "応援",
   "cd_btnChat": "チャット · 解放",
-
   "sp_toolPosterName": "ドラマポスター生成",
   "sp_toolPosterDesc": "顔写真をアップロードして、このドラマでの縦型ポスターを生成。",
   "sp_toolPosterCost": "約 5-25 コイン",
@@ -791,7 +1272,13 @@
   "sp_sectionHeader": "AI プレイ",
   "sp_subtitle": "ドラマ視聴とつながる軽量AIプレイ。",
   "sp_creatingFmt": "『{title}』のために創作中",
-  "@sp_creatingFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@sp_creatingFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "sp_chipLinked": "ストーリー連動",
   "sp_chipMall": "ドラマモール",
   "sp_putInDramaTitle": "自分をドラマに入れる",
@@ -801,10 +1288,22 @@
   "sp_sceneMallBody": "劇中アイテム、シーン商品、クリエイターコラボ品を見る。",
   "spf_settingsTitle": "ツール設定",
   "spf_linkedToFmt": "『{title}』に連動",
-  "@spf_linkedToFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@spf_linkedToFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "spf_chooseTool": "ツールを選ぶ",
   "spf_genBtnFmt": "生成 · {cost}",
-  "@spf_genBtnFmt": { "placeholders": { "cost": { "type": "String" } } },
+  "@spf_genBtnFmt": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
   "spf_noPhotoBtn": "写真をアップロードしてください",
   "spf_photoReady": "写真の準備完了",
   "spf_uploadPhoto": "写真をアップロード",
@@ -814,12 +1313,17 @@
   "spf_generatingSub": "あなたをドラマに入れています、少々お待ちを",
   "spf_genDoneTag": "完了",
   "spf_genDoneTitleFmt": "{tool} · 完成",
-  "@spf_genDoneTitleFmt": { "placeholders": { "tool": { "type": "String" } } },
+  "@spf_genDoneTitleFmt": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
   "spf_genDoneBody": "作品に保存、シェア、または再生成。",
   "spf_btnSave": "マイ作品に保存",
   "spf_savedToast": "保存しました（開発中）",
   "spf_shareLabel": "AI 作品",
-
   "cui_chipAI": "AI インタラクティブ",
   "cui_chipMetaverse": "メタバース世界観",
   "cui_title": "キャラクターメタバース",
@@ -834,7 +1338,6 @@
   "cui_step4Title": "客演 & 深掘り",
   "cui_step4Desc": "推しとの専用ストーリーや「深い時間」を解放、自分自身を物語に書き込むことも。",
   "cui_footer": "あなたの一票一票が、次の主役を書き換える。",
-
   "com2_title": "コミュニティ",
   "com2_chipPlaza": "視聴広場",
   "com2_emptyHint": "まだ投稿なし — 最初の投稿をどうぞ",
@@ -845,60 +1348,114 @@
   "com2_postHint": "このドラマの感想、シェアしましょう…",
   "com2_publish": "投稿",
   "com2_attachDrama": "このドラマを添付",
-
   "dhc_connected": "接続完了",
   "dhc_connecting": "接続中",
   "dhc_ended": "終了",
   "dhc_error": "エラー",
   "dhc_connectingHint": "接続中…お待ちください",
   "dhc_talkingFmt": "{name} が話しています…",
-  "@dhc_talkingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@dhc_talkingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dhc_listening": "聞いています…",
   "dhc_backLabel": "戻る",
   "dhc_actorsReady": "俳優がポジションに着いています…",
-
   "ss2_searchHint": "ドラマ / 俳優 / タグを検索",
   "ss2_history": "検索履歴",
   "ss2_clear": "クリア",
   "ss2_hot": "人気の検索",
   "ss2_hotBadge": "人気",
   "ss2_noResultFmt": "「{q}」のドラマが見つかりません",
-  "@ss2_noResultFmt": { "placeholders": { "q": { "type": "String" } } },
+  "@ss2_noResultFmt": {
+    "placeholders": {
+      "q": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_foundFmt": "{n} 本のドラマ",
-  "@ss2_foundFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss2_foundFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_chipCEO": "御曹司",
   "ss2_chipTimeTravel": "タイムスリップ",
   "ss2_chipMystery": "ミステリー",
   "ss2_chipModern": "現代恋愛",
   "ss2_chipSweetPet": "甘々ラブ",
-
   "rk_emptyCat": "このカテゴリのランキングなし",
   "rk_hotTitle": "人気ランキング",
   "rk_hotSub": "今日の熱量でリアルタイム順",
   "rk_top1Today": "# 1  今日最熱",
   "rk_heatFmt": "{plays} 熱度 · 上昇中",
-  "@rk_heatFmt": { "placeholders": { "plays": { "type": "String" } } },
+  "@rk_heatFmt": {
+    "placeholders": {
+      "plays": {
+        "type": "String"
+      }
+    }
+  },
   "rk_chipUrban": "都市",
   "rk_chipFinished": "完結",
   "rk_chipRomance": "恋愛",
-
   "aic_lowEnergyNag": "ぐぬぬ…ちょっとエネルギー切れ、チャージしてくれない？~",
   "aic_chargedReply": "ありがとう！満タン復活、続けよっか~",
   "aic_chargeToast": "チャージ · コイン課金は開発中（モックで満タン）",
   "aic_energyFmt": "エネルギー {pct}%",
-  "@aic_energyFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aic_energyFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aic_chargeBtnFmt": "{name} にチャージ",
-  "@aic_chargeBtnFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@aic_chargeBtnFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aic_hintFmt": "{name} に話しかける…",
-  "@aic_hintFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@aic_hintFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lg_needLevelFmt": "{name} · V{level} 必須",
-  "@lg_needLevelFmt": { "placeholders": { "name": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_needLevelFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_topUpFmt": "{amount} チャージで V{level} に",
-  "@lg_topUpFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_topUpFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_btnTopUp": "チャージしてアップグレード",
   "lg_btnLater": "あとで",
-
   "me_defaultName": "FalconFlix 視聴者",
   "me_avatarUpdated": "アバターを更新しました",
   "me_avatarUpdateFailed": "アバター更新に失敗、再試行してください",
@@ -909,8 +1466,13 @@
   "me_uploading": "アップロード中…",
   "me_changeAvatar": "アバター変更",
   "me_copiedFmt": "コピー済み: {value}",
-  "@me_copiedFmt": { "placeholders": { "value": { "type": "String" } } },
-
+  "@me_copiedFmt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "tier_commoner": "平民",
   "tier_rookie": "入門",
   "tier_advanced": "中級",
@@ -918,23 +1480,43 @@
   "tier_tycoon": "大富豪",
   "tier_deity": "神級",
   "tier_legend": "伝説",
-
   "rch_statusPaid": "入金済み",
   "rch_statusPending": "支払い待ち",
   "rch_statusCanceled": "キャンセル",
   "rch_statusProcessing": "処理中",
-
   "data_goodsCoinsFmt": "{n} コイン",
-  "@data_goodsCoinsFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@data_goodsCoinsFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_justNow": "たった今",
   "time_minutesAgoFmt": "{n}分前",
-  "@time_minutesAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_minutesAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_hoursAgoFmt": "{n}時間前",
-  "@time_hoursAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_hoursAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_daysAgoFmt": "{n}日前",
-  "@time_daysAgoFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@time_daysAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "notify_typeRecharge": "チャージ",
   "notify_typeInvite": "招待",
   "notify_typeSystem": "システム",

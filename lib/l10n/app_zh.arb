@@ -1,14 +1,14 @@
 {
   "@@locale": "zh",
   "appTitle": "FalconFlix",
-  "@appTitle": { "description": "应用名" },
-
+  "@appTitle": {
+    "description": "应用名"
+  },
   "tabHome": "首页",
   "tabTheater": "剧场",
   "tabInteractive": "互动剧",
   "tabCharacter": "角色",
   "tabMe": "我的",
-
   "common_cancel": "取消",
   "common_confirm": "确认",
   "common_save": "保存",
@@ -28,7 +28,6 @@
   "common_edit": "编辑",
   "common_delete": "删除",
   "common_send": "发送",
-
   "me_title": "个人中心",
   "me_loginPrompt": "登录 / 注册",
   "me_loginSubtitle": "登录后解锁追剧、鹰币钱包与互动剧",
@@ -56,7 +55,6 @@
   "me_rowHelpAbout": "帮助与关于",
   "me_rowAbout": "关于 FalconFlix",
   "me_logoutConfirm": "确认退出登录？",
-
   "history_title": "观看历史",
   "history_emptyTitle": "还没有观看记录",
   "history_emptyBody": "看过一集，这里就会出现，方便你随时回来追到最后看的那一集。",
@@ -66,16 +64,33 @@
   "history_episodeFallback": "整剧",
   "history_unknown": "（未知剧目）",
   "history_selectedCount": "已选 {n}",
-  "@history_selectedCount": { "placeholders": { "n": { "type": "int" } } },
+  "@history_selectedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmTitle": "删除 {n} 条记录？",
-  "@history_delConfirmTitle": { "placeholders": { "n": { "type": "int" } } },
+  "@history_delConfirmTitle": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_delConfirmBody": "删除后无法恢复；剧集本身不受影响，下次播放会重新生成记录。",
   "history_clearConfirmTitle": "清空所有观看历史？",
   "history_clearConfirmBody": "清空后无法恢复。下次播放会重新生成记录。",
   "history_toastDeleted": "已删除 {n} 条",
-  "@history_toastDeleted": { "placeholders": { "n": { "type": "int" } } },
+  "@history_toastDeleted": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "history_toastCleared": "已清空",
-
   "orders_title": "我的订单",
   "orders_tabFull": "整剧",
   "orders_tabEpisode": "单集",
@@ -91,13 +106,18 @@
   "orders_kvPayMethod": "支付方式",
   "orders_kvTime": "时间",
   "orders_orderCopied": "订单号已复制 · {orderNo}",
-  "@orders_orderCopied": { "placeholders": { "orderNo": { "type": "String" } } },
+  "@orders_orderCopied": {
+    "placeholders": {
+      "orderNo": {
+        "type": "String"
+      }
+    }
+  },
   "orders_paid": "已到账",
   "orders_pending": "待支付",
   "orders_payEagle": "鹰币",
   "orders_unknownTitle": "（未知剧目）",
   "orders_rechargeFallback": "鹰币充值",
-
   "inbox_title": "消息通知",
   "inbox_tabAll": "全部",
   "inbox_tabRecharge": "充值",
@@ -108,7 +128,6 @@
   "inbox_emptyTitle": "一条消息也没有",
   "inbox_emptyBody": "充值到账、邀请奖励、活动公告、系统通知都会出现在这里。",
   "inbox_loginBody": "登录后可以查看充值到账 / 邀请奖励 / 系统通知。",
-
   "settings_title": "设置",
   "settings_sectionNotificationPlayback": "通知与播放",
   "settings_sectionAccount": "账号",
@@ -123,8 +142,13 @@
   "settings_clearCacheBody": "会清掉互动剧已下视频 + 网络图片缓存。已购剧目、登录态、设置都不会丢。",
   "settings_clearCacheAction": "立即清理",
   "settings_clearCacheDone": "已清理 {size} 缓存",
-  "@settings_clearCacheDone": { "placeholders": { "size": { "type": "String" } } },
-
+  "@settings_clearCacheDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "notifyPrefs_title": "通知偏好",
   "notifyPrefs_pushMaster": "推送总开关",
   "notifyPrefs_pushMasterDesc": "关闭后所有手机推送暂停，但站内信仍会到达",
@@ -139,8 +163,13 @@
   "notifyPrefs_interactive": "互动剧进度",
   "notifyPrefs_interactiveDesc": "在追的互动剧上新 / 新结局解锁",
   "notifyPrefs_saveFailed": "保存失败：{msg}",
-  "@notifyPrefs_saveFailed": { "placeholders": { "msg": { "type": "String" } } },
-
+  "@notifyPrefs_saveFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "playPrefs_title": "播放与下载偏好",
   "playPrefs_autoplay": "首页自动连播",
   "playPrefs_autoplayDesc": "看完一条自动播放下一条",
@@ -153,7 +182,6 @@
   "playPrefs_quality1080": "超清 1080p",
   "playPrefs_wifiOnlyDownload": "仅 Wi-Fi 下载",
   "playPrefs_wifiOnlyDownloadDesc": "互动剧 / 离线缓存只在 Wi-Fi 下进行",
-
   "accountSec_title": "账号与安全",
   "accountSec_sectionLogin": "登录",
   "accountSec_sectionDeletion": "账号注销",
@@ -169,18 +197,22 @@
   "accountSec_saveNewPw": "保存新密码",
   "accountSec_saving": "保存中…",
   "accountSec_pwUpdated": "密码已更新",
-
   "privacyPrefs_title": "隐私",
   "privacyPrefs_sectionData": "我的数据",
   "privacyPrefs_sectionLegal": "协议与政策",
   "privacyPrefs_rowExport": "下载我的数据",
   "privacyPrefs_rowExportDesc": "GDPR / CCPA 合规：申请打包下载你的全部数据",
   "privacyPrefs_rowPolicy": "隐私政策",
-
   "deleteAcc_title": "注销账号",
   "deleteAcc_inProgress": "注销申请进行中",
   "deleteAcc_scheduledAt": "执行时间：{time}",
-  "@deleteAcc_scheduledAt": { "placeholders": { "time": { "type": "String" } } },
+  "@deleteAcc_scheduledAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_pendingHint": "7 天冷静期内任何时候登录此账号都可以撤销注销。撤销后账号与所有数据立刻恢复正常使用。",
   "deleteAcc_cancelBtn": "撤销注销，继续使用",
   "deleteAcc_willDelete": "注销账号会删除以下数据",
@@ -193,10 +225,22 @@
   "deleteAcc_reasonLabel": "注销原因（可选，用于改进产品）",
   "deleteAcc_reasonHint": "说说你的想法（可不填）",
   "deleteAcc_typeToConfirm": "请输入「{phrase}」以确认",
-  "@deleteAcc_typeToConfirm": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeToConfirm": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_confirmPhrase": "删除我的账号",
   "deleteAcc_typeMismatch": "请准确输入「{phrase}」以确认",
-  "@deleteAcc_typeMismatch": { "placeholders": { "phrase": { "type": "String" } } },
+  "@deleteAcc_typeMismatch": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
   "deleteAcc_submit": "提交注销申请",
   "deleteAcc_finalTitle": "最后一次确认",
   "deleteAcc_finalBody": "提交后将进入 7 天冷静期。期间任何时候登录都可以撤销。\n\n到期后，账号数据将被永久删除且无法恢复。",
@@ -204,7 +248,6 @@
   "deleteAcc_submitted": "注销申请已提交，7 天后执行",
   "deleteAcc_cancelled": "已撤销注销申请",
   "deleteAcc_thinkAgain": "再想想，先不注销",
-
   "dataExport_title": "下载我的数据",
   "dataExport_introTitle": "下载你的全部数据",
   "dataExport_introBody": "依据 GDPR Article 15（欧盟）与 CCPA（加州），你有权获取我们持有的关于你的全部个人数据。\n\n提交申请后，我们会异步生成一个 zip 包，包含：\n  · 账号资料 / 邮箱 / 手机号\n  · 鹰币余额与变更流水\n  · 已购订单、观看历史、收藏\n  · 社区动态、互动剧解锁记录\n\n准备完成后会通过站内信通知你，下载链接有效期 7 天。",
@@ -214,12 +257,17 @@
   "dataExport_statusExpired": "已过期 · 请重新申请",
   "dataExport_statusFailed": "生成失败 · 请重新申请",
   "dataExport_expiresAt": "链接有效至 {time}",
-  "@dataExport_expiresAt": { "placeholders": { "time": { "type": "String" } } },
+  "@dataExport_expiresAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "dataExport_downloadBtn": "下载",
   "dataExport_submitBtn": "申请下载",
   "dataExport_submitting": "提交中…",
   "dataExport_submitted": "已提交申请，准备好后会通知你下载",
-
   "helpAbout_title": "帮助与关于",
   "helpAbout_sectionHelp": "帮助",
   "helpAbout_sectionAbout": "关于",
@@ -229,7 +277,6 @@
   "helpAbout_rowSupportDesc": "一对一工单对话",
   "helpAbout_rowFeedback": "意见反馈",
   "helpAbout_rowFeedbackDesc": "产品建议 / Bug 上报",
-
   "faq_title": "帮助中心",
   "faq_catAll": "全部",
   "faq_catAccount": "账号",
@@ -239,7 +286,6 @@
   "faq_catOther": "其他",
   "faq_emptyTitle": "暂无 FAQ",
   "faq_emptyBody": "如果你遇到了问题，可以直接「联系客服」开工单。",
-
   "tickets_title": "联系客服",
   "tickets_newBtn": "新建工单",
   "tickets_emptyTitle": "还没有工单",
@@ -250,12 +296,17 @@
   "tickets_speakerSelf": "我",
   "tickets_replyHint": "回复客服…",
   "tickets_sendFailed": "发送失败：{msg}",
-  "@tickets_sendFailed": { "placeholders": { "msg": { "type": "String" } } },
+  "@tickets_sendFailed": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "tickets_statusPending": "待处理",
   "tickets_statusReplied": "已回复",
   "tickets_statusResolved": "已解决",
   "tickets_statusClosed": "已关闭",
-
   "feedback_titleTicket": "新建工单",
   "feedback_titleFeedback": "意见反馈",
   "feedback_typeBug": "Bug 上报",
@@ -274,15 +325,19 @@
   "feedback_submitted": "已提交，客服会一对一回复",
   "feedback_minLength": "请描述至少 5 个字",
   "feedback_tip": "小提示：上报 Bug 时附上重现步骤 + 截图（截图功能即将上线）会更快定位。\n版本号：{version}",
-  "@feedback_tip": { "placeholders": { "version": { "type": "String" } } },
-
+  "@feedback_tip": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "lang_zh": "中文",
   "lang_en": "English",
   "lang_ja": "日本語",
   "lang_ko": "한국어",
   "lang_ar": "العربية",
   "lang_fr": "Français",
-
   "home_noDramaData": "暂无短剧数据",
   "home_localOnlyLike": "本地片源不支持点赞",
   "home_localOnlyCollect": "本地片源不支持收藏",
@@ -297,8 +352,13 @@
   "home_btnWatch": "观看",
   "home_btnDetails": "详情",
   "home_loadFailedFmt": "加载失败\n{message}",
-  "@home_loadFailedFmt": { "placeholders": { "message": { "type": "String" } } },
-
+  "@home_loadFailedFmt": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreAll": "全部",
   "theater_genreRomance": "爱情",
   "theater_genreUrban": "都市",
@@ -311,12 +371,32 @@
   "theater_today": "今日推荐",
   "theater_labelShort": "短剧",
   "theater_continueWatch": "继续观看 · {name}",
-  "@theater_continueWatch": { "placeholders": { "name": { "type": "String" } } },
+  "@theater_continueWatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "theater_heatFmt": "{heat} 热度",
-  "@theater_heatFmt": { "placeholders": { "heat": { "type": "String" } } },
+  "@theater_heatFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "theater_genreHeatFmt": "{tag} · {heat} 热度",
-  "@theater_genreHeatFmt": { "placeholders": { "tag": { "type": "String" }, "heat": { "type": "String" } } },
-
+  "@theater_genreHeatFmt": {
+    "placeholders": {
+      "tag": {
+        "type": "String"
+      },
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cast_sectionPlaying": "在播 & 候选剧",
   "cast_oppRanking": "角色机会榜 ›",
   "cast_universeTitle": "角色元宇宙",
@@ -326,26 +406,63 @@
   "cast_demoSub": "你来选——一句台词点燃一部剧",
   "cast_inPlay": "在播",
   "cast_heatTagFmt": "热度 {heat} · {tag}",
-  "@cast_heatTagFmt": { "placeholders": { "heat": { "type": "String" }, "tag": { "type": "String" } } },
+  "@cast_heatTagFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      },
+      "tag": {
+        "type": "String"
+      }
+    }
+  },
   "cast_heatOnlyFmt": "热度 {heat}",
-  "@cast_heatOnlyFmt": { "placeholders": { "heat": { "type": "String" } } },
-
+  "@cast_heatOnlyFmt": {
+    "placeholders": {
+      "heat": {
+        "type": "String"
+      }
+    }
+  },
   "cb_sectionSupport": "应援榜 · 谁在为 TA 打投",
   "cb_goSupport": "去应援 · 助 TA 出道",
   "cb_seeBio": "看 TA 简介 ›",
   "cb_pollHeatPct": "打投热度 {pct}%",
-  "@cb_pollHeatPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_pollHeatPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_debuted": "已出道开机",
   "cb_toDebutPct": "距开机差 {pct}%",
-  "@cb_toDebutPct": { "placeholders": { "pct": { "type": "String" } } },
+  "@cb_toDebutPct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "cb_totalSupport": "累计应援",
   "cb_coinsFmt": "{coins} 鹰币",
-  "@cb_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@cb_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "cb_topBacker": "本剧榜一大哥",
   "cb_emptyBackers": "还没有人打 call · 快来当 TA 的第一位榜一大哥",
   "cb_titleSupportFmt": "{name} · 应援榜",
-  "@cb_titleSupportFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@cb_titleSupportFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aid_titleHeader": "AI 互动剧",
   "aid_aceBadge": "王牌",
   "aid_tagline": "你的选择，改写结局。",
@@ -358,7 +475,13 @@
   "aid_castingBadge": "选角中",
   "aid_producingBadge": "制作中",
   "aid_castVoteFmt": "为 TA 选角 · {pct}%",
-  "@aid_castVoteFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aid_castVoteFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aid_manifesto1": "你不再只是看故事。",
   "aid_manifesto2": "你替主角做选择，故事就替你改写结局。",
   "aid_manifesto3": "每一次抉择，都是你和这个世界的一次对话。",
@@ -381,37 +504,76 @@
   "aid_liveSub": "真互动剧 · 你的选择改写结局",
   "aid_fallbackHook": "你的选择，改写她的故事",
   "aid_aceCardBadge": "王牌互动剧 · 可玩",
-
   "player_btnLiked": "已赞",
   "player_btnEpisodes": "选集",
   "player_btnAiCast": "AI入戏",
   "player_episodeNumFmt": "第 {n} 集",
-  "@player_episodeNumFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_episodeNumFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_switchEpFmt": "切到第 {n} 集（接后端中）",
-  "@player_switchEpFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@player_switchEpFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "player_unlockHint": "请在剧目详情页解锁鹰币",
   "player_comingSoonFmt": "{label}（开发中）",
-  "@player_comingSoonFmt": { "placeholders": { "label": { "type": "String" } } },
+  "@player_comingSoonFmt": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "player_sceneSame": "场景同款",
-
   "detail_unlockThis": "本集",
   "detail_unlockNext5": "后续 5 集",
   "detail_unlockNext10": "后续 10 集",
   "detail_unlockAll": "全集",
   "detail_episodeCountFmt": "共 {n} 集",
-  "@detail_episodeCountFmt": { "placeholders": { "n": { "type": "int" } } },
+  "@detail_episodeCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "detail_drawerEpisodes": "抽屉选集",
   "detail_unlockSuccess": "解锁成功",
   "detail_coinBalanceFmt": "鹰币余额 {coins}",
-  "@detail_coinBalanceFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_coinBalanceFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playsCountFmt": "{n} 次播放",
-  "@detail_playsCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@detail_playsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "detail_priceUnlockFmt": "{coins} 鹰币解锁",
-  "@detail_priceUnlockFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@detail_priceUnlockFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "detail_playNow": "立即播放",
   "detail_playThis": "播放本剧",
   "detail_noEpisodes": "暂无可播放剧集",
-
   "login_welcome": "欢迎来到 FalconFlix",
   "login_subtitle": "登录解锁追剧 · 鹰币钱包 · 专属互动剧",
   "login_emailLabel": "邮箱",
@@ -426,7 +588,6 @@
   "login_loggingIn": "登录中…",
   "login_loginOrRegister": "登录 / 注册",
   "login_pwHint": "首次用密码登录将自动注册并设置该密码",
-  "login_devHint": "开发测试：验证码输入 749301 可直接登录",
   "login_quickLogin": "快捷登录",
   "login_recommended": "推荐",
   "login_success": "登录成功",
@@ -436,30 +597,67 @@
   "login_passwordRequired": "请填写密码",
   "login_codeRequired": "请填写验证码",
   "login_codeSent": "验证码已发送，请查收邮箱",
-  "login_emailNotConfigured": "邮件通道未开通，可用测试码 749301 登录",
+  "login_emailNotConfigured": "邮件通道暂时不可用，请稍后重试",
   "login_networkError": "登录失败，请检查网络后重试",
   "login_oauthErrorFmt": "{provider} 登录失败：{code}",
-  "@login_oauthErrorFmt": { "placeholders": { "provider": { "type": "String" }, "code": { "type": "String" } } },
+  "@login_oauthErrorFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthRetryFmt": "{provider} 登录失败，请稍后重试",
-  "@login_oauthRetryFmt": { "placeholders": { "provider": { "type": "String" } } },
+  "@login_oauthRetryFmt": {
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingFmt": "{name} 登录正在接入中",
-  "@login_oauthComingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@login_oauthComingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "login_oauthComingBody": "马上就好～现在可以先用邮箱验证码或密码登录。",
   "login_gotIt": "我知道了",
   "login_googleNoToken": "Google 未返回 idToken，请检查凭证配置",
-
   "about_tagline": "鹰眼短剧 · 看得见的好戏",
   "about_body": "FalconFlix 是面向全球的精品短剧平台——在这里追剧、与 AI 角色互动、边看边带货。我们用电影级的制作与 AI 创意，让每一帧都值得停留。",
   "about_userAgreement": "用户协议",
   "about_privacyPolicy": "隐私政策",
   "about_legalUpdatedFmt": "最近更新：{date}",
-  "@about_legalUpdatedFmt": { "placeholders": { "date": { "type": "String" } } },
+  "@about_legalUpdatedFmt": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "about_operatingEntity": "运营主体",
   "about_contactEmailFmt": "联系邮箱：{email}",
-  "@about_contactEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@about_contactEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "about_aboutTitleFmt": "关于 {appName}",
-  "@about_aboutTitleFmt": { "placeholders": { "appName": { "type": "String" } } },
-
+  "@about_aboutTitleFmt": {
+    "placeholders": {
+      "appName": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_title": "充值鹰币",
   "wallet_chooseRecharge": "选择充值包",
   "wallet_introNote": "鹰币用于解锁剧集、互动玩法与应援",
@@ -472,10 +670,22 @@
   "wallet_packsComingBody": "我们正在为你准备最划算的鹰币礼包",
   "wallet_coins": "鹰币",
   "wallet_giftFmt": "送 {coins}",
-  "@wallet_giftFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@wallet_giftFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_bestDeal": "最划算",
   "wallet_payNowFmt": "立即充值 · {price}",
-  "@wallet_payNowFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@wallet_payNowFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_payNow": "立即充值",
   "wallet_loginFirst": "请先登录再充值",
   "wallet_openPayFail": "无法打开支付页面，请稍后再试",
@@ -484,15 +694,35 @@
   "wallet_loginToView": "登录后查看",
   "wallet_legendPeak": "传奇巅峰 · 已封顶",
   "wallet_toLevelFmt": "距 V{level}",
-  "@wallet_toLevelFmt": { "placeholders": { "level": { "type": "String" } } },
+  "@wallet_toLevelFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_paidUsdFmt": "累计充值 {amount}",
-  "@wallet_paidUsdFmt": { "placeholders": { "amount": { "type": "String" } } },
+  "@wallet_paidUsdFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_topUpToLevelFmt": "再充 {amount} 升至 V{level}",
-  "@wallet_topUpToLevelFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@wallet_topUpToLevelFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "wallet_successTitle": "鹰币充值成功 · 已到账",
   "wallet_tapAnywhere": "轻触任意处继续",
   "wallet_successBarrier": "充值成功",
-
   "creator_title": "伙伴中心",
   "creator_statSeries": "部短剧",
   "creator_statPlays": "播放",
@@ -502,7 +732,6 @@
   "creator_menuRequirement": "上传要求",
   "creator_menuRevenue": "分成规则",
   "creator_menuLangPriv": "语言与隐私",
-
   "invite_title": "邀请好友",
   "invite_stepsTitle": "邀请步骤",
   "invite_step1Title": "分享邀请码",
@@ -516,17 +745,27 @@
   "invite_loginToGen": "登录后才能生成你的专属邀请码",
   "invite_messageCopied": "邀请文案已复制，去粘贴给好友吧",
   "invite_messageTemplateFmt": "🦅 我在用 FalconFlix 追短剧，超好看！注册时填我的邀请码 {code}，咱俩都能领鹰币～",
-  "@invite_messageTemplateFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@invite_messageTemplateFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "invite_bigTitle": "邀请好友 一起追剧",
   "invite_bigSub": "好友用你的邀请码注册，双方都能领鹰币奖励",
   "invite_myCode": "我的专属邀请码",
   "invite_copyBtn": "复制",
   "invite_codeCopiedFmt": "邀请码已复制：{code}",
-  "@invite_codeCopiedFmt": { "placeholders": { "code": { "type": "String" } } },
-
+  "@invite_codeCopiedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "collect_emptyTitle": "还没有收藏的剧",
   "collect_emptyBody": "在剧里点「收藏」，就会出现在这里，方便随时回来追。",
-
   "au_title": "自动解锁",
   "au_introTitle": "追剧不被打断",
   "au_introBody": "开启后看到下一集自动用鹰币解锁，一口气追到爽",
@@ -538,24 +777,32 @@
   "au_rule1": "点已锁剧集会直接扣鹰币解锁，不再每次弹窗确认",
   "au_rule2": "鹰币余额不足时仍会提示你去充值，不会乱扣",
   "au_rule3": "仅对「单集解锁」生效；整部解锁因金额较大仍需手动确认",
-
   "rh_title": "充值记录",
   "rh_loginToView": "登录后可查看充值记录",
   "rh_emptyBody": "还没有充值记录\n去充值鹰币解锁更多剧集吧",
   "rh_fallback": "充值鹰币",
-
   "re_title": "发票邮箱",
   "re_invalidEmail": "请输入有效的邮箱地址",
   "re_saved": "发票邮箱已保存",
   "re_label": "收据邮箱",
   "re_body": "充值成功后，Stripe 会把付款收据发到这个邮箱；下次充值收银台也会自动预填它。",
   "re_useAccountEmailFmt": "使用登录邮箱 {email}",
-  "@re_useAccountEmailFmt": { "placeholders": { "email": { "type": "String" } } },
+  "@re_useAccountEmailFmt": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
   "re_save": "保存",
-
   "common_comingSoonFmt": "{name}（开发中）",
-  "@common_comingSoonFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@common_comingSoonFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_episodeTitle": "选集",
   "sheets_unlockAllBtn": "全部解锁",
   "sheets_unlockTitle": "解锁",
@@ -564,18 +811,48 @@
   "sheets_networkErr": "网络异常，请稍后重试",
   "sheets_walletBalance": "鹰币余额",
   "sheets_coinsFmt": "{coins} 鹰币",
-  "@sheets_coinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_coinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockShortFmt": "还差 {coins} 鹰币，充值后即可解锁",
-  "@sheets_unlockShortFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockShortFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockNowFmt": "立即解锁 · {coins} 鹰币",
-  "@sheets_unlockNowFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@sheets_unlockNowFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_coinsNotEnough": "鹰币不足 · 去充值",
   "sheets_tierForeverFmt": "共 {count} 集 · 永久可看",
-  "@sheets_tierForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_tierForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockAllSub": "解锁全集",
   "sheets_unlockThisSub": "解锁本集",
   "sheets_unlockAllForeverFmt": "解锁全部 {count} 集 · 永久可看",
-  "@sheets_unlockAllForeverFmt": { "placeholders": { "count": { "type": "String" } } },
+  "@sheets_unlockAllForeverFmt": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_unlockThisForever": "解锁本集 · 永久可看",
   "sheets_coinsShort": "鹰币",
   "sheets_vipDiscount": "VIP 结算更低",
@@ -592,7 +869,16 @@
   "sheets_remixComingFooter": "混剪 即将上线，敬请期待",
   "sheets_fallbackTitle": "FalconFlix 精彩短剧",
   "sheets_shareTextFmt": "{title}太好看了，来 FalconFlix 一起追！{url}",
-  "@sheets_shareTextFmt": { "placeholders": { "title": { "type": "String" }, "url": { "type": "String" } } },
+  "@sheets_shareTextFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "url": {
+        "type": "String"
+      }
+    }
+  },
   "sheets_posterTitle": "海报",
   "sheets_posterMakeSub": "生成专属海报",
   "sheets_posterReady": "分享海报",
@@ -600,31 +886,69 @@
   "sheets_posterGenFail": "海报生成失败",
   "sheets_posterExportFail": "海报导出失败",
   "sheets_posterTagline": "扫码一起追这部好剧",
-
   "ixp_resumeTitle": "上次看到一半",
   "ixp_resumeBody": "要从上次的位置继续看，还是从头来一遍？",
   "ixp_resumeFromStart": "从头看",
   "ixp_resumeContinue": "继续上次",
   "ixp_fetchFailedFmt": "拉取剧情失败（{code}）",
-  "@ixp_fetchFailedFmt": { "placeholders": { "code": { "type": "String" } } },
+  "@ixp_fetchFailedFmt": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_dataAnomaly": "剧情数据异常（无起点节点）",
   "ixp_loadErrorFmt": "加载出错：{msg}",
-  "@ixp_loadErrorFmt": { "placeholders": { "msg": { "type": "String" } } },
+  "@ixp_loadErrorFmt": {
+    "placeholders": {
+      "msg": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeNotFoundFmt": "节点「{id}」不存在",
-  "@ixp_nodeNotFoundFmt": { "placeholders": { "id": { "type": "String" } } },
+  "@ixp_nodeNotFoundFmt": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_nodeJumpTitle": "节点跳转 · owner 测试",
   "ixp_nodeJumpBody": "普通用户看不到这个。点任一节点直接跳过去（不会改 flag 状态）。",
   "ixp_segCountFmt": "{n} 段",
-  "@ixp_segCountFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ixp_segCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_lockedToastFmt": "付费分支（上线后 {price} 鹰币）· 本期免费体验",
-  "@ixp_lockedToastFmt": { "placeholders": { "price": { "type": "String" } } },
+  "@ixp_lockedToastFmt": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_fallbackTitle": "互动剧",
   "ixp_btnSkip": "跳过",
   "ixp_btnBack": "返回",
   "ixp_segGenerating": "这段还在生成中…",
   "ixp_btnContinue": "继续",
   "ixp_prepFmt": "准备中 {done} / {total}",
-  "@ixp_prepFmt": { "placeholders": { "done": { "type": "String" }, "total": { "type": "String" } } },
+  "@ixp_prepFmt": {
+    "placeholders": {
+      "done": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ixp_prep": "准备中…",
   "ixp_yourChoice": "该你选了",
   "ixp_endingFallback": "结局",
@@ -634,8 +958,13 @@
   "ixp_endingHidden": "隐藏结局",
   "ixp_endingOpen": "开放结局",
   "ixp_optionsCountFmt": "{n} 选项",
-  "@ixp_optionsCountFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@ixp_optionsCountFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_busyAiCreatingTitle": "已交给 AI 为你创作",
   "ip_busyAiCreatingSub": "你的专属结局正在逐帧生成中…\n这通常要几分钟，好了会通知你 —— 你也可以先去逛逛",
   "ip_busyDirectorTitle": "导演重坐监视器 · 演员为你进场",
@@ -643,29 +972,61 @@
   "ip_busyDoneTitle": "✦ 你的专属结局已生成",
   "ip_busyDoneSub": "已永久收进「我的专属结局」",
   "ip_titleChipFmt": "互动剧 · {n} 种结局",
-  "@ip_titleChipFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_titleChipFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_titleSub": "你的每一次选择，都会改写结局",
   "ip_titleStart": "进入故事",
   "ip_btnContinue": "继续",
   "ip_voteFmt": "{n}% 人这么选",
-  "@ip_voteFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ip_voteFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ip_endingProgressFmt": "已解锁结局 {got} / {total}",
-  "@ip_endingProgressFmt": { "placeholders": { "got": { "type": "String" }, "total": { "type": "String" } } },
+  "@ip_endingProgressFmt": {
+    "placeholders": {
+      "got": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
   "ip_btnDex": "结局图鉴",
   "ip_btnReplay": "换个选择再玩",
   "ip_dexTitle": "结局图鉴",
   "ip_dexLocked": "？？？",
   "ip_errorTitleFmt": "剧情校验未通过\n{err}",
-  "@ip_errorTitleFmt": { "placeholders": { "err": { "type": "String" } } },
+  "@ip_errorTitleFmt": {
+    "placeholders": {
+      "err": {
+        "type": "String"
+      }
+    }
+  },
   "ip_unlockTitleAi": "定制只属于你的结局",
   "ip_unlockTitle": "解锁这条剧情分支",
   "ip_demoFree": "样板剧 · 免费体验",
   "ip_unlockBtnAi": "开始为我定制",
   "ip_unlockBtn": "解锁分支",
   "ip_unlockCancel": "再想想",
-
   "com_sceneSameFmt": "本场景 {n} 件同款",
-  "@com_sceneSameFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_sceneSameFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_sameInDrama": "剧中同款",
   "com_buyNow": "立即购买",
   "com_inStock": "现货 · 包邮",
@@ -674,14 +1035,26 @@
   "com_infoEpisode": "关联剧集",
   "com_infoScene": "出现场景",
   "com_sceneTimeFmt": "{sec}s 起",
-  "@com_sceneTimeFmt": { "placeholders": { "sec": { "type": "String" } } },
+  "@com_sceneTimeFmt": {
+    "placeholders": {
+      "sec": {
+        "type": "String"
+      }
+    }
+  },
   "com_descTitle": "商品介绍",
   "com_descBody": "剧中同款精选好物，由 FalconFlix 严选合作商家提供。下单后由平台统一发货，支持七天无理由退换。（示例文案，接入真实商品后替换。）",
   "com_addCart": "加入购物车",
   "com_addCartToast": "已加入购物车（开发中）",
   "com_methodCoin": "金币余额",
   "com_methodCoinBalanceFmt": "余 {n}",
-  "@com_methodCoinBalanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@com_methodCoinBalanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "com_methodWechat": "微信支付",
   "com_methodAlipay": "支付宝",
   "com_confirmOrder": "确认订单",
@@ -695,7 +1068,6 @@
   "com_total": "合计",
   "com_submitOrder": "提交订单",
   "com_submitToast": "下单成功（支付功能开发中）",
-
   "ss_tier66_label": "点亮 TA",
   "ss_tier66_meaning": "六六大顺",
   "ss_tier188_label": "送一捧花",
@@ -709,24 +1081,80 @@
   "ss_tier9999_label": "封神助攻",
   "ss_tier9999_meaning": "榜一就是你",
   "ss_callForFmt": "为 {name} 打 call",
-  "@ss_callForFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@ss_callForFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "ss_subtitle": "砸的鹰币越多 · TA 出道越快 · 你的榜位越高",
   "ss_balanceFmt": "我的鹰币余额 {n}",
-  "@ss_balanceFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss_balanceFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss_localNote": "内测体验 · 应援先本地记录，正式上线后从鹰币结算",
   "ss_celebTitle": "应援成功",
   "ss_forFmt": "为 {name} · {label}",
-  "@ss_forFmt": { "placeholders": { "name": { "type": "String" }, "label": { "type": "String" } } },
+  "@ss_forFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
   "ss_pillCoinsFmt": "+{coins} 鹰币",
-  "@ss_pillCoinsFmt": { "placeholders": { "coins": { "type": "String" } } },
+  "@ss_pillCoinsFmt": {
+    "placeholders": {
+      "coins": {
+        "type": "String"
+      }
+    }
+  },
   "ss_progressFmt": "出道进度 +{delta}% · 现 {now}%",
-  "@ss_progressFmt": { "placeholders": { "delta": { "type": "String" }, "now": { "type": "String" } } },
+  "@ss_progressFmt": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      },
+      "now": {
+        "type": "String"
+      }
+    }
+  },
   "ss_kingFmt": "👑 你登顶 TA 的榜一大哥！V{level} {tier}",
-  "@ss_kingFmt": { "placeholders": { "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_kingFmt": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_guardianFmt": "你是 TA 的第 {rank} 位守护者 · V{level} {tier}",
-  "@ss_guardianFmt": { "placeholders": { "rank": { "type": "String" }, "level": { "type": "String" }, "tier": { "type": "String" } } },
+  "@ss_guardianFmt": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
   "ss_tapToContinue": "轻触任意处继续",
-
   "air_title": "角色机会榜",
   "air_sub": "热度攒满就开机出道 · 打投越猛排名越靠前",
   "air_segCharRank": "角色榜",
@@ -742,40 +1170,95 @@
   "air_debuted": "已开机出道",
   "air_leading": "出道领跑",
   "air_heatFmt": "打投热度 {pct}%",
-  "@air_heatFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@air_heatFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "air_doneShoot": "已出道开机",
   "air_toGoFmt": "距开机还差 {n}%",
-  "@air_toGoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@air_toGoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "air_supportKingFmt": "本剧应援王 {name}",
-  "@air_supportKingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@air_supportKingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_emptyKingPlaceholder": "虚位以待",
   "air_globalKing": "全站榜一大哥",
   "air_tierBackFmt": "{tier} · 力挺 {name}",
-  "@air_tierBackFmt": { "placeholders": { "tier": { "type": "String" }, "name": { "type": "String" } } },
+  "@air_tierBackFmt": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "air_guardFmt": "守护 {name}",
-  "@air_guardFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@air_guardFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_secVideos": "TA 的视频",
   "cd_secMoments": "深入沟通的时刻",
   "cd_actUnlock": "鹰币解锁",
   "cd_secCredits": "TA 参演的剧",
   "cd_secBoardFmt": "应援榜 · {n} 位支持者",
-  "@cd_secBoardFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@cd_secBoardFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "cd_actImInToo": "我也要上榜 ›",
   "cd_swipeHint": "下滑了解 TA · 打 call · 解锁",
   "cd_introBadge": "TA 的自我介绍",
   "cd_debutProgress": "出道打投进度",
   "cd_debutHint": "攒满即触发开机 · 真人＋AI 结合的精品互动剧",
   "cd_clipToastFmt": "播放片段「{name}」· 开发中",
-  "@cd_clipToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_clipToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_momentToastFmt": "解锁「{title}」· 鹰币功能开发中",
-  "@cd_momentToastFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@cd_momentToastFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "cd_creditToastFmt": "《{name}》· 欣赏功能开发中",
-  "@cd_creditToastFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@cd_creditToastFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "cd_kingBadge": "本剧应援王",
   "cd_btnSupport": "应援",
   "cd_btnChat": "聊天 · 解锁",
-
   "sp_toolPosterName": "剧照海报生成",
   "sp_toolPosterDesc": "上传人脸，生成你在这部剧里的竖版海报。",
   "sp_toolPosterCost": "约 5-25 金币",
@@ -792,7 +1275,13 @@
   "sp_sectionHeader": "AI 玩法",
   "sp_subtitle": "和短剧观看连接的轻量 AI 玩法。",
   "sp_creatingFmt": "正在为《{title}》创作",
-  "@sp_creatingFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@sp_creatingFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "sp_chipLinked": "剧情联动",
   "sp_chipMall": "短剧商城",
   "sp_putInDramaTitle": "把自己放进短剧",
@@ -802,10 +1291,22 @@
   "sp_sceneMallBody": "查看短剧同款、场景商品和创作者联名商品。",
   "spf_settingsTitle": "工具设置",
   "spf_linkedToFmt": "关联《{title}》",
-  "@spf_linkedToFmt": { "placeholders": { "title": { "type": "String" } } },
+  "@spf_linkedToFmt": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "spf_chooseTool": "选择玩法",
   "spf_genBtnFmt": "生成 · {cost}",
-  "@spf_genBtnFmt": { "placeholders": { "cost": { "type": "String" } } },
+  "@spf_genBtnFmt": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      }
+    }
+  },
   "spf_noPhotoBtn": "请先上传照片",
   "spf_photoReady": "照片已就绪",
   "spf_uploadPhoto": "上传你的照片",
@@ -815,12 +1316,17 @@
   "spf_generatingSub": "正在把你放进短剧，请稍候",
   "spf_genDoneTag": "生成完成",
   "spf_genDoneTitleFmt": "{tool} · 成片",
-  "@spf_genDoneTitleFmt": { "placeholders": { "tool": { "type": "String" } } },
+  "@spf_genDoneTitleFmt": {
+    "placeholders": {
+      "tool": {
+        "type": "String"
+      }
+    }
+  },
   "spf_genDoneBody": "保存到作品、分享，或重新生成。",
   "spf_btnSave": "保存到我的作品",
   "spf_savedToast": "已保存（功能开发中）",
   "spf_shareLabel": "AI 成片",
-
   "cui_chipAI": "AI 互动",
   "cui_chipMetaverse": "元宇宙世界观",
   "cui_title": "角色元宇宙",
@@ -835,7 +1341,6 @@
   "cui_step4Title": "客串 & 深入",
   "cui_step4Desc": "解锁与 TA 专属的剧情和「深入沟通的时刻」，甚至把自己写进这部剧里。",
   "cui_footer": "你投出的每一票，都在改写谁会成为下一个主角。",
-
   "com2_title": "社区动态",
   "com2_chipPlaza": "追剧广场",
   "com2_emptyHint": "还没有动态，来发第一条吧",
@@ -846,60 +1351,114 @@
   "com2_postHint": "说说你对这部剧的感受，安利给大家…",
   "com2_publish": "发布",
   "com2_attachDrama": "附带这部剧",
-
   "dhc_connected": "已接通",
   "dhc_connecting": "接通中",
   "dhc_ended": "已结束",
   "dhc_error": "出错",
   "dhc_connectingHint": "正在接通…请稍等",
   "dhc_talkingFmt": "{name} 正在说…",
-  "@dhc_talkingFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@dhc_talkingFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "dhc_listening": "在聆听你说…",
   "dhc_backLabel": "返回",
   "dhc_actorsReady": "演员正在就位…",
-
   "ss2_searchHint": "搜短剧 / 演员 / 标签",
   "ss2_history": "搜索历史",
   "ss2_clear": "清空",
   "ss2_hot": "热门搜索",
   "ss2_hotBadge": "热",
   "ss2_noResultFmt": "没有找到「{q}」相关短剧",
-  "@ss2_noResultFmt": { "placeholders": { "q": { "type": "String" } } },
+  "@ss2_noResultFmt": {
+    "placeholders": {
+      "q": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_foundFmt": "找到 {n} 部",
-  "@ss2_foundFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@ss2_foundFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "ss2_chipCEO": "霸总",
   "ss2_chipTimeTravel": "穿越",
   "ss2_chipMystery": "悬疑",
   "ss2_chipModern": "现言",
   "ss2_chipSweetPet": "甜宠",
-
   "rk_emptyCat": "该分类暂无榜单",
   "rk_hotTitle": "热播榜单",
   "rk_hotSub": "按今日热度实时排序",
   "rk_top1Today": "# 1  今日最热",
   "rk_heatFmt": "{plays} 热度 · 持续上升",
-  "@rk_heatFmt": { "placeholders": { "plays": { "type": "String" } } },
+  "@rk_heatFmt": {
+    "placeholders": {
+      "plays": {
+        "type": "String"
+      }
+    }
+  },
   "rk_chipUrban": "都市",
   "rk_chipFinished": "完结",
   "rk_chipRomance": "爱情",
-
   "aic_lowEnergyNag": "呜…人家有点没力气了，给我充点能量好不好~",
   "aic_chargedReply": "谢谢你！满血复活，我们继续聊~",
   "aic_chargeToast": "充能 · 鹰币计费功能开发中（已 mock 充满）",
   "aic_energyFmt": "能量 {pct}%",
-  "@aic_energyFmt": { "placeholders": { "pct": { "type": "String" } } },
+  "@aic_energyFmt": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
   "aic_chargeBtnFmt": "给 {name} 充能",
-  "@aic_chargeBtnFmt": { "placeholders": { "name": { "type": "String" } } },
+  "@aic_chargeBtnFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "aic_hintFmt": "对 {name} 说点什么…",
-  "@aic_hintFmt": { "placeholders": { "name": { "type": "String" } } },
-
+  "@aic_hintFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "lg_needLevelFmt": "{name} · 需 V{level} 解锁",
-  "@lg_needLevelFmt": { "placeholders": { "name": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_needLevelFmt": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_topUpFmt": "再充 {amount} 升到 V{level} 即可解锁",
-  "@lg_topUpFmt": { "placeholders": { "amount": { "type": "String" }, "level": { "type": "String" } } },
+  "@lg_topUpFmt": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "lg_btnTopUp": "去充值升级",
   "lg_btnLater": "以后再说",
-
   "me_defaultName": "鹰眼用户",
   "me_avatarUpdated": "头像已更新",
   "me_avatarUpdateFailed": "头像更新失败，请重试",
@@ -910,8 +1469,13 @@
   "me_uploading": "上传中…",
   "me_changeAvatar": "更换头像",
   "me_copiedFmt": "已复制：{value}",
-  "@me_copiedFmt": { "placeholders": { "value": { "type": "String" } } },
-
+  "@me_copiedFmt": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "tier_commoner": "平民",
   "tier_rookie": "入门",
   "tier_advanced": "进阶",
@@ -919,23 +1483,43 @@
   "tier_tycoon": "巨鳄",
   "tier_deity": "封神",
   "tier_legend": "传奇",
-
   "rch_statusPaid": "已到账",
   "rch_statusPending": "待支付",
   "rch_statusCanceled": "已取消",
   "rch_statusProcessing": "处理中",
-
   "data_goodsCoinsFmt": "{n} 鹰币",
-  "@data_goodsCoinsFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@data_goodsCoinsFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_justNow": "刚刚",
   "time_minutesAgoFmt": "{n} 分钟前",
-  "@time_minutesAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_minutesAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_hoursAgoFmt": "{n} 小时前",
-  "@time_hoursAgoFmt": { "placeholders": { "n": { "type": "String" } } },
+  "@time_hoursAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "time_daysAgoFmt": "{n} 天前",
-  "@time_daysAgoFmt": { "placeholders": { "n": { "type": "String" } } },
-
+  "@time_daysAgoFmt": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "notify_typeRecharge": "充值",
   "notify_typeInvite": "邀请",
   "notify_typeSystem": "系统",
