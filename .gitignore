@@ -49,7 +49,8 @@ keystores/
 # Firebase / FCM 服务端密钥（绝不能进 git，也不能落入 APK）
 # Admin SDK private key 仅供 Spring Boot 后端使用，应放在 falconflix-real-system/secrets/
 # google-services.json 本身不算秘密但仍 gitignore 以防项目 ID 泄漏到公开仓库
-**/google-services*.json
+# 带尾缀通配，连 .bak 之类的副本一起挡住
+**/google-services*.json*
 **/falconflix-ca3e7-firebase-adminsdk-*.json
 **/firebase-adminsdk-*.json
 
