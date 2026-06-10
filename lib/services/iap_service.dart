@@ -63,9 +63,17 @@ class IapService {
   }
 
   /// 拉起消耗型购买。false = 未能拉起（调用方提示）；后续进展走 purchaseStream。
+  ///
+  /// applicationUserName = 当前用户 ID：StoreKit2 会把它写进收据的 appAccountToken，
+  /// 后端 /recharge/apple/verify 校验它等于当前登录用户，防止他人收据被冒用充值到本账号（#8）。
   Future<bool> buy(ProductDetails product) {
+    // auth.profile 在已登录时一定有值；id 为后端 Users.id。拿不到时不带（后端仅在字段非空时校验）。
+    final userId = auth.profile?.id;
     return _iap.buyConsumable(
-        purchaseParam: PurchaseParam(productDetails: product));
+        purchaseParam: PurchaseParam(
+      productDetails: product,
+      applicationUserName: userId?.toString(),
+    ));
   }
 
   Future<void> _onPurchases(List<PurchaseDetails> purchases) async {
