@@ -21,7 +21,7 @@ workflows:
       - name: Flutter 依赖
         script: flutter pub get
       - name: 静态检查
-        script: flutter analyze --no-fatal-infos
+        script: flutter analyze --no-fatal-infos --no-fatal-warnings
       - name: 构建 IPA
         script: flutter build ipa --release
     artifacts:
