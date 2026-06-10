@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图1（cute split eagle）整张当自适应背景全幅铺满，前景透明，
+     让系统按机型 mask 成圆/方圆，保留完整的蓝↔粉劈面设计、不被前景安全区裁切放大。 -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@mipmap/ic_launcher_bg" />
+    <foreground android:drawable="@drawable/splash_icon_blank" />
+</adaptive-icon>

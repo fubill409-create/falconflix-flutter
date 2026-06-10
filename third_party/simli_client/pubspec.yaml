@@ -1,0 +1,32 @@
+name: simli_client
+description: Simli Client is a Flutter package for integrating with the Simli API, enabling live, low-latency avatars using WebRTC, ideal for virtual assistants and bots.
+version: 1.0.1
+homepage: https://github.com/jemisgoti/simli-flutter-client
+repository: https://github.com/jemisgoti/simli-flutter-client
+issue_tracker: https://github.com/jemisgoti/simli-flutter-client/issues
+documentation: https://jemisgoti.github.io/simli-flutter-client/
+
+# 本地 vendored 副本（FalconFlix）。唯一改动：lib/simli_client.dart 的 waitForIceGathering()
+# 增加「候选静默兜底」——部分安卓机永不触发 onIceGatheringState=Complete，但会持续吐 ICE 候选，
+# 原版只等 Complete 事件会卡满超时报 "ICE gathering timeout"。详见该函数注释。
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  collection: ^1.18.0
+  flutter:
+    sdk: flutter
+  flutter_webrtc: ^0.12.1+hotfix.1
+  http: ^1.2.2
+  logging: ^1.2.0
+  retry: ^3.1.2
+  web_socket_client: ^0.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^6.0.0
+
+flutter:

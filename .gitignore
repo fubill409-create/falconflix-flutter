@@ -1,0 +1,58 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+android/key.properties
+keystores/
+
+# Firebase / FCM 服务端密钥（绝不能进 git，也不能落入 APK）
+# Admin SDK private key 仅供 Spring Boot 后端使用，应放在 falconflix-real-system/secrets/
+# google-services.json 本身不算秘密但仍 gitignore 以防项目 ID 泄漏到公开仓库
+**/google-services*.json
+**/falconflix-ca3e7-firebase-adminsdk-*.json
+**/firebase-adminsdk-*.json
+
+# APNs Auth Key（.p8 文件）只能下载一次，丢了得重发
+**/AuthKey_*.p8
+**/apns-*.p8

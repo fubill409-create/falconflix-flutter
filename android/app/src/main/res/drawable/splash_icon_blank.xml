@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ 系统启动屏图标占位：全透明，等于不显示任何图标，
+     开机只剩 Flutter 的金鹰大动画（去掉开头那只小鹰头）。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/transparent" />
+</shape>
