@@ -4,6 +4,37 @@
 #   2. Teams → Integrations → App Store Connect：上传苹果 API 密钥，命名为 FalconFlix-ASC
 #      （密钥在 appstoreconnect.apple.com → 用户和访问 → 集成 → App Store Connect API 生成）
 workflows:
+  # 安卓内测包：打出 app.falconflix.tester 的 AAB(传 Play 内测) + APK(手机直装即看)。
+  # 前提(一次性)：Codemagic → Settings → Code signing identities → Android keystores
+  # 上传 keystores/falconflix-release.jks，引用名填 falconflix_release。
+  android-internal:
+    name: Android internal build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - falconflix_release
+      flutter: stable
+      java: 17
+    scripts:
+      - name: Flutter 依赖
+        script: flutter pub get
+      - name: 写入签名配置(从 Codemagic 密钥库注入)
+        script: |
+          cat > android/key.properties <<EOF
+          storeFile=$CM_KEYSTORE_PATH
+          storePassword=$CM_KEYSTORE_PASSWORD
+          keyAlias=$CM_KEY_ALIAS
+          keyPassword=$CM_KEY_PASSWORD
+          EOF
+      - name: 打 AAB + APK
+        script: |
+          flutter build appbundle --release --build-number=300
+          flutter build apk --release --build-number=300
+    artifacts:
+      - build/app/outputs/bundle/release/*.aab
+      - build/app/outputs/flutter-apk/app-release.apk
+
   ios-release:
     name: iOS App Store build
     instance_type: mac_mini_m2
