@@ -761,8 +761,10 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Bounce(
-                onTap: () => _toast(AppLocalizations.of(context)
-                    .cd_momentToastFmt(c.moments[i].title)),
+                // 「深入沟通的时刻」→ 进真·AI 陪聊，把该时刻主题预填为开场话题（不再是假鹰币占位按钮）。
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => AiChatScreen(
+                        character: c, openingTopic: c.moments[i].title))),
                 child: Glass(
                   radius: 16,
                   padding: const EdgeInsets.all(12),
@@ -781,7 +783,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                                 blurRadius: 14),
                           ],
                         ),
-                        child: const Icon(Icons.lock_rounded,
+                        child: const Icon(Icons.forum_rounded,
                             color: Colors.white, size: 18),
                       ),
                       const SizedBox(width: 12),
@@ -806,27 +808,8 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        decoration: BoxDecoration(
-                          gradient: FF.goldGradient,
-                          borderRadius: BorderRadius.circular(999),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.bolt_rounded,
-                                color: Color(0xFF3A2700), size: 13),
-                            const SizedBox(width: 3),
-                            Text('${c.moments[i].coins}',
-                                style: const TextStyle(
-                                    color: Color(0xFF3A2700),
-                                    fontSize: 12.5,
-                                    fontWeight: FontWeight.w900)),
-                          ],
-                        ),
-                      ),
+                      const Icon(Icons.chevron_right_rounded,
+                          color: FF.dim, size: 22),
                     ],
                   ),
                 ),

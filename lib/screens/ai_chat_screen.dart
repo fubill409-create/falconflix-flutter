@@ -21,7 +21,9 @@ import 'login_screen.dart';
 /// 能量耗尽前的「每条扣能」只是客户端限速门，真正花钱的只有「充能」这一步。
 class AiChatScreen extends StatefulWidget {
   final AiCharacter character;
-  const AiChatScreen({super.key, required this.character});
+  /// 从「深入沟通的时刻」进来时带该时刻主题，预填进输入框当开场话题（不自动发送）。
+  final String? openingTopic;
+  const AiChatScreen({super.key, required this.character, this.openingTopic});
 
   @override
   State<AiChatScreen> createState() => _AiChatScreenState();
@@ -52,6 +54,8 @@ class _AiChatScreenState extends State<AiChatScreen> {
   void initState() {
     super.initState();
     _msgs.add(_Msg(widget.character.greeting, false));
+    final seed = widget.openingTopic?.trim() ?? '';
+    if (seed.isNotEmpty) _ctrl.text = seed; // 预填开场话题，用户点发送即真聊
   }
 
   @override
