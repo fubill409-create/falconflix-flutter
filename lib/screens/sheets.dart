@@ -696,11 +696,7 @@ void showShareSheet(
           shortId: shortId,
           link: _shareLandingUrl);
     }),
-    // v1 隐藏"分享到社区"——社区还是内存 mock,等真做好再放出来。
-    _ShareTarget(l.sheets_shareTargetRemix, Icons.movie_creation_rounded,
-        ready: false, onTap: () async {
-      _toast(context, l.sheets_remixComingShort);
-    }),
+    // v1:动态(社区mock)、混剪(没做)都去掉,只留消息、海报、复制链接三个真能用的。
   ];
 
   _present(context, _shell(context, children: [

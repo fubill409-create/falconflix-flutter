@@ -918,11 +918,7 @@ class _MeScreenState extends State<MeScreen> {
           _notifyRow(pal),
         ]),
 
-        _section(pal, l.me_sectionCreator, [
-          _row(Icons.handshake_outlined, l.me_rowPartner,
-              onTap: () => _push(const PartnerScreen())),
-        ]),
-
+        // v1 隐藏"创作者→聚集伙伴":伙伴招募短期不上、点进去功能还在开发,先去掉。
         _section(pal, l.me_sectionSettings, [
           _row(Icons.tune_rounded, l.me_rowSettings,
               value: _langLabel,
