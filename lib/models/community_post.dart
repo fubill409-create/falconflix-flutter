@@ -5,6 +5,7 @@
 /// 一起部署。后端就绪后 fromJson 直接对接（字段名按后端 R.ok 返回的 data 调整）。
 class CommunityPost {
   final String id;
+  final String authorId; // 作者用户 id(举报/拉黑需要;种子数据可空)
   final String authorName;
   final String authorAvatar; // 头像 url（空则用首字母圆球）
   final bool authorVip;
@@ -22,6 +23,7 @@ class CommunityPost {
 
   CommunityPost({
     required this.id,
+    this.authorId = '',
     required this.authorName,
     this.authorAvatar = '',
     this.authorVip = false,
@@ -64,6 +66,7 @@ class CommunityPost {
 
     return CommunityPost(
       id: '${j['id'] ?? ''}',
+      authorId: '${j['userId'] ?? j['authorId'] ?? ''}',
       authorName: '${j['userName'] ?? j['nickName'] ?? '鹰眼用户'}',
       authorAvatar: '${j['avatar'] ?? ''}',
       authorVip: '${j['vipStatus'] ?? ''}' == '1',

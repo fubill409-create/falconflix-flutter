@@ -1095,6 +1095,41 @@ class Api {
     return _decode(res);
   }
 
+  // ═══════════ UGC 合规:举报 / 拉黑(苹果 G1.2)═══════════
+  // 走 content-ingest 的 /ingest/app/*（App 用户 token 验真）。
+
+  /// 举报 UGC 内容。contentType: post/comment/chat/profile/avatar/drama。
+  static Future<void> reportContent({
+    required String contentType,
+    String? contentId,
+    String? targetUserId,
+    required String reasonCode,
+    String? detail,
+  }) =>
+      _postJson('/ingest/app/report', {
+        'contentType': contentType,
+        if (contentId != null) 'contentId': contentId,
+        if (targetUserId != null) 'targetUserId': targetUserId,
+        'reasonCode': reasonCode,
+        if (detail != null && detail.isNotEmpty) 'detail': detail,
+      }, auth: true);
+
+  /// 拉黑一个用户（其内容即时从 feed 隐藏）。
+  static Future<void> blockUser(String targetUserId) =>
+      _postJson('/ingest/app/block', {'targetUserId': targetUserId}, auth: true);
+
+  /// 取消拉黑。
+  static Future<void> unblockUser(String targetUserId) =>
+      _postJson('/ingest/app/unblock', {'targetUserId': targetUserId}, auth: true);
+
+  /// 我拉黑的用户 id 列表（社区/聊天据此过滤）。
+  static Future<Set<String>> myBlockedIds() async {
+    final body = await _getJson('/ingest/app/blocks', auth: true);
+    final data = body['data'];
+    if (data is List) return data.map((e) => e.toString()).toSet();
+    return <String>{};
+  }
+
   /// 通用 POST：body 为 Map/List 时按 JSON 编码；contentType=text/plain 时按原文发。
   static Future<Map<String, dynamic>> _postBody(String path, Object body,
       {bool auth = false, String contentType = 'application/json'}) async {

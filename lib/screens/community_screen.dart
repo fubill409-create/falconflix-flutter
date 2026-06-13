@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../api/api.dart';
 import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/community_post.dart';
 import '../models/privilege.dart';
 import '../models/time_label.dart';
 import '../state/community_store.dart';
+import '../widgets/ugc_actions.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import '../ui/level_gate.dart';
@@ -29,6 +31,12 @@ class _CommunityScreenState extends State<CommunityScreen> {
   void initState() {
     super.initState();
     community.ensureSeeded();
+    // 拉黑名单:登录用户进社区时拉一次,据此隐藏被拉黑者的帖子(苹果 G1.2)。
+    if (Api.hasToken) {
+      Api.myBlockedIds()
+          .then((ids) => community.setBlocked(ids))
+          .catchError((_) => <String>{});
+    }
   }
 
   Future<void> _openComposer({
@@ -86,6 +94,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
                             post: posts[i],
                             onLike: () => community.toggleLike(posts[i]),
                             onOpenDrama: () => _openDrama(posts[i]),
+                            onBlocked: () => setState(() =>
+                                community.hideByAuthor(posts[i].authorId)),
                           )
                               .animate()
                               .fadeIn(duration: 320.ms, delay: (i * 50).ms)
@@ -215,8 +225,9 @@ class _PostCard extends StatelessWidget {
   final CommunityPost post;
   final VoidCallback onLike;
   final VoidCallback onOpenDrama;
+  final VoidCallback onBlocked;
   const _PostCard(
-      {required this.post, required this.onLike, required this.onOpenDrama});
+      {required this.post, required this.onLike, required this.onOpenDrama, required this.onBlocked});
 
   @override
   Widget build(BuildContext context) {
@@ -289,6 +300,21 @@ class _PostCard extends StatelessWidget {
               Text(relativeTimeLabel(post.createdAt, AppLocalizations.of(context)),
                   style: const TextStyle(color: FF.dim, fontSize: 11.5)),
             ],
+          ),
+        ),
+        // 举报 / 拉黑 入口(苹果 G1.2 UGC 合规)
+        IconButton(
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          iconSize: 20,
+          icon: const Icon(Icons.more_horiz, color: FF.dim),
+          onPressed: () => showUgcSheet(
+            context,
+            contentType: 'post',
+            contentId: post.id,
+            targetUserId: post.authorId,
+            targetName: post.authorName,
+            onBlocked: onBlocked,
           ),
         ),
       ],

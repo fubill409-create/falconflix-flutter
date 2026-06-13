@@ -12,9 +12,27 @@ import '../models/community_post.dart';
 class CommunityStore extends ChangeNotifier {
   final List<CommunityPost> _posts = [];
   bool _seeded = false;
+  // 被拉黑用户 id 集合(苹果 G1.2:拉黑即时从 feed 隐藏)。进页面时从后端拉。
+  final Set<String> _blocked = {};
 
-  List<CommunityPost> get posts => List.unmodifiable(_posts);
-  bool get isEmpty => _posts.isEmpty;
+  List<CommunityPost> get posts => List.unmodifiable(
+      _posts.where((p) => p.authorId.isEmpty || !_blocked.contains(p.authorId)));
+  bool get isEmpty => posts.isEmpty;
+
+  /// 设置拉黑名单(启动/进页面时从 Api.myBlockedIds() 拉)。
+  void setBlocked(Set<String> ids) {
+    _blocked
+      ..clear()
+      ..addAll(ids);
+    notifyListeners();
+  }
+
+  /// 即时拉黑某作者:本地立即从 feed 隐藏(后端拉黑请求已在 UI 层发出)。
+  void hideByAuthor(String authorId) {
+    if (authorId.isEmpty) return;
+    _blocked.add(authorId);
+    notifyListeners();
+  }
 
   /// 进页面时调用：首次注入演示帖（只注入一次，避免重进重复）。
   void ensureSeeded() {

@@ -10,6 +10,7 @@ import '../api/api.dart';
 import '../app_config.dart';
 import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
+import 'me_subpages.dart' show TermsScreen, PrivacyScreen;
 import '../theme.dart';
 import '../ui/kit.dart';
 
@@ -219,12 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 22),
                         _socialLogin(),
                         const SizedBox(height: 18),
-                        Center(
-                          child: Text(AppLocalizations.of(context).login_agreement,
-                              style: TextStyle(
-                                  color: FF.dim.withValues(alpha: 0.7),
-                                  fontSize: 11)),
-                        ),
+                        // 协议提示 + 用户协议/隐私政策可点链接(苹果 G4/G1.2:必须可访问)
+                        const Center(child: _AgreementLinks()),
                       ],
                     ),
                   ),
@@ -1066,5 +1063,34 @@ class _FacebookGlyph extends StatelessWidget {
             fontSize: size,
             fontWeight: FontWeight.w900,
             height: 1));
+  }
+}
+
+/// 登录页底部:协议提示 + 「用户协议」「隐私政策」可点链接(苹果 G4/G1.2 要求可访问)。
+class _AgreementLinks extends StatelessWidget {
+  const _AgreementLinks();
+
+  @override
+  Widget build(BuildContext context) {
+    final zh = Localizations.localeOf(context).languageCode == 'zh';
+    final dim = TextStyle(color: FF.dim.withValues(alpha: 0.7), fontSize: 11);
+    final link = const TextStyle(
+        color: FF.purple, fontSize: 11, fontWeight: FontWeight.w600);
+    void open(Widget page) => Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => page));
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text(zh ? '登录即表示同意 ' : 'By continuing you agree to our ', style: dim),
+        GestureDetector(
+            onTap: () => open(const TermsScreen()),
+            child: Text(zh ? '用户协议' : 'Terms', style: link)),
+        Text(zh ? ' 和 ' : ' & ', style: dim),
+        GestureDetector(
+            onTap: () => open(const PrivacyScreen()),
+            child: Text(zh ? '隐私政策' : 'Privacy Policy', style: link)),
+      ],
+    );
   }
 }
