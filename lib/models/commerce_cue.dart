@@ -81,13 +81,18 @@ class CommerceCue {
 
   bool activeAt(Duration t) => t >= start && t <= end;
 
+  // iOS ATS 会静默拦截 http 媒体地址 → 落进被吞掉的 catch。
+  // 解析时把 http 升级成 https，防御性兜底。
+  static String _https(String u) =>
+      u.startsWith('http://') ? u.replaceFirst('http://', 'https://') : u;
+
   factory CommerceCue.fromJson(Map<String, dynamic> j) {
     int _ms(dynamic v) => ((double.tryParse('${v ?? 0}') ?? 0) * 1000).round();
     return CommerceCue(
       episodeId: '${j['episodeId'] ?? ''}',
       productId: '${j['productId'] ?? ''}',
       productName: '${j['productName'] ?? ''}',
-      productImage: '${j['productImage'] ?? ''}',
+      productImage: _https('${j['productImage'] ?? ''}'),
       price: double.tryParse('${j['price'] ?? 0}') ?? 0,
       start: Duration(milliseconds: _ms(j['start'])),
       end: Duration(milliseconds: _ms(j['end'])),

@@ -38,6 +38,11 @@ class FeedItem {
     return (s == null || s.isEmpty || s == '0') ? null : s;
   }
 
+  // iOS ATS 会静默拦截 http 媒体地址 → 落进被吞掉的 catch → 看着像死按钮。
+  // 解析时把 http 升级成 https，防御性兜底（视频与封面同此处理）。
+  static String _https(String u) =>
+      u.startsWith('http://') ? u.replaceFirst('http://', 'https://') : u;
+
   factory FeedItem.fromJson(Map<String, dynamic> j) {
     return FeedItem(
       shortId: '${j['shortId'] ?? j['id'] ?? ''}',
@@ -45,8 +50,8 @@ class FeedItem {
       shortName: '${j['shortName'] ?? ''}',
       episodeName: '${j['name'] ?? ''}',
       introduce: '${j['introduce'] ?? ''}',
-      videoUrl: '${j['sectionUrl'] ?? j['videoUrl'] ?? ''}',
-      poster: '${j['avatar'] ?? ''}',
+      videoUrl: _https('${j['sectionUrl'] ?? j['videoUrl'] ?? ''}'),
+      poster: _https('${j['avatar'] ?? ''}'),
       likeCount: _toInt(j['likeCount']),
       collectCount: _toInt(j['collectCount']),
       thumbsUpCount: _toInt(j['thumbsUpCount']),

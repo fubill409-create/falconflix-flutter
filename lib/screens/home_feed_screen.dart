@@ -134,6 +134,7 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
   VideoPlayerController? _video;
   bool _ready = false;
   bool _paused = false;
+  bool _failed = false; // 初始化失败/超时/空地址 → 显示错误+重试，不再冻在暗底上
 
   // 点赞/收藏：乐观本地状态，与服务端 toggle 同进退。
   bool _liked = false;
@@ -299,8 +300,13 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
 
   Future<void> _initVideo() async {
     final url = widget.item.videoUrl;
-    if (url.isEmpty) return;
     _paused = false; // 新片源：重置「用户手动暂停」镜像，避免沿用上一条的暂停态。
+    _failed = false; // 同步赋值（首次由 initState 调用，此处不能 setState）。
+    // 空地址：进错误态（可重试），不再冻在暗底上看着像死按钮。
+    if (url.isEmpty) {
+      _failed = true;
+      return;
+    }
     // 优先用预热好的 controller：第一条来自 splash 预热，其余来自“滑到上一条时
     // 提前预热的下一条”。命中即播，省去现场缓冲那几秒（滑到→鹰头→等→影片 的根因）。
     if (_video == null) {
@@ -309,7 +315,7 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
         final c = warm.$1;
         _video = c;
         try {
-          await warm.$2; // 多半已缓冲完
+          await warm.$2.timeout(const Duration(seconds: 15)); // 多半已缓冲完
           if (!mounted || _video != c) {
             c.dispose();
             return;
@@ -324,14 +330,19 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
           setState(() {
             _ready = true;
           });
-        } catch (_) {/* 回退到封面 */}
+        } catch (e) {
+          // 不再静默吞错：进错误态 + 重试，别让首页冻在暗底（苹果 G2.1 死按钮根因）。
+          debugPrint('home feed warm video init failed: $e');
+          if (!mounted || _video != c) return;
+          setState(() => _failed = true);
+        }
         return;
       }
     }
     final c = VideoPlayerController.networkUrl(Uri.parse(url));
     _video = c;
     try {
-      await c.initialize();
+      await c.initialize().timeout(const Duration(seconds: 15));
       if (!mounted || _video != c) return;
       c.setLooping(true);
       // 初始化途中可能已切走 Tab/翻页：只有仍该播才播，否则保持暂停不出声。
@@ -343,13 +354,32 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
       setState(() {
         _ready = true;
       });
-    } catch (_) {/* 不可达回退到封面 */}
+    } catch (e) {
+      // 不再静默吞错：进错误态 + 重试，别让首页冻在暗底（苹果 G2.1 死按钮根因）。
+      debugPrint('home feed video init failed: $e');
+      if (!mounted || _video != c) return;
+      setState(() => _failed = true);
+    }
+  }
+
+  // 重试：释放失败的 controller，重置状态并重新初始化。
+  void _retryVideo() {
+    final c = _video;
+    _video = null;
+    c?.pause();
+    c?.dispose();
+    setState(() {
+      _ready = false;
+      _failed = false;
+    });
+    _initVideo();
   }
 
   void _disposeVideo() {
     final c = _video;
     _video = null;
     _ready = false;
+    _failed = false;
     c?.pause();
     c?.dispose();
     if (mounted) setState(() {});
@@ -409,11 +439,6 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
         ),
       ));
 
-  bool get _hasCommerce =>
-      widget.item.goodsPreId != null ||
-      widget.item.goodsMidId != null ||
-      widget.item.goodsAfterId != null;
-
   String _fmt(int n) {
     if (n >= 1000000) return '${(n / 1000000).toStringAsFixed(1)}M';
     if (n >= 1000) return '${(n / 1000).toStringAsFixed(1)}K';
@@ -446,6 +471,9 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
             const Center(
                 child: Icon(Icons.play_arrow_rounded,
                     size: 88, color: Colors.white60)),
+
+          // 失败态：错误提示 + 重试（不再冻在暗底上看着像死按钮）。
+          if (_failed) _FeedVideoError(onRetry: _retryVideo),
 
           // 双击点赞：中央大爱心爆裂（不拦截手势）
           if (_burst > 0)
@@ -528,29 +556,17 @@ class _FeedPageState extends State<_FeedPage> with RouteAware {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // 带货 cue（左）+ chips（右）
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                // chips 行（带货 cue 已下线移除：原「剧中同款·商品页开发中」死按钮，
+                // 是苹果审核拒因，整块不再渲染）。
+                Wrap(
+                  spacing: 7,
+                  runSpacing: 7,
                   children: [
-                    if (_hasCommerce) ...[
-                      _CommerceCue(
-                          onTap: () =>
-                              _toast(context, l.home_shopComingSoon)),
-                      const SizedBox(width: 12),
-                    ],
-                    Expanded(
-                      child: Wrap(
-                        spacing: 7,
-                        runSpacing: 7,
-                        children: [
-                          _Chip(l.home_chipAiTheater, gold: true),
-                          if (pop >= 1000) _Chip(_fmt(pop)), // 太小的数不显示孤立 chip
-                          _Chip(item.price > 0
-                              ? '¥${item.price.toStringAsFixed(0)}'
-                              : l.common_free),
-                        ],
-                      ),
-                    ),
+                    _Chip(l.home_chipAiTheater, gold: true),
+                    if (pop >= 1000) _Chip(_fmt(pop)), // 太小的数不显示孤立 chip
+                    _Chip(item.price > 0
+                        ? '¥${item.price.toStringAsFixed(0)}'
+                        : l.common_free),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -620,6 +636,46 @@ class _BrandedBackdrop extends StatelessWidget {
   }
 }
 
+/// 单条视频加载失败/超时/空地址时的错误态：提示 + 重试按钮。
+/// 取代过去那个会冻在暗底上的占位（苹果 G2.1 死按钮根因）。
+class _FeedVideoError extends StatelessWidget {
+  final VoidCallback onRetry;
+  const _FeedVideoError({required this.onRetry});
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error_outline_rounded,
+                color: Colors.white70, size: 48),
+            const SizedBox(height: 14),
+            Text(
+              l.common_loadFailed,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 18),
+            OutlinedButton(
+              onPressed: onRetry,
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.white54)),
+              child: Text(l.common_retry),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _SideAction extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -677,98 +733,6 @@ class _SideAction extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   shadows: [Shadow(color: Color(0x85000000), blurRadius: 10)])),
         ],
-      ),
-    );
-  }
-}
-
-class _CommerceCue extends StatelessWidget {
-  final VoidCallback onTap;
-  const _CommerceCue({required this.onTap});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Glass(
-        radius: 22,
-        blur: 18,
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              width: 78,
-              height: 78,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  // 无真实商品图时的金色 AI 商品占位（购物袋），不要用场景帧
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(21),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xFF2A2118), Color(0xFF15110C)],
-                        ),
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.shopping_bag_rounded,
-                            color: FF.gold, size: 28),
-                      ),
-                    ),
-                  ),
-                  // 扫描环
-                  Positioned.fill(
-                    child: Container(
-                      margin: const EdgeInsets.all(7),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                            color: FF.teal.withValues(alpha: 0.72)),
-                        boxShadow: [
-                          BoxShadow(
-                              color: FF.teal.withValues(alpha: 0.36),
-                              blurRadius: 18),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // AI 点
-                  Positioned(
-                    right: 5,
-                    top: 5,
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, gradient: FF.aiGradient),
-                      child: const Text('AI',
-                          style: TextStyle(
-                              color: Color(0xFF10231F),
-                              fontSize: 10,
-                              fontWeight: FontWeight.w900)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 7),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
-              decoration: BoxDecoration(
-                  gradient: FF.goldGradient,
-                  borderRadius: BorderRadius.circular(999)),
-              child: Text(AppLocalizations.of(context).home_bannerPremiere,
-                  style: const TextStyle(
-                      color: FF.textDark,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w900)),
-            ),
-          ],
-        ),
       ),
     );
   }

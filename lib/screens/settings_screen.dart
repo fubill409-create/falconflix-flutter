@@ -10,6 +10,7 @@ import '../theme.dart';
 import '../ui/daynight.dart';
 import '../ui/kit.dart';
 import 'account_compliance_screens.dart';
+import 'blocklist_screen.dart';
 import 'me_subpages.dart' show PrivacyScreen;
 
 /// 设置主入口 —— me_screen「设置」组的折叠子页（任务 #13）。
@@ -49,6 +50,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
       return '${(b / 1024 / 1024).toStringAsFixed(1)} MB';
     }
     return '${(b / 1024 / 1024 / 1024).toStringAsFixed(2)} GB';
+  }
+
+  // 拉黑名单入口标题（无 l10n key，按 locale 内联多语言）。
+  String get _blocklistLabel {
+    switch (localeNotifier.value.languageCode) {
+      case 'en':
+        return 'Blocked users';
+      case 'ja':
+        return 'ブロックしたユーザー';
+      case 'ko':
+        return '차단한 사용자';
+      case 'ar':
+        return 'المستخدمون المحظورون';
+      case 'fr':
+        return 'Utilisateurs bloqués';
+      case 'zh':
+      default:
+        return '拉黑名单';
+    }
   }
 
   String get _langLabel {
@@ -227,6 +247,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           _row(p, Icons.privacy_tip_outlined, l.settings_rowPrivacy,
                               onTap: () =>
                                   _push(const PrivacyPrefsScreen())),
+                          _row(p, Icons.block_outlined, _blocklistLabel,
+                              onTap: () => _push(const BlocklistScreen())),
                         ]),
                         _group(p, l.settings_sectionUIStorage, [
                           _row(p, Icons.translate_rounded, l.settings_rowLanguage,

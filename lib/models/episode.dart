@@ -32,12 +32,17 @@ class Episode {
     return (s == null || s.isEmpty || s == '0') ? null : s;
   }
 
+  // iOS ATS 会静默拦截 http 媒体地址 → 落进被吞掉的 catch → 看着像死按钮。
+  // 解析时把 http 升级成 https，防御性兜底。
+  static String _https(String u) =>
+      u.startsWith('http://') ? u.replaceFirst('http://', 'https://') : u;
+
   factory Episode.fromJson(Map<String, dynamic> j) {
     return Episode(
       id: '${j['id'] ?? ''}',
       shortId: '${j['shortId'] ?? ''}',
       name: '${j['name'] ?? ''}',
-      videoUrl: '${j['videoUrl'] ?? j['sectionUrl'] ?? ''}',
+      videoUrl: _https('${j['videoUrl'] ?? j['sectionUrl'] ?? ''}'),
       price: double.tryParse('${j['price'] ?? 0}') ?? 0,
       isBuy: j['isBuy'] == true || '${j['isBuy']}'.toLowerCase() == 'true',
       sort: int.tryParse('${j['sort'] ?? 0}') ?? 0,

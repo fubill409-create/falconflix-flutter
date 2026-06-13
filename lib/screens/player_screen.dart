@@ -51,6 +51,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   VideoPlayerController? _video;
   bool _ready = false;
   bool _paused = false;
+  bool _failed = false; // 视频初始化失败/超时/空地址 → 显示错误+重试，不再无限转圈
 
   // 点赞/收藏：乐观本地状态，与服务端 toggle 同进退。
   bool _liked = false;
@@ -93,9 +94,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
     super.initState();
     _liked = widget.initiallyLiked;
     _collected = widget.initiallyCollected;
-    // v1:带货只走真后端时间轴,没有真商品就不显示幽灵条(不再灌 mock 假货)。
-    // 之前的假货+假AI匹配度+假结算是苹果 G2.1 高危,审核员点开就穿帮。
-    _loadRealCues();
+    // 带货(in-show shopping)功能已下线:不再加载任何商品时间轴,幽灵条/商品列入口
+    // 一律不出现。残留的假结算页(commerce.dart)因此完全不可达,以过苹果审核。
     _loadEpisodes();
     _initVideo();
   }
@@ -110,24 +110,23 @@ class _PlayerScreenState extends State<PlayerScreen> {
     } catch (_) {/* 拉不到就不显示选集,不假装 */}
   }
 
-  // 拉真实带货时间轴；拿到非空就替换 mock，失败/空则保持 mock（零回归）。
-  Future<void> _loadRealCues() async {
-    if (widget.episodeId.isEmpty) return;
-    try {
-      final real = await Api.fetchCommerceTimeline(widget.episodeId);
-      if (!mounted || real.isEmpty) return;
-      setState(() => _cues = real);
-    } catch (_) {/* 接不通就用 mock，绝不打断观影 */}
-  }
-
   Future<void> _initVideo() async {
     final url = widget.videoUrl;
-    if (url.isEmpty) return;
+    // 同步前缀直接赋值字段：本方法首次由 initState 调用，此时不能 setState。
+    // 异步收尾与重试路径里才 setState。
+    _ready = false;
+    _failed = false;
+    // 空地址：直接进错误态（可重试），不再卡在封面/无限转圈，看着像死按钮。
+    if (url.isEmpty) {
+      _failed = true;
+      return;
+    }
     final c = VideoPlayerController.networkUrl(Uri.parse(url));
     _video = c;
     c.addListener(_onTick);
     try {
-      await c.initialize();
+      // 加超时：挂死的加载不再无限转圈（iOS 上 http 被 ATS 拦截会卡住）。
+      await c.initialize().timeout(const Duration(seconds: 15));
       if (!mounted || _video != c) return;
       c.setLooping(true);
       c.play();
@@ -136,7 +135,25 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _paused = false;
       });
       _restartChromeTimer();
-    } catch (_) {/* 不可达：保留封面 */}
+    } catch (e) {
+      // 不再静默吞错：标记失败 → 渲染错误态+重试按钮（不再是冻屏/转圈）。
+      debugPrint('PlayerScreen video init failed: $e');
+      if (!mounted || _video != c) return;
+      setState(() => _failed = true);
+    }
+  }
+
+  // 重试：先释放上一个失败的 controller，再重新跑初始化（并刷新 UI）。
+  void _retryVideo() {
+    final c = _video;
+    _video = null;
+    c?.removeListener(_onTick);
+    c?.dispose();
+    setState(() {
+      _ready = false;
+      _failed = false;
+    });
+    _initVideo();
   }
 
   void _onTick() {
@@ -200,12 +217,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
     });
   }
 
-  void _openProduct(Product product) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => ProductDetailScreen(product: product)),
-    );
-  }
+  // 带货下线:商品详情/结算入口已移除,此处不再导航到 ProductDetailScreen,
+  // 使残留的假结算页(commerce.dart)完全不可达。商品列入口本身也不再出现。
+  void _openProduct(Product product) {}
 
   void _togglePlay() {
     final c = _video;
@@ -386,7 +400,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 fit: StackFit.expand,
                 children: [
                   FittedVideo(controller: _video, poster: widget.poster),
-                  if (!_ready)
+                  // 失败态：错误提示 + 重试按钮（不再无限转圈/冻屏，看着像死按钮）。
+                  if (_failed)
+                    _VideoError(onRetry: _retryVideo)
+                  else if (!_ready)
                     const Center(
                         child: CircularProgressIndicator(color: FF.hot)),
                   // 暂停指示（仅图标，整屏可点）
@@ -521,6 +538,47 @@ class _PlayerScreenState extends State<PlayerScreen> {
             )),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// 视频加载失败/超时/空地址时的错误态：提示 + 重试按钮。
+/// 取代过去那个会无限转圈/冻屏的占位（苹果 G2.1 死按钮根因）。
+class _VideoError extends StatelessWidget {
+  final VoidCallback onRetry;
+  const _VideoError({required this.onRetry});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error_outline_rounded,
+                color: Colors.white70, size: 48),
+            const SizedBox(height: 14),
+            Text(
+              l.common_loadFailed,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(height: 18),
+            OutlinedButton(
+              onPressed: onRetry,
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  side: const BorderSide(color: Colors.white54)),
+              child: Text(l.common_retry),
+            ),
+          ],
+        ),
       ),
     );
   }

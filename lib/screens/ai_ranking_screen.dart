@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../api/api.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
 import '../models/level_curve.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
+import '../widgets/ugc_actions.dart';
 import 'character_board_screen.dart';
 import 'character_detail_screen.dart' show LevelBadge;
 
@@ -93,6 +95,7 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
         for (final r in data.whereType<Map>())
           _Tycoon(
             rank: (r['rank'] as num?)?.toInt() ?? 0,
+            userId: (r['userId'] ?? '').toString(),
             name: _displayName(r['name']),
             total: (r['total'] as num?)?.toInt() ?? 0,
           ),
@@ -141,6 +144,30 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (_) => CharacterBoardScreen(character: c),
     ));
+  }
+
+  // 是否在该用户行展示「举报/拉黑」入口：有 userId 且不是自己。
+  bool _canModerate(String userId) {
+    if (userId.isEmpty) return false;
+    final me = auth.profile?.id?.toString();
+    return me == null || me != userId;
+  }
+
+  // 小「⋯」按钮 → 举报/拉黑（苹果 G1.2 UGC 合规）。
+  Widget _moreBtn(_Tycoon t) {
+    return IconButton(
+      padding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+      iconSize: 18,
+      icon: const Icon(Icons.more_horiz, color: FF.dim),
+      onPressed: () => showUgcSheet(
+        context,
+        contentType: 'profile',
+        targetUserId: t.userId,
+        targetName: t.name,
+      ),
+    );
   }
 
   @override
@@ -595,7 +622,7 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
     final level = levelForCoins(t.total);
     final tier = levelTier(level);
     final l = AppLocalizations.of(context);
-    return Glass(
+    final card = Glass(
       radius: 22,
       border: FF.gold.withValues(alpha: 0.55),
       padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
@@ -651,6 +678,17 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
             duration: 2600.ms,
             delay: 900.ms,
             color: FF.gold.withValues(alpha: 0.22));
+    if (!_canModerate(t.userId)) return card;
+    return Stack(
+      children: [
+        card,
+        Positioned(
+          top: 6,
+          right: 6,
+          child: _moreBtn(t),
+        ),
+      ],
+    );
   }
 
   // #2+ 富豪行
@@ -693,6 +731,10 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
                   color: tier.color,
                   fontSize: 14,
                   fontWeight: FontWeight.w900)),
+          if (_canModerate(t.userId)) ...[
+            const SizedBox(width: 2),
+            _moreBtn(t),
+          ],
         ],
       ),
     );
@@ -828,7 +870,13 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
 // 一条全站榜一大哥 = 用户（跨全角色总打投）。
 class _Tycoon {
   final int rank;
+  final String userId; // 后端 d_users.id（用于举报/拉黑），可能为空
   final String name;
   final int total;
-  const _Tycoon({required this.rank, required this.name, required this.total});
+  const _Tycoon({
+    required this.rank,
+    required this.userId,
+    required this.name,
+    required this.total,
+  });
 }

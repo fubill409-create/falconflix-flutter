@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../api/api.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import '../ui/support_sheet.dart';
+import '../widgets/ugc_actions.dart';
 import 'character_detail_screen.dart';
 
 /// 角色应援榜（AI 互动 L2 · 已接真后端）。
@@ -21,7 +23,7 @@ class CharacterBoardScreen extends StatefulWidget {
 }
 
 class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
-  List<Supporter> _board = const [];
+  List<_Backer> _board = const [];
   double _progress = 0.0;
   int _total = 0; // 该角色累计应援鹰币（榜单之和）
   int _myRank = 0; // 我在该角色榜名次（0 = 没上榜）
@@ -45,17 +47,20 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
     try {
       final m = await Api.giftCharBoard(_c.id);
       final data = (m['data'] as List?) ?? const [];
-      final backers = <Supporter>[
+      final backers = <_Backer>[
         for (final r in data.whereType<Map>())
-          Supporter(
-            _displayName(r['name']),
-            (r['total'] as num?)?.toInt() ?? 0,
+          _Backer(
+            Supporter(
+              _displayName(r['name']),
+              (r['total'] as num?)?.toInt() ?? 0,
+            ),
+            (r['userId'] ?? '').toString(),
           ),
       ];
       if (!mounted) return;
       setState(() {
         _board = backers;
-        _total = backers.fold(0, (s, e) => s + e.coins);
+        _total = backers.fold(0, (s, e) => s + e.s.coins);
         _myRank = (m['myRank'] as num?)?.toInt() ?? 0;
         _myTotal = (m['myTotal'] as num?)?.toInt() ?? 0;
         _progress = (_c.voteProgress).clamp(0.0, 1.0); // 进度由角色清单给（榜接口不回进度）
@@ -86,6 +91,30 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
   Future<void> _support() async {
     await openSupportSheet(context, _c);
     if (mounted) _load();
+  }
+
+  // 是否在该应援者行展示「举报/拉黑」入口：有 userId 且不是自己。
+  bool _canModerate(String userId) {
+    if (userId.isEmpty) return false;
+    final me = auth.profile?.id?.toString();
+    return me == null || me != userId;
+  }
+
+  // 小「⋯」按钮 → 举报/拉黑（苹果 G1.2 UGC 合规）。
+  Widget _moreBtn(_Backer b) {
+    return IconButton(
+      padding: EdgeInsets.zero,
+      visualDensity: VisualDensity.compact,
+      constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
+      iconSize: 18,
+      icon: const Icon(Icons.more_horiz, color: FF.dim),
+      onPressed: () => showUgcSheet(
+        context,
+        contentType: 'profile',
+        targetUserId: b.userId,
+        targetName: b.s.name,
+      ),
+    );
   }
 
   @override
@@ -161,7 +190,7 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
 
     final hasBoard = _board.isNotEmpty;
     final king = hasBoard ? _board.first : null;
-    final rest = hasBoard ? _board.skip(1).toList() : <Supporter>[];
+    final rest = hasBoard ? _board.skip(1).toList() : <_Backer>[];
     return ListView(
       padding: const EdgeInsets.fromLTRB(6, 6, 6, 110),
       children: [
@@ -366,7 +395,8 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
   }
 
   // 本剧榜一大哥（金色大卡）
-  Widget _kingCard(BuildContext context, Supporter s, AiCharacter c) {
+  Widget _kingCard(BuildContext context, _Backer b, AiCharacter c) {
+    final s = b.s;
     final tier = levelTier(s.level);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -426,6 +456,10 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
           Text(AppLocalizations.of(context).cb_coinsFmt(fmtCoins(s.coins)),
               style: const TextStyle(
                   color: FF.gold, fontSize: 14, fontWeight: FontWeight.w900)),
+          if (_canModerate(b.userId)) ...[
+            const SizedBox(width: 2),
+            _moreBtn(b),
+          ],
         ],
       ),
     )
@@ -437,7 +471,8 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
   }
 
   // 富豪行
-  Widget _fanRow(BuildContext context, int rank, Supporter s) {
+  Widget _fanRow(BuildContext context, int rank, _Backer b) {
+    final s = b.s;
     final tier = levelTier(s.level);
     return Glass(
       radius: 16,
@@ -488,6 +523,10 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
                   color: tier.color,
                   fontSize: 13.5,
                   fontWeight: FontWeight.w900)),
+          if (_canModerate(b.userId)) ...[
+            const SizedBox(width: 2),
+            _moreBtn(b),
+          ],
         ],
       ),
     );
@@ -595,4 +634,11 @@ class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
       ),
     );
   }
+}
+
+// 一条应援者 = 展示用 [Supporter] + 后端 userId（用于举报/拉黑，可能为空）。
+class _Backer {
+  final Supporter s;
+  final String userId;
+  const _Backer(this.s, this.userId);
 }
