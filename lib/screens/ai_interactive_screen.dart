@@ -10,6 +10,7 @@ import '../api/api.dart';
 import '../app_config.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
+import '../models/support_store.dart';
 import '../models/short_drama.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
@@ -53,6 +54,8 @@ class _AiInteractiveScreenState extends State<AiInteractiveScreen> {
     Api.aiCharacters().then((list) {
       if (mounted && list.isNotEmpty) setState(() => _characters = list);
     });
+    // 拉真实出道热度榜→填 supportStore：头顶"应援值"/进度环显示真数据，送礼后实时涨。
+    Api.giftCharRank().then((rows) => supportStore.applyCharRank(rows)).catchError((_) {});
     _loadDramas();
   }
 
@@ -147,11 +150,15 @@ class _AiInteractiveScreenState extends State<AiInteractiveScreen> {
                 _sparkEntry(), // AI 客串入口（用户反馈角色页找不到 Spark，补在这）
                 // 角色星云舞台：占满中间所有剩余空间，绝不留黑缝
                 Expanded(
-                  child: _Constellation(
-                    characters: _characters,
-                    speakingId: _speakingId,
-                    onOpen: _openCharacter,
-                    onSpeak: _speak,
+                  // 监听 supportStore：送礼后真实应援值/进度即时刷新到头顶。
+                  child: ListenableBuilder(
+                    listenable: supportStore,
+                    builder: (_, _) => _Constellation(
+                      characters: _characters,
+                      speakingId: _speakingId,
+                      onOpen: _openCharacter,
+                      onSpeak: _speak,
+                    ),
                   ),
                 ),
                 SectionHeader(AppLocalizations.of(context).cast_sectionPlaying,
@@ -640,7 +647,7 @@ class _ConstellationState extends State<_Constellation>
           // 应援热度弧环（满圈=100%，剩下暗）
           CustomPaint(
             size: const Size(d, d),
-            painter: _RingPainter(c.voteProgress, c.aura),
+            painter: _RingPainter(supportStore.progressFor(c), c.aura),
           ),
           // 头像 + 底部名字
           Container(
@@ -703,7 +710,7 @@ class _ConstellationState extends State<_Constellation>
   }
 
   Widget _heatChip(AiCharacter c) {
-    final pct = (c.voteProgress * 100).round();
+    final cheer = supportStore.charTotalFor(c); // 真实应援值，送礼后实时涨
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2.5),
       decoration: BoxDecoration(
@@ -721,7 +728,7 @@ class _ConstellationState extends State<_Constellation>
           Icon(Icons.local_fire_department_rounded,
               size: 11, color: c.aura.last),
           const SizedBox(width: 2),
-          Text('$pct',
+          Text(fmtCoins(cheer),
               style: TextStyle(
                   color: c.aura.first,
                   fontSize: 10.5,

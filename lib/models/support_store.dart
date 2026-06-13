@@ -18,6 +18,8 @@ class SupportStore extends ChangeNotifier {
   final Map<String, double> _progress = {};
   // 角色 id -> 我在该角色应援榜名次（1-based；服务端 myCharRank）
   final Map<String, int> _myRank = {};
+  // 角色 id -> 该角色累计应援鹰币（服务端 charTotal）——角色 Tab 头顶"应援值"用，送礼后实时涨
+  final Map<String, int> _charTotal = {};
   // 角色 id -> 该角色应援榜（服务端 backers），降序
   final Map<String, List<Supporter>> _board = {};
 
@@ -74,9 +76,11 @@ class SupportStore extends ChangeNotifier {
     final charProgress = (res['charProgress'] as num?)?.toDouble() ?? 0.0;
     final myCharRank = (res['myCharRank'] as num?)?.toInt() ?? 0;
     final isKing = res['isKing'] == true;
+    final charTotal = (res['charTotal'] as num?)?.toInt() ?? (_charTotal[c.id] ?? 0);
 
     _myCoins[c.id] = myCharTotal;
     _progress[c.id] = charProgress.clamp(0.0, 1.0);
+    _charTotal[c.id] = charTotal; // 角色总应援值,送礼后立刻涨
     if (myCharRank > 0) _myRank[c.id] = myCharRank;
     notifyListeners();
 
@@ -120,6 +124,22 @@ class SupportStore extends ChangeNotifier {
   /// 出道进度：拉到服务端值则用之，否则回退包内 mock（c.voteProgress）。
   double progressFor(AiCharacter c) =>
       (_progress[c.id] ?? c.voteProgress).clamp(0.0, 1.0);
+
+  /// 该角色累计应援鹰币（角色 Tab 头顶"应援值"；未知=0，送礼后实时涨）。
+  int charTotalFor(AiCharacter c) => _charTotal[c.id] ?? 0;
+
+  /// 批量灌入出道热度榜（giftCharRank）：填真实进度 + 应援值，让角色 Tab 显示真数据。
+  void applyCharRank(List<Map<String, dynamic>> rows) {
+    for (final r in rows) {
+      final id = r['characterId']?.toString() ?? '';
+      if (id.isEmpty) continue;
+      final p = (r['progress'] as num?)?.toDouble();
+      final t = (r['total'] as num?)?.toInt();
+      if (p != null) _progress[id] = p.clamp(0.0, 1.0);
+      if (t != null) _charTotal[id] = t;
+    }
+    notifyListeners();
+  }
 
   /// 累计应援鹰币：有榜单则求和，否则回退包内 mock（c.totalCoins）。
   int totalCoinsFor(AiCharacter c) {
