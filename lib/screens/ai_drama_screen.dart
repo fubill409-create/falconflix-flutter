@@ -6,12 +6,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart' as http;
 
 import '../api/api.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ix_manifest.dart';
 import '../services/ix_progress.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import 'ix_player_screen.dart'; // Nova 真互动剧播放器
+import 'login_screen.dart'; // 投票/解锁前的登录门
 import 'spark_screen.dart'; // 客串自己 / AI 入戏（原「AI 玩法」折进来当小玩具）
 
 /// C 位招牌 ·「AI 互动剧」落地页（v0 框架壳，2026-06-05）。
@@ -20,8 +22,34 @@ import 'spark_screen.dart'; // 客串自己 / AI 入戏（原「AI 玩法」折�
 ///        ③愿景阶梯流程图（看剧→互动选择→客串自己→应援出道→决策元宇宙，会动）
 /// 底部留一个「客串自己」口子，接原 AI 入戏（spark）。
 /// 暗色电影感专用（星光片场基调），不走日夜——这是王牌秀场，要炫不要白。
-class AiDramaScreen extends StatelessWidget {
+class AiDramaScreen extends StatefulWidget {
   const AiDramaScreen({super.key});
+
+  @override
+  State<AiDramaScreen> createState() => _AiDramaScreenState();
+}
+
+class _AiDramaScreenState extends State<AiDramaScreen> {
+  List<PipelineItem> _pipeline = const [];
+  bool _loading = true;
+  bool _error = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPipeline();
+  }
+
+  Future<void> _loadPipeline() async {
+    if (mounted) setState(() { _loading = true; _error = false; });
+    try {
+      final rows = await Api.ixPipeline();
+      final items = [for (final r in rows) PipelineItem.fromJson(r)];
+      if (mounted) setState(() { _pipeline = items; _loading = false; });
+    } catch (_) {
+      if (mounted) setState(() { _loading = false; _error = true; });
+    }
+  }
 
   void _openCameo(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
@@ -49,7 +77,7 @@ class AiDramaScreen extends StatelessWidget {
                 const SizedBox(height: 22),
                 _pipelineHeading(context),
                 const SizedBox(height: 12),
-                _PipelineGrid(items: _seedPipeline),
+                _pipelineBody(context),
                 const SizedBox(height: 26),
                 const _Manifesto(),
                 const SizedBox(height: 24),
@@ -62,6 +90,53 @@ class AiDramaScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // 制作管线主体：加载中转圈 / 拉取失败可重试 / 空态隐藏 / 有数据走网格。
+  Widget _pipelineBody(BuildContext context) {
+    if (_loading) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 40),
+        child: Center(
+          child: CircularProgressIndicator(color: FF.hot, strokeWidth: 2.4),
+        ),
+      );
+    }
+    if (_error) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 6),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.cloud_off_rounded, color: FF.dim, size: 34),
+              const SizedBox(height: 10),
+              Text(AppLocalizations.of(context).common_loadFailed,
+                  style: const TextStyle(color: FF.muted, fontSize: 13)),
+              const SizedBox(height: 12),
+              Bounce(
+                onTap: _loadPipeline,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(color: FF.gold.withValues(alpha: 0.5)),
+                  ),
+                  child: Text(AppLocalizations.of(context).common_retry,
+                      style: const TextStyle(
+                          color: FF.gold,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800)),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    if (_pipeline.isEmpty) return const SizedBox.shrink();
+    return _PipelineGrid(items: _pipeline);
   }
 
   // ───────── 顶部品牌行 ─────────
@@ -200,52 +275,73 @@ Widget _statusBadge(String text, List<Color> colors) {
 }
 
 // ───────────────────────── 片单数据 ─────────────────────────
-enum IxStatus { producing, casting }
+// 后端 /ix/pipeline 返回 4 状态：制作中 / 选角中 / 已排期 / 已上线。
+enum IxStatus { producing, casting, scheduled, released }
 
-class PipelineItem {
-  final String title;
-  final String teaser;
-  final IxStatus status;
-  final List<Color> accent;
-  final double castVote; // 选角中：当前投票热度
-  final String? posterUrl; // 用户海报到位后填这里，否则走渐变占位
-  const PipelineItem(this.title, this.teaser, this.status, this.accent,
-      {this.castVote = 0, this.posterUrl});
+IxStatus _statusFrom(String s) {
+  switch (s) {
+    case 'casting':
+      return IxStatus.casting;
+    case 'scheduled':
+      return IxStatus.scheduled;
+    case 'released':
+      return IxStatus.released;
+    default:
+      return IxStatus.producing;
+  }
 }
 
-// 种子片单：3 制作中 + 4 选角中（标题/钩子文案 Claude 亲笔，跨题材展示——
-// 爱情/悬疑/年代/古装/恋综，证明这个功能什么剧都能装，不锁暗黑悬疑）。
-// 海报未到位：先渐变占位铺满；用户给海报后把 posterUrl 填上即替换。
+/// 制作管线条目（GET /ingest/app/ix/pipeline 的真数据）。
+/// casting 走真投票（votes/target/progress/myVoted）；released 带 dramaId 可直接进播放器。
+class PipelineItem {
+  final String slug;
+  final String title;
+  final String tagline;
+  final IxStatus status;
+  final String? posterUrl;
+  final String? dramaId;
+  int votes;
+  int target;
+  double progress; // 0..1
+  bool myVoted;
+
+  PipelineItem({
+    required this.slug,
+    required this.title,
+    required this.tagline,
+    required this.status,
+    this.posterUrl,
+    this.dramaId,
+    this.votes = 0,
+    this.target = 0,
+    this.progress = 0,
+    this.myVoted = false,
+  });
+
+  factory PipelineItem.fromJson(Map<String, dynamic> j) {
+    String? str(dynamic v) {
+      if (v == null) return null;
+      final s = v.toString().trim();
+      return s.isEmpty ? null : s;
+    }
+
+    return PipelineItem(
+      slug: '${j['slug'] ?? ''}',
+      title: '${j['title'] ?? ''}',
+      tagline: '${j['tagline'] ?? ''}',
+      status: _statusFrom('${j['status'] ?? ''}'),
+      posterUrl: str(j['posterUrl']),
+      dramaId: str(j['dramaId']),
+      votes: (j['votes'] is num) ? (j['votes'] as num).toInt() : 0,
+      target: (j['target'] is num) ? (j['target'] as num).toInt() : 0,
+      progress: (j['progress'] is num) ? (j['progress'] as num).toDouble() : 0,
+      myVoted: j['myVoted'] == true,
+    );
+  }
+}
+
+// 海报基址（dramaId/title → 海报映射等仍可用）。
 const _kPosterBase = 'https://falconflix.app/media/posters';
-// 2026-06-13 起全英文：海报已换成英文世界版（标题/调性烧在图里），
-// 片名简介不再跟随系统语言——它们就是英文剧（用户拍板）。
-const _seedPipeline = <PipelineItem>[
-  PipelineItem('Letters of Summer', 'Finish what she never sent.', IxStatus.producing,
-      [Color(0xFFFF6FB5), Color(0xFFB46BFF)],
-      posterUrl: '$_kPosterBase/summerletter.png'),
-  PipelineItem('Fog Harbor', 'Three suspects. One truth. Who do you trust first?', IxStatus.producing,
-      [Color(0xFF3E7BFA), Color(0xFF7A5CFF)],
-      posterUrl: '$_kPosterBase/fogport.png'),
-  PipelineItem("Summer of '98", 'Go back. Choose again.', IxStatus.producing,
-      [Color(0xFFFFA24B), Color(0xFFFF5E8A)],
-      posterUrl: '$_kPosterBase/summer1998.png'),
-  PipelineItem('The Stand-In Bride', 'Who plays the one who never came back? You decide.', IxStatus.casting,
-      [Color(0xFFB46BFF), Color(0xFFFF6FB5)],
-      castVote: 0.62,
-      posterUrl: '$_kPosterBase/standin.png'),
-  PipelineItem('The Royal Decree', 'One decree. Three fates. You name who rises.', IxStatus.casting,
-      [Color(0xFFE0A23B), Color(0xFFFF7A59)],
-      castVote: 0.41,
-      posterUrl: '$_kPosterBase/changan.png'),
-  PipelineItem('Love Lab', 'Six hearts. Your vote pairs them.', IxStatus.casting,
-      [Color(0xFFFF6FB5), Color(0xFF3E7BFA)],
-      castVote: 0.78,
-      posterUrl: '$_kPosterBase/heartlab.png'),
-  PipelineItem('Last Train', 'Five strangers. You pick the killer.', IxStatus.casting,
-      [Color(0xFF5A6CFF), Color(0xFF9B5CFF)],
-      castVote: 0.33,
-      posterUrl: '$_kPosterBase/lastsubway.png'),
-];
 
 // ───────────────────────── 片单网格 ─────────────────────────
 class _PipelineGrid extends StatelessWidget {
@@ -273,22 +369,101 @@ class _PipelineGrid extends StatelessWidget {
   }
 }
 
-class _PipelineCard extends StatelessWidget {
+class _PipelineCard extends StatefulWidget {
   final PipelineItem item;
   const _PipelineCard({required this.item});
 
   @override
+  State<_PipelineCard> createState() => _PipelineCardState();
+}
+
+class _PipelineCardState extends State<_PipelineCard> {
+  bool _voting = false;
+
+  PipelineItem get item => widget.item;
+
+  // 渐变占位用色（无海报时铺满 + 兜底排版）。按 slug 派生稳定的双色，避免全一样。
+  List<Color> get _accent {
+    const palettes = <List<Color>>[
+      [Color(0xFFFF6FB5), Color(0xFFB46BFF)],
+      [Color(0xFF3E7BFA), Color(0xFF7A5CFF)],
+      [Color(0xFFFFA24B), Color(0xFFFF5E8A)],
+      [Color(0xFFB46BFF), Color(0xFFFF6FB5)],
+      [Color(0xFFE0A23B), Color(0xFFFF7A59)],
+      [Color(0xFF5A6CFF), Color(0xFF9B5CFF)],
+    ];
+    final key = item.slug.isNotEmpty ? item.slug : item.title;
+    final h = key.isEmpty ? 0 : key.codeUnits.fold<int>(0, (a, b) => a + b);
+    return palettes[h % palettes.length];
+  }
+
+  // 登录门 → 真投票 → 乐观更新 votes/progress/myVoted。失败静默回退。
+  Future<void> _vote() async {
+    if (item.myVoted || _voting) return;
+    if (!auth.loggedIn) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
+      return;
+    }
+    setState(() => _voting = true);
+    // 乐观：先 +1、点亮已投，进度按 target 推。
+    final prevVotes = item.votes;
+    final prevProgress = item.progress;
+    final prevVoted = item.myVoted;
+    setState(() {
+      item.votes = prevVotes + 1;
+      item.myVoted = true;
+      if (item.target > 0) {
+        item.progress = (item.votes / item.target).clamp(0.0, 1.0);
+      }
+    });
+    try {
+      final r = await Api.ixVote(item.slug);
+      if (!mounted) return;
+      setState(() {
+        item.votes = (r['votes'] is num) ? (r['votes'] as num).toInt() : item.votes;
+        item.target = (r['target'] is num) ? (r['target'] as num).toInt() : item.target;
+        item.progress =
+            (r['progress'] is num) ? (r['progress'] as num).toDouble() : item.progress;
+        item.myVoted = r['myVoted'] == true || item.myVoted;
+        _voting = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        item.votes = prevVotes;
+        item.progress = prevProgress;
+        item.myVoted = prevVoted;
+        _voting = false;
+      });
+    }
+  }
+
+  // released：点开真互动剧播放器（带 dramaId）。
+  void _openReleased() {
+    final id = item.dramaId;
+    if (id == null || id.isEmpty) return;
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => IxPlayerScreen(
+          dramaId: id, title: item.title.isEmpty ? null : item.title),
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final casting = item.status == IxStatus.casting;
+    final released =
+        item.status == IxStatus.released && (item.dramaId?.isNotEmpty ?? false);
+    final accent = _accent;
     // 英文海报自带片名/调性字（烧在图里），有海报时不再叠任何文字,
     // 免得 App 文字压住海报排版（用户 2026-06-13 拍板）；暗角也只留给投票条用。
     final hasPoster = item.posterUrl != null && item.posterUrl!.isNotEmpty;
-    return ClipRRect(
+    final card = ClipRRect(
       borderRadius: BorderRadius.circular(18),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: item.accent,
+            colors: accent,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -297,7 +472,7 @@ class _PipelineCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // 有海报用图（cover 铺满）；没海报走渐变占位 + 首字水印
-            if (item.posterUrl != null && item.posterUrl!.isNotEmpty)
+            if (hasPoster)
               Positioned.fill(
                 child: CachedNetworkImage(
                   imageUrl: item.posterUrl!,
@@ -306,7 +481,7 @@ class _PipelineCard extends StatelessWidget {
                   errorWidget: (_, __, ___) => const SizedBox.shrink(),
                 ),
               )
-            else
+            else if (item.title.isNotEmpty)
               Positioned(
                 right: -10,
                 bottom: 14,
@@ -343,11 +518,17 @@ class _PipelineCard extends StatelessWidget {
             Positioned(
               left: 8,
               top: 8,
-              child: casting
-                  ? _statusBadge(AppLocalizations.of(context).aid_castingBadge,
-                      const [Color(0xFF4BC0FF), Color(0xFF6B7BFF)])
-                  : _ProducingBadge(),
+              child: _PipelineStatusBadge(status: item.status),
             ),
+            // released：右上角播放钮提示「可播放」
+            if (released)
+              const Positioned(
+                right: 10,
+                top: 10,
+                child: Icon(Icons.play_circle_fill_rounded,
+                    color: Colors.white, size: 30,
+                    shadows: [Shadow(blurRadius: 8, color: Colors.black)]),
+              ),
             // 有海报：海报即卡面，只叠投票条；无海报：标题+钩子兜底
             Positioned(
               left: 10,
@@ -367,7 +548,7 @@ class _PipelineCard extends StatelessWidget {
                             fontWeight: FontWeight.w900,
                             shadows: [Shadow(blurRadius: 5, color: Colors.black)])),
                     const SizedBox(height: 3),
-                    Text(item.teaser,
+                    Text(item.tagline,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -378,7 +559,14 @@ class _PipelineCard extends StatelessWidget {
                   ],
                   if (casting) ...[
                     const SizedBox(height: 8),
-                    _CastVoteBar(value: item.castVote),
+                    _CastVoteBar(
+                      value: item.target > 0
+                          ? (item.votes / item.target).clamp(0.0, 1.0)
+                          : item.progress.clamp(0.0, 1.0),
+                      voted: item.myVoted,
+                      busy: _voting,
+                      onTap: _vote,
+                    ),
                   ],
                 ],
               ),
@@ -387,6 +575,37 @@ class _PipelineCard extends StatelessWidget {
         ),
       ),
     );
+    // released 整卡可点进播放器；其余卡（含 casting）卡面本身不抢点击——
+    // casting 的投票交互在卡内 _CastVoteBar 上。
+    if (released) {
+      return Bounce(onTap: _openReleased, child: card);
+    }
+    return card;
+  }
+}
+
+// 制作管线状态角标：4 状态各自配色。
+class _PipelineStatusBadge extends StatelessWidget {
+  final IxStatus status;
+  const _PipelineStatusBadge({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    switch (status) {
+      case IxStatus.casting:
+        return _statusBadge(
+            l.aid_castingBadge, const [Color(0xFF4BC0FF), Color(0xFF6B7BFF)]);
+      case IxStatus.scheduled:
+        // 「已排期」暂无 l10n key，硬编码中文（用户拍板：片名/状态走真后端文案为主）。
+        return _statusBadge(
+            '即将上线', const [Color(0xFF7A5CFF), Color(0xFFB46BFF)]);
+      case IxStatus.released:
+        return _statusBadge(
+            l.aid_aceCardBadge, const [Color(0xFFFFC24B), Color(0xFFFF7A59)]);
+      case IxStatus.producing:
+        return _ProducingBadge();
+    }
   }
 }
 
@@ -425,14 +644,24 @@ class _ProducingBadge extends StatelessWidget {
   }
 }
 
-// 选角投票条：热度 + 「投票选角」小钩子（v0 mock，点了给 toast）
+// 选角投票条：真热度（votes/target）+ 可点的「想看/应援」按钮（真调 Api.ixVote）。
+// 已投：高亮成「已想看」不可再点；投票中：禁用按钮。
 class _CastVoteBar extends StatelessWidget {
-  final double value;
-  const _CastVoteBar({required this.value});
+  final double value; // 0..1
+  final bool voted;
+  final bool busy;
+  final VoidCallback onTap;
+  const _CastVoteBar({
+    required this.value,
+    required this.voted,
+    required this.busy,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final pct = (value.clamp(0, 1) * 100).round();
+    final l = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -442,11 +671,15 @@ class _CastVoteBar extends StatelessWidget {
             const Icon(Icons.how_to_vote_rounded,
                 color: Colors.white, size: 12),
             const SizedBox(width: 4),
-            Text(AppLocalizations.of(context).aid_castVoteFmt(pct.toString()),
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 9.5,
-                    fontWeight: FontWeight.w800)),
+            Expanded(
+              child: Text(l.aid_castVoteFmt(pct.toString()),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 9.5,
+                      fontWeight: FontWeight.w800)),
+            ),
           ],
         ),
         const SizedBox(height: 4),
@@ -465,6 +698,53 @@ class _CastVoteBar extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        // 想看/应援按钮：未投亮色可点；已投置灰显「已想看」。
+        GestureDetector(
+          onTap: (voted || busy) ? null : onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 160),
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 7),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(999),
+              gradient: voted
+                  ? null
+                  : const LinearGradient(colors: [Color(0xFFFF7A59), Color(0xFFFFC24B)]),
+              color: voted ? const Color(0x33FFFFFF) : null,
+              border: voted
+                  ? Border.all(color: Colors.white.withValues(alpha: 0.4))
+                  : null,
+            ),
+            child: busy
+                ? const SizedBox(
+                    width: 13,
+                    height: 13,
+                    child: CircularProgressIndicator(
+                        color: Colors.white, strokeWidth: 2),
+                  )
+                : Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                          voted
+                              ? Icons.check_rounded
+                              : Icons.favorite_rounded,
+                          color: voted ? Colors.white : const Color(0xFF231100),
+                          size: 13),
+                      const SizedBox(width: 4),
+                      Text(voted ? '已想看' : '想看·应援',
+                          style: TextStyle(
+                              color: voted
+                                  ? Colors.white
+                                  : const Color(0xFF231100),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w900)),
+                    ],
+                  ),
           ),
         ),
       ],

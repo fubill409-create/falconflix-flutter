@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../api/api.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
-import '../models/support_store.dart';
+import '../models/level_curve.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import 'character_board_screen.dart';
 import 'character_detail_screen.dart' show LevelBadge;
 
-/// 角色机会榜（AI 互动 L1 / v0 全 mock）。
+/// 角色机会榜（AI 互动 L1 · 已接真后端）。
 /// 两栏切换：
-///  ①「角色榜」= 角色按应援热度排名（攒满就开机出道），可按 女宝/男宝 筛；
-///  ②「榜一大哥」= 全站应援者按累计鹰币排名（面子系统 V 级别），可按财力段位筛。
+///  ①「角色榜」= 角色按真·出道热度排名（攒满就开机出道），可按 女宝/男宝 筛；
+///  ②「榜一大哥」= 全站应援者按累计鹰币排名（跨全角色，面子系统 V 级别），可按财力段位筛。
 /// 点角色 → 进 L2「该角色应援榜」(CharacterBoardScreen)，再点头像才进 L3 简介。
-/// 俗气带劲的排行榜藏二级，一级落地页保持干净。纯本地数据、不计费。
 class AiRankingScreen extends StatefulWidget {
   final List<AiCharacter> characters;
   const AiRankingScreen({super.key, required this.characters});
@@ -28,22 +28,102 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
   int _gender = 0; // 0 全部 / 1 女宝 / 2 男宝
   int _tier = 0; // 0 全部 / 1 巨鳄(≥50) / 2 封神(≥70) / 3 传奇(≥90)
 
-  // 角色按出道热度降序（含「我」实时打投增量）
-  List<AiCharacter> get _ranked => [...widget.characters]
-    ..sort((a, b) =>
-        supportStore.progressFor(b).compareTo(supportStore.progressFor(a)));
+  // —— 真后端数据 ——
+  // 角色 id -> 真出道进度(0..1) / 真累计应援鹰币（出道热度榜）
+  final Map<String, double> _charProgress = {};
+  final Map<String, int> _charTotal = {};
+  // 全站榜一大哥（跨全角色的用户总打投）
+  List<_Tycoon> _tycoons = [];
 
-  // 全站应援者：把每个角色的应援榜（含「我」）摊平 + 记住应援对象，按鹰币降序
-  List<_Fan> get _fans {
-    final out = <_Fan>[];
-    for (final c in widget.characters) {
-      for (final s in supportStore.boardFor(c)) {
-        out.add(_Fan(s, c));
-      }
-    }
-    out.sort((a, b) => b.s.coins.compareTo(a.s.coins));
-    return out;
+  bool _loadingRank = true;
+  bool _loadingTycoon = true;
+  Object? _rankErr;
+  Object? _tycoonErr;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRank();
+    _loadTycoon();
   }
+
+  Future<void> _loadRank() async {
+    setState(() {
+      _loadingRank = true;
+      _rankErr = null;
+    });
+    try {
+      final rows = await Api.giftCharRank();
+      final prog = <String, double>{};
+      final total = <String, int>{};
+      for (final r in rows) {
+        final id = (r['characterId'] ?? '').toString();
+        if (id.isEmpty) continue;
+        prog[id] = ((r['progress'] as num?)?.toDouble() ?? 0).clamp(0.0, 1.0);
+        total[id] = (r['total'] as num?)?.toInt() ?? 0;
+      }
+      if (!mounted) return;
+      setState(() {
+        _charProgress
+          ..clear()
+          ..addAll(prog);
+        _charTotal
+          ..clear()
+          ..addAll(total);
+        _loadingRank = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _rankErr = e;
+        _loadingRank = false;
+      });
+    }
+  }
+
+  Future<void> _loadTycoon() async {
+    setState(() {
+      _loadingTycoon = true;
+      _tycoonErr = null;
+    });
+    try {
+      final m = await Api.giftGlobalBoard();
+      final data = (m['data'] as List?) ?? const [];
+      final out = <_Tycoon>[
+        for (final r in data.whereType<Map>())
+          _Tycoon(
+            rank: (r['rank'] as num?)?.toInt() ?? 0,
+            name: _displayName(r['name']),
+            total: (r['total'] as num?)?.toInt() ?? 0,
+          ),
+      ];
+      out.sort((a, b) => b.total.compareTo(a.total));
+      if (!mounted) return;
+      setState(() {
+        _tycoons = out;
+        _loadingTycoon = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _tycoonErr = e;
+        _loadingTycoon = false;
+      });
+    }
+  }
+
+  // 服务端用户名可能为空 / UUID，空则用「鹰眼用户」。
+  static String _displayName(dynamic raw) {
+    final s = (raw ?? '').toString().trim();
+    return s.isEmpty ? '鹰眼用户' : s;
+  }
+
+  double _progressOf(AiCharacter c) => _charProgress[c.id] ?? 0.0;
+  int _totalOf(AiCharacter c) => _charTotal[c.id] ?? 0;
+
+  // 角色按真出道热度降序
+  List<AiCharacter> get _ranked => [...widget.characters]
+    ..sort((a, b) => _progressOf(b).compareTo(_progressOf(a)));
 
   List<AiCharacter> get _rankedFiltered => switch (_gender) {
         1 => _ranked.where((c) => c.female).toList(),
@@ -51,9 +131,10 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
         _ => _ranked,
       };
 
-  List<_Fan> get _fansFiltered {
+  List<_Tycoon> get _tycoonsFiltered {
     final min = switch (_tier) { 1 => 50, 2 => 70, 3 => 90, _ => 0 };
-    return min == 0 ? _fans : _fans.where((f) => f.s.level >= min).toList();
+    if (min == 0) return _tycoons;
+    return _tycoons.where((t) => levelForCoins(t.total) >= min).toList();
   }
 
   void _openBoard(AiCharacter c) {
@@ -79,11 +160,7 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
                 _filterRow(),
                 const SizedBox(height: 4),
                 Expanded(
-                  child: ListenableBuilder(
-                    listenable: supportStore,
-                    builder: (_, _) =>
-                        _tab == 0 ? _arenaList() : _tycoonList(),
-                  ),
+                  child: _tab == 0 ? _arenaList() : _tycoonList(),
                 ),
               ],
             ),
@@ -251,6 +328,10 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
 
   // ───────────────── 角色榜（出道打投榜）─────────────────
   Widget _arenaList() {
+    if (_loadingRank) return _loadingHint();
+    if (_rankErr != null) {
+      return _errHint(AppLocalizations.of(context).air_emptyChar, _loadRank);
+    }
     final list = _rankedFiltered;
     if (list.isEmpty) {
       return _emptyHint(AppLocalizations.of(context).air_emptyChar);
@@ -281,11 +362,9 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
   // #1 领跑者：大卡 + 出道进度 + 金光庆祝
   Widget _leaderCard(AiCharacter c) {
     final l = AppLocalizations.of(context);
-    final progress = supportStore.progressFor(c);
+    final progress = _progressOf(c);
     final pct = (progress * 100).round();
     final debuted = progress >= 1.0;
-    final board = supportStore.boardFor(c);
-    final king = board.isNotEmpty ? board.first : null;
     return Bounce(
       onTap: () => _openBoard(c),
       child: Glass(
@@ -379,21 +458,16 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.workspace_premium_rounded,
+                  const Icon(Icons.local_fire_department_rounded,
                       color: FF.gold, size: 16),
                   const SizedBox(width: 7),
-                  Expanded(
-                    child: Text(
-                        l.air_supportKingFmt(
-                            king?.name ?? l.air_emptyKingPlaceholder),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            color: FF.text,
-                            fontSize: 12.5,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  Text(l.sheets_coinsFmt(fmtCoins(king?.coins ?? 0)),
+                  Text(l.cb_totalSupport,
+                      style: const TextStyle(
+                          color: FF.muted,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700)),
+                  const Spacer(),
+                  Text(l.sheets_coinsFmt(fmtCoins(_totalOf(c))),
                       style: const TextStyle(
                           color: FF.gold,
                           fontSize: 13,
@@ -414,7 +488,7 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
 
   // #2+ 角色行
   Widget _arenaRow(int rank, AiCharacter c) {
-    final progress = supportStore.progressFor(c);
+    final progress = _progressOf(c);
     final pct = (progress * 100).round();
     return Bounce(
       onTap: () => _openBoard(c),
@@ -468,7 +542,7 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
                         fontSize: 15,
                         fontWeight: FontWeight.w900)),
                 const SizedBox(height: 2),
-                Text(fmtCoins(supportStore.totalCoinsFor(c)),
+                Text(fmtCoins(_totalOf(c)),
                     style: const TextStyle(
                         color: FF.dim,
                         fontSize: 10.5,
@@ -483,9 +557,13 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
     );
   }
 
-  // ───────────────── 榜一大哥（全站富豪榜）─────────────────
+  // ───────────────── 榜一大哥（全站富豪榜 · 跨全角色）─────────────────
   Widget _tycoonList() {
-    final list = _fansFiltered;
+    if (_loadingTycoon) return _loadingHint();
+    if (_tycoonErr != null) {
+      return _errHint(AppLocalizations.of(context).air_emptyKing, _loadTycoon);
+    }
+    final list = _tycoonsFiltered;
     if (list.isEmpty) {
       return _emptyHint(AppLocalizations.of(context).air_emptyKing);
     }
@@ -513,126 +591,109 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
   }
 
   // 全站榜一大哥：金色庆祝大卡
-  Widget _kingCard(_Fan f) {
-    final tier = levelTier(f.s.level);
+  Widget _kingCard(_Tycoon t) {
+    final level = levelForCoins(t.total);
+    final tier = levelTier(level);
     final l = AppLocalizations.of(context);
-    return Bounce(
-      onTap: () => _openBoard(f.c),
-      child: Glass(
-        radius: 22,
-        border: FF.gold.withValues(alpha: 0.55),
-        padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.workspace_premium_rounded,
-                    color: FF.gold, size: 22),
-                const SizedBox(width: 7),
-                gradientText(l.air_globalKing,
-                    size: 17, gradient: FF.goldGradient),
+    return Glass(
+      radius: 22,
+      border: FF.gold.withValues(alpha: 0.55),
+      padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.workspace_premium_rounded,
+                  color: FF.gold, size: 22),
+              const SizedBox(width: 7),
+              gradientText(l.air_globalKing,
+                  size: 17, gradient: FF.goldGradient),
+            ],
+          ),
+          const SizedBox(height: 14),
+          LevelBadge(level: level, scale: 1.4),
+          const SizedBox(height: 10),
+          Text(t.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  color: FF.text,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w900)),
+          const SizedBox(height: 4),
+          Text(tierName(tier, l),
+              style: TextStyle(
+                  color: tier.color,
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w800)),
+          const SizedBox(height: 14),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
+            decoration: BoxDecoration(
+              gradient: FF.goldGradient,
+              borderRadius: BorderRadius.circular(999),
+              boxShadow: [
+                BoxShadow(color: FF.gold.withValues(alpha: 0.38), blurRadius: 22),
               ],
             ),
-            const SizedBox(height: 14),
-            LevelBadge(level: f.s.level, scale: 1.4),
-            const SizedBox(height: 10),
-            Text(f.s.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+            child: Text(l.sheets_coinsFmt(fmtCoins(t.total)),
                 style: const TextStyle(
-                    color: FF.text,
-                    fontSize: 26,
+                    color: Color(0xFF3A2700),
+                    fontSize: 18,
                     fontWeight: FontWeight.w900)),
-            const SizedBox(height: 4),
-            Text(l.air_tierBackFmt(tierName(tier, l), f.c.name),
-                style: TextStyle(
-                    color: tier.color,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w800)),
-            const SizedBox(height: 14),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
-              decoration: BoxDecoration(
-                gradient: FF.goldGradient,
-                borderRadius: BorderRadius.circular(999),
-                boxShadow: [
-                  BoxShadow(color: FF.gold.withValues(alpha: 0.38), blurRadius: 22),
-                ],
-              ),
-              child: Text(l.sheets_coinsFmt(fmtCoins(f.s.coins)),
-                  style: const TextStyle(
-                      color: Color(0xFF3A2700),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900)),
-            ),
-          ],
-        ),
-      )
-          .animate(onPlay: (ctrl) => ctrl.repeat())
-          .shimmer(
-              duration: 2600.ms,
-              delay: 900.ms,
-              color: FF.gold.withValues(alpha: 0.22)),
-    );
+          ),
+        ],
+      ),
+    )
+        .animate(onPlay: (ctrl) => ctrl.repeat())
+        .shimmer(
+            duration: 2600.ms,
+            delay: 900.ms,
+            color: FF.gold.withValues(alpha: 0.22));
   }
 
   // #2+ 富豪行
-  Widget _fanRow(int rank, _Fan f) {
-    final tier = levelTier(f.s.level);
-    return Bounce(
-      onTap: () => _openBoard(f.c),
-      child: Glass(
-        radius: 16,
-        blur: 16,
-        padding: const EdgeInsets.fromLTRB(10, 11, 14, 11),
-        child: Row(
-          children: [
-            _rankNum(rank),
-            const SizedBox(width: 8),
-            LevelBadge(level: f.s.level, scale: 0.9),
-            const SizedBox(width: 11),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(f.s.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          color: FF.text,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w900)),
-                  const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Icon(Icons.favorite_rounded,
-                          color: f.c.aura.first, size: 11),
-                      const SizedBox(width: 4),
-                      Flexible(
-                        child: Text(
-                            AppLocalizations.of(context)
-                                .air_guardFmt(f.c.name),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                color: FF.dim,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+  Widget _fanRow(int rank, _Tycoon t) {
+    final level = levelForCoins(t.total);
+    final tier = levelTier(level);
+    return Glass(
+      radius: 16,
+      blur: 16,
+      padding: const EdgeInsets.fromLTRB(10, 11, 14, 11),
+      child: Row(
+        children: [
+          _rankNum(rank),
+          const SizedBox(width: 8),
+          LevelBadge(level: level, scale: 0.9),
+          const SizedBox(width: 11),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(t.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        color: FF.text,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w900)),
+                const SizedBox(height: 2),
+                Text(tierName(tier, AppLocalizations.of(context)),
+                    style: TextStyle(
+                        color: tier.color,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700)),
+              ],
             ),
-            const SizedBox(width: 10),
-            Text(fmtCoins(f.s.coins),
-                style: TextStyle(
-                    color: tier.color,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900)),
-          ],
-        ),
+          ),
+          const SizedBox(width: 10),
+          Text(fmtCoins(t.total),
+              style: TextStyle(
+                  color: tier.color,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900)),
+        ],
       ),
     );
   }
@@ -642,6 +703,41 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
     return Center(
       child: Text(t,
           style: const TextStyle(color: FF.dim, fontWeight: FontWeight.w700)),
+    );
+  }
+
+  Widget _loadingHint() {
+    return const Center(
+      child: CircularProgressIndicator(color: FF.gold),
+    );
+  }
+
+  Widget _errHint(String t, VoidCallback onRetry) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(t,
+              style: const TextStyle(color: FF.dim, fontWeight: FontWeight.w700)),
+          const SizedBox(height: 12),
+          GestureDetector(
+            onTap: onRetry,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(color: FF.gold.withValues(alpha: 0.4)),
+              ),
+              child: const Text('重试',
+                  style: TextStyle(
+                      color: FF.gold,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -729,9 +825,10 @@ class _AiRankingScreenState extends State<AiRankingScreen> {
   }
 }
 
-// 一条全站应援者 = 支持者 + 他应援的角色
-class _Fan {
-  final Supporter s;
-  final AiCharacter c;
-  const _Fan(this.s, this.c);
+// 一条全站榜一大哥 = 用户（跨全角色总打投）。
+class _Tycoon {
+  final int rank;
+  final String name;
+  final int total;
+  const _Tycoon({required this.rank, required this.name, required this.total});
 }

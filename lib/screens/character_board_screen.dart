@@ -1,30 +1,96 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../api/api.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
-import '../models/support_store.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import '../ui/support_sheet.dart';
 import 'character_detail_screen.dart';
 
-/// 角色应援榜（AI 互动 L2 / v0 全 mock）。
+/// 角色应援榜（AI 互动 L2 · 已接真后端）。
 /// 从「角色机会榜」点一个角色进来，看谁在为 TA 应援打投（榜一大哥 + 富豪榜）。
-/// 顶部头像可点 → 才进角色个人简介（L3）。纯本地数据、不计费。
-class CharacterBoardScreen extends StatelessWidget {
+/// 顶部头像可点 → 才进角色个人简介（L3）。真后端：真扣鹰币、真落榜。
+class CharacterBoardScreen extends StatefulWidget {
   final AiCharacter character;
   const CharacterBoardScreen({super.key, required this.character});
 
-  void _openDetail(BuildContext context) {
+  @override
+  State<CharacterBoardScreen> createState() => _CharacterBoardScreenState();
+}
+
+class _CharacterBoardScreenState extends State<CharacterBoardScreen> {
+  List<Supporter> _board = const [];
+  double _progress = 0.0;
+  int _total = 0; // 该角色累计应援鹰币（榜单之和）
+  int _myRank = 0; // 我在该角色榜名次（0 = 没上榜）
+  int _myTotal = 0; // 我对该角色累计应援
+  bool _loading = true;
+  Object? _err;
+
+  AiCharacter get _c => widget.character;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() {
+      _loading = true;
+      _err = null;
+    });
+    try {
+      final m = await Api.giftCharBoard(_c.id);
+      final data = (m['data'] as List?) ?? const [];
+      final backers = <Supporter>[
+        for (final r in data.whereType<Map>())
+          Supporter(
+            _displayName(r['name']),
+            (r['total'] as num?)?.toInt() ?? 0,
+          ),
+      ];
+      if (!mounted) return;
+      setState(() {
+        _board = backers;
+        _total = backers.fold(0, (s, e) => s + e.coins);
+        _myRank = (m['myRank'] as num?)?.toInt() ?? 0;
+        _myTotal = (m['myTotal'] as num?)?.toInt() ?? 0;
+        _progress = (_c.voteProgress).clamp(0.0, 1.0); // 进度由角色清单给（榜接口不回进度）
+        _loading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _err = e;
+        _loading = false;
+      });
+    }
+  }
+
+  // 服务端用户名可能为空 / UUID，空则用「鹰眼用户」。
+  static String _displayName(dynamic raw) {
+    final s = (raw ?? '').toString().trim();
+    return s.isEmpty ? '鹰眼用户' : s;
+  }
+
+  void _openDetail() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) => CharacterDetailScreen(character: character),
+      builder: (_) => CharacterDetailScreen(character: _c),
     ));
+  }
+
+  // 应援完回来刷新榜单。
+  Future<void> _support() async {
+    await openSupportSheet(context, _c);
+    if (mounted) _load();
   }
 
   @override
   Widget build(BuildContext context) {
-    final c = character;
+    final c = _c;
     return Scaffold(
       backgroundColor: FF.bg,
       body: Stack(
@@ -35,47 +101,7 @@ class CharacterBoardScreen extends StatelessWidget {
             child: Column(
               children: [
                 _header(context, c),
-                Expanded(
-                  child: ListenableBuilder(
-                    listenable: supportStore,
-                    builder: (_, _) {
-                      final board = supportStore.boardFor(c);
-                      final hasBoard = board.isNotEmpty;
-                      final king = hasBoard ? board.first : null;
-                      final rest =
-                          hasBoard ? board.skip(1).toList() : <Supporter>[];
-                      return ListView(
-                        padding: const EdgeInsets.fromLTRB(6, 6, 6, 110),
-                        children: [
-                          _hero(context, c)
-                              .animate()
-                              .fadeIn(duration: 600.ms)
-                              .scaleXY(begin: 0.94, curve: Curves.easeOutBack),
-                          const SizedBox(height: 18),
-                          _sectionTitle(AppLocalizations.of(context).cb_sectionSupport, c.aura.first),
-                          const SizedBox(height: 12),
-                          if (!hasBoard)
-                            _empty(context)
-                          else ...[
-                            _kingCard(context, king!, c)
-                                .animate()
-                                .fadeIn(duration: 520.ms, delay: 120.ms)
-                                .slideY(begin: 0.1, curve: Curves.easeOut),
-                            const SizedBox(height: 10),
-                            for (int i = 0; i < rest.length; i++)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: _fanRow(context, i + 2, rest[i])
-                                    .animate(delay: (70 * i + 200).ms)
-                                    .fadeIn(duration: 440.ms)
-                                    .slideX(begin: 0.12, curve: Curves.easeOut),
-                              ),
-                          ],
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                Expanded(child: _body(context, c)),
               ],
             ),
           ),
@@ -90,11 +116,85 @@ class CharacterBoardScreen extends StatelessWidget {
               gradient: LinearGradient(colors: c.aura),
               glow: c.aura.first,
               shimmer: true,
-              onTap: () => openSupportSheet(context, c),
+              onTap: _support,
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _body(BuildContext context, AiCharacter c) {
+    if (_loading) {
+      return const Center(child: CircularProgressIndicator(color: FF.gold));
+    }
+    if (_err != null) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(AppLocalizations.of(context).cb_emptyBackers,
+                style: const TextStyle(
+                    color: FF.dim, fontSize: 13, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: _load,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(999),
+                  border: Border.all(color: c.aura.first.withValues(alpha: 0.4)),
+                ),
+                child: Text('重试',
+                    style: TextStyle(
+                        color: c.aura.first,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900)),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final hasBoard = _board.isNotEmpty;
+    final king = hasBoard ? _board.first : null;
+    final rest = hasBoard ? _board.skip(1).toList() : <Supporter>[];
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(6, 6, 6, 110),
+      children: [
+        _hero(context, c)
+            .animate()
+            .fadeIn(duration: 600.ms)
+            .scaleXY(begin: 0.94, curve: Curves.easeOutBack),
+        const SizedBox(height: 18),
+        _sectionTitle(
+            AppLocalizations.of(context).cb_sectionSupport, c.aura.first),
+        const SizedBox(height: 12),
+        if (!hasBoard)
+          _empty(context, c)
+        else ...[
+          _kingCard(context, king!, c)
+              .animate()
+              .fadeIn(duration: 520.ms, delay: 120.ms)
+              .slideY(begin: 0.1, curve: Curves.easeOut),
+          const SizedBox(height: 10),
+          for (int i = 0; i < rest.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: _fanRow(context, i + 2, rest[i])
+                  .animate(delay: (70 * i + 200).ms)
+                  .fadeIn(duration: 440.ms)
+                  .slideX(begin: 0.12, curve: Curves.easeOut),
+            ),
+          if (_myRank > 0) ...[
+            const SizedBox(height: 6),
+            _myRankLine(context, c),
+          ],
+        ],
+      ],
     );
   }
 
@@ -123,7 +223,7 @@ class CharacterBoardScreen extends StatelessWidget {
 
   // 顶部角色卡：头像可点 → 简介
   Widget _hero(BuildContext context, AiCharacter c) {
-    final progress = supportStore.progressFor(c);
+    final progress = _progress;
     final pct = (progress * 100).round();
     final debuted = progress >= 1.0;
     return Glass(
@@ -136,7 +236,7 @@ class CharacterBoardScreen extends StatelessWidget {
             children: [
               // 只有头像是进简介的入口（按用户预设：点头像才看个人简介）
               Bounce(
-                onTap: () => _openDetail(context),
+                onTap: _openDetail,
                 child: Column(
                   children: [
                     _avatar(c, 78, ring: true),
@@ -225,7 +325,7 @@ class CharacterBoardScreen extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w700)),
                 const Spacer(),
-                Text(AppLocalizations.of(context).cb_coinsFmt(fmtCoins(supportStore.totalCoinsFor(c))),
+                Text(AppLocalizations.of(context).cb_coinsFmt(fmtCoins(_total)),
                     style: const TextStyle(
                         color: FF.gold,
                         fontSize: 14,
@@ -233,6 +333,33 @@ class CharacterBoardScreen extends StatelessWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  // 我的名次条（上了榜才显示）
+  Widget _myRankLine(BuildContext context, AiCharacter c) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+      decoration: BoxDecoration(
+        color: c.aura.first.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: c.aura.first.withValues(alpha: 0.4)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.favorite_rounded, color: c.aura.first, size: 16),
+          const SizedBox(width: 8),
+          Text('我的排名 · 第 $_myRank 位',
+              style: const TextStyle(
+                  color: FF.text, fontSize: 13, fontWeight: FontWeight.w900)),
+          const Spacer(),
+          Text(AppLocalizations.of(context).cb_coinsFmt(fmtCoins(_myTotal)),
+              style: TextStyle(
+                  color: c.aura.first,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w900)),
         ],
       ),
     );
@@ -366,14 +493,26 @@ class CharacterBoardScreen extends StatelessWidget {
     );
   }
 
-  Widget _empty(BuildContext context) {
+  // 空榜：邀请用户当第一位守护者
+  Widget _empty(BuildContext context, AiCharacter c) {
     return Glass(
       radius: 16,
-      padding: const EdgeInsets.symmetric(vertical: 26, horizontal: 16),
-      child: Center(
-        child: Text(AppLocalizations.of(context).cb_emptyBackers,
-            style: const TextStyle(
-                color: FF.dim, fontSize: 13, fontWeight: FontWeight.w700)),
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 18),
+      child: Column(
+        children: [
+          Icon(Icons.local_fire_department_rounded,
+              color: c.aura.first, size: 38),
+          const SizedBox(height: 12),
+          Text(AppLocalizations.of(context).cb_emptyBackers,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: FF.text, fontSize: 14, fontWeight: FontWeight.w900)),
+          const SizedBox(height: 6),
+          Text('成为 ${c.name} 的第一位守护者，登顶榜一大哥',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: FF.dim, fontSize: 12, fontWeight: FontWeight.w600)),
+        ],
       ),
     );
   }

@@ -10,6 +10,7 @@ import '../models/episode.dart';
 import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/commerce_cue.dart';
+import 'spark_screen.dart';
 import '../models/product.dart';
 import '../theme.dart';
 import '../ui/video_fit.dart';
@@ -345,6 +346,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
           },
           onUnlockAll: () => _toast(l.player_unlockHint),
         );
+      case 'AI入戏':
+        // 把自己客串进这部剧 → 真 AI Spark 生成（带本剧名做创作上下文）。
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => SparkScreen(contextTitle: widget.title)));
       default:
         _toast(l.player_comingSoonFmt(label));
     }

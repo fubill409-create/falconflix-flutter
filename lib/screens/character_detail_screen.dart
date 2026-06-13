@@ -9,7 +9,9 @@ import '../nav.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
 import '../ui/support_sheet.dart';
+import '../api/api.dart';
 import 'ai_chat_screen.dart';
+import 'login_screen.dart';
 
 /// 角色详情（二级）。进来第一眼 = **全屏可滑的时尚大片画廊**（看颜值、看身材、翻几套造型），
 /// 往下滑才是：人设、出道应援进度、TA 的视频、可解锁的深入时刻、参演的剧、**实名应援榜**。
@@ -45,6 +47,36 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
   void initState() {
     super.initState();
     _initIntro();
+    _syncFav();
+    // 拉真·应援榜 / 进度填进 supportStore 缓存；它 notify 后下方 ListenableBuilder 自动重建。
+    supportStore.refreshChar(widget.character.id);
+  }
+
+  // 角色收藏（取代右上角空点的爱心）：登录用户拉收藏列表判断本角色是否已收藏。
+  bool _faved = false;
+  Future<void> _syncFav() async {
+    if (!Api.hasToken) return;
+    try {
+      final s = await Api.myFavoriteChars();
+      if (mounted) setState(() => _faved = s.contains(widget.character.id));
+    } catch (_) {}
+  }
+
+  Future<void> _toggleFav() async {
+    if (!Api.hasToken) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
+      return;
+    }
+    final was = _faved;
+    setState(() => _faved = !was); // 乐观
+    try {
+      was
+          ? await Api.unfavoriteChar(widget.character.id)
+          : await Api.favoriteChar(widget.character.id);
+    } catch (_) {
+      if (mounted) setState(() => _faved = was); // 失败回滚
+    }
   }
 
   Future<void> _initIntro() async {
@@ -202,7 +234,11 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
               children: [
                 _circleBtn(Icons.arrow_back_rounded, () => Navigator.pop(context)),
                 const Spacer(),
-                _circleBtn(Icons.favorite_border_rounded, () {}),
+                _circleBtn(
+                    _faved
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    _toggleFav),
               ],
             ),
           ),

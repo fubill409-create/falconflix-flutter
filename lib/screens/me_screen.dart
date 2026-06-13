@@ -45,12 +45,14 @@ class _MeScreenState extends State<MeScreen> {
       _langs.firstWhere((l) => l.$1 == _lang, orElse: () => _langs.first).$2;
 
   int? _collectCount; // 收藏剧目数（null=未加载/未登录显「—」）
+  int? _boughtCount; // 已购剧集数（null=未加载/未登录显「—」）
 
   @override
   void initState() {
     super.initState();
     if (auth.loggedIn) auth.refresh();
     _loadCollectCount();
+    _loadBoughtCount();
     Api.refreshUnreadCount(); // 进我的页时刷新一次未读数（顶栏红点用）
     auth.addListener(_onAuthChanged);
   }
@@ -64,11 +66,32 @@ class _MeScreenState extends State<MeScreen> {
   void _onAuthChanged() {
     // 登录/登出后收藏数会变：登出清空、登录重拉。
     if (!auth.loggedIn) {
-      if (mounted) setState(() => _collectCount = null);
+      if (mounted) {
+        setState(() {
+          _collectCount = null;
+          _boughtCount = null;
+        });
+      }
       Api.unreadNotify.value = 0; // 登出立刻清红点
     } else {
       _loadCollectCount(refresh: true);
+      _loadBoughtCount();
       Api.refreshUnreadCount(); // 登录后拉一次未读数
+    }
+  }
+
+  Future<void> _loadBoughtCount() async {
+    if (!auth.loggedIn) {
+      if (mounted) setState(() => _boughtCount = null);
+      return;
+    }
+    try {
+      // 已购剧集 = 已购整剧 + 已购单集（真接 /record/purchases）
+      final shorts = await Api.ordersList(isShort: true);
+      final eps = await Api.ordersList(isShort: false);
+      if (mounted) setState(() => _boughtCount = shorts.length + eps.length);
+    } catch (_) {
+      // 失败不打扰，保持上次值。
     }
   }
 
@@ -844,7 +867,7 @@ class _MeScreenState extends State<MeScreen> {
         children: [
           Expanded(child: _Stat(pal: pal, value: coins, label: AppLocalizations.of(context).me_statEagleCoins)),
           _VDivider(color: pal.line),
-          Expanded(child: _Stat(pal: pal, value: '—', label: AppLocalizations.of(context).me_statBoughtEpisodes)),
+          Expanded(child: _Stat(pal: pal, value: auth.loggedIn && _boughtCount != null ? '$_boughtCount' : '—', label: AppLocalizations.of(context).me_statBoughtEpisodes)),
           _VDivider(color: pal.line),
           // 收藏可点：进「我的收藏」列表。
           Expanded(

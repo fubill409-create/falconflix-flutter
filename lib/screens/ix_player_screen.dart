@@ -9,12 +9,14 @@ import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 
 import '../api/api.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ix_manifest.dart';
 import '../services/ix_cache.dart';
 import '../services/ix_progress.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
+import 'login_screen.dart';
 
 /// Nova 互动剧 · 视频树播放器（真 mp4，沉浸式播放）。
 ///
@@ -47,6 +49,9 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
   String? _nodeId;
   bool _videoEnded = false;
   int _clipIdx = 0; // 当前节点正在播第几个 clip（0-based）
+  // 进剧时拉「我已解锁的分支 key」（= choiceTarget 值）；已付费过的分支不再扣费。
+  final Set<String> _unlocked = {};
+  bool _unlocking = false; // 解锁请求进行中，防连点重复下单
 
   // ── 当前段 + 预热下一段（A）──
   VideoPlayerController? _vc;
@@ -153,6 +158,11 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
       for (final n in d.nodes.values) { allUrls.addAll(n.playUrls); }
       unawaited(IxCache.prefetchAll(allUrls));
       setState(() { _drama = d; _loading = false; });
+
+      // 已登录则后台拉「已解锁分支」，付费过的分支再进不重复扣费（不阻塞起播）。
+      if (auth.loggedIn) {
+        unawaited(_loadUnlocks());
+      }
 
       // 查存档：有 → 弹「继续上次 / 从头看」
       final save = await IxProgress.load(widget.dramaId);
@@ -486,14 +496,66 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
     );
   }
 
+  /// 拉我在本剧已解锁的分支 key（choiceTarget 值集合）。失败静默。
+  Future<void> _loadUnlocks() async {
+    try {
+      final s = await Api.ixUnlocks(widget.dramaId);
+      if (!mounted) return;
+      setState(() => _unlocked..clear()..addAll(s));
+    } catch (_) {
+      // 拉不到就当未解锁；用户点付费分支时会走真扣费流程，幂等不重复扣。
+    }
+  }
+
   void _choose(IxChoice c) {
     if (!ixEval(c.requires, _flags)) return;
-    c.setFlags.forEach((k, v) => _flags[k] = v);
-    if (c.locked) {
-      _toast(AppLocalizations.of(context)
-          .ixp_lockedToastFmt(c.price.toString()));
+    // 免费 / 已解锁过的分支：直接进，不扣费。
+    if (!c.locked || _unlocked.contains(c.target)) {
+      c.setFlags.forEach((k, v) => _flags[k] = v);
+      _enter(c.target);
+      return;
     }
-    _enter(c.target);
+    // 付费且未解锁：登录门 → 真扣鹰币 → 成功才进。
+    _unlockAndEnter(c);
+  }
+
+  Future<void> _unlockAndEnter(IxChoice c) async {
+    if (_unlocking) return;
+    if (!auth.loggedIn) {
+      await Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
+      if (!mounted) return;
+      if (auth.loggedIn) {
+        // 登录后刷新一次已解锁集合（换了身份），但不自动续扣——让用户重新点。
+        unawaited(_loadUnlocks());
+      }
+      return;
+    }
+    setState(() => _unlocking = true);
+    try {
+      await Api.ixUnlock(
+        dramaId: widget.dramaId,
+        choiceTarget: c.target,
+        requestId: DateTime.now().microsecondsSinceEpoch.toString(),
+      );
+      if (!mounted) return;
+      _unlocked.add(c.target);
+      await auth.refresh(); // 同步最新鹰币余额（分支已真扣币）。
+      if (!mounted) return;
+      setState(() => _unlocking = false);
+      c.setFlags.forEach((k, v) => _flags[k] = v);
+      _enter(c.target);
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      setState(() => _unlocking = false);
+      final insufficient = e.message.contains('鹰币不足');
+      _toast(insufficient ? '鹰币不足，去充值~' : e.message);
+      // 不进入：付费分支未解锁。
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _unlocking = false);
+      _toast('解锁失败，请稍后再试');
+    }
   }
 
   void _replay() {
@@ -838,6 +900,8 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
 
   Widget _choiceCard(IxChoice c, int i) {
     final enabled = ixEval(c.requires, _flags);
+    // 已解锁过的付费分支：不再显示锁/价（已购买，进入不再扣费）。
+    final showLock = c.locked && !_unlocked.contains(c.target);
     return Opacity(
       opacity: enabled ? 1 : 0.5,
       child: Bounce(
@@ -861,7 +925,7 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
                         fontSize: 15.5,
                         fontWeight: FontWeight.w800)),
               ),
-              if (c.locked) ...[
+              if (showLock) ...[
                 const SizedBox(width: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
@@ -870,7 +934,16 @@ class _IxPlayerScreenState extends State<IxPlayerScreen> {
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
-                    const Icon(Icons.lock_rounded, color: Color(0xFF231100), size: 12),
+                    if (_unlocking)
+                      const SizedBox(
+                        width: 12,
+                        height: 12,
+                        child: CircularProgressIndicator(
+                            color: Color(0xFF231100), strokeWidth: 2),
+                      )
+                    else
+                      const Icon(Icons.lock_rounded,
+                          color: Color(0xFF231100), size: 12),
                     const SizedBox(width: 3),
                     Text('${c.price}',
                         style: const TextStyle(

@@ -1150,4 +1150,171 @@ class Api {
         .timeout(const Duration(seconds: 20));
     return _decode(res);
   }
+
+  // ═══════════ 鹰币:余额 + 通用扣费(应援/陪聊能量/Spark/互动剧 共用)═══════════
+  /// 读鹰币余额(Node 直读 d_users)。
+  static Future<int> coinBalance() async {
+    final b = await _getJson('/ingest/app/balance', auth: true);
+    return (b['balance'] as num?)?.toInt() ?? 0;
+  }
+
+  /// 通用扣费(无独立业务表的:陪聊能量/互动剧分支)。reason: chat_energy/ix_branch/...
+  static Future<int> spendCoins({
+    required int amount,
+    required String reason,
+    String? refId,
+    required String requestId,
+  }) async {
+    final b = await _postJson('/ingest/app/spend', {
+      'amount': amount,
+      'reason': reason,
+      if (refId != null) 'refId': refId,
+      'requestId': requestId,
+    }, auth: true);
+    return (b['balance'] as num?)?.toInt() ?? 0;
+  }
+
+  // ═══════════ 应援打投 / 榜单 ═══════════
+  static Future<List<Map<String, dynamic>>> giftCatalog() async {
+    final b = await _getJson('/ingest/app/gift/catalog');
+    final d = b['data'];
+    return d is List ? d.cast<Map<String, dynamic>>() : <Map<String, dynamic>>[];
+  }
+
+  /// 送礼:真扣鹰币 + 落榜。返回 {balance,charTotal,myCharTotal,myCharRank,charProgress,isKing,gift}。
+  static Future<Map<String, dynamic>> sendGift({
+    required String characterId,
+    required String giftCode,
+    required String requestId,
+  }) =>
+      _postJson('/ingest/app/gift/send',
+          {'characterId': characterId, 'giftCode': giftCode, 'requestId': requestId},
+          auth: true);
+
+  /// 角色应援榜(period: week/month/all),含 myRank/myTotal。
+  static Future<Map<String, dynamic>> giftCharBoard(String characterId,
+          {String period = 'all', int page = 0}) =>
+      _getJson(
+          '/ingest/app/gift/char-board?characterId=${Uri.encodeQueryComponent(characterId)}&period=$period&page=$page',
+          auth: true);
+
+  /// 全站榜一大哥榜。
+  static Future<Map<String, dynamic>> giftGlobalBoard({String period = 'all', int page = 0}) =>
+      _getJson('/ingest/app/gift/global-board?period=$period&page=$page', auth: true);
+
+  /// 出道热度榜(角色按累计应援排名 + 真出道进度)。
+  static Future<List<Map<String, dynamic>>> giftCharRank({String period = 'all'}) async {
+    final b = await _getJson('/ingest/app/gift/char-rank?period=$period');
+    final d = b['data'];
+    return d is List ? d.cast<Map<String, dynamic>>() : <Map<String, dynamic>>[];
+  }
+
+  // ═══════════ 角色收藏 ═══════════
+  static Future<void> favoriteChar(String charId) =>
+      _postJson('/ingest/app/char/favorite', {'charId': charId}, auth: true);
+
+  static Future<void> unfavoriteChar(String charId) => _deleteJson(
+      '/ingest/app/char/favorite?charId=${Uri.encodeQueryComponent(charId)}',
+      auth: true);
+
+  static Future<Set<String>> myFavoriteChars() async {
+    final b = await _getJson('/ingest/app/char/favorites', auth: true);
+    final d = b['data'];
+    return d is List ? d.map((e) => e.toString()).toSet() : <String>{};
+  }
+
+  // ═══════════ 互动剧:制作管线 / 想看投票 / 分支解锁 / AI定制结局 ═══════════
+  static Future<List<Map<String, dynamic>>> ixPipeline() async {
+    final b = await _getJson('/ingest/app/ix/pipeline', auth: true);
+    final d = b['data'];
+    return d is List ? d.cast<Map<String, dynamic>>() : <Map<String, dynamic>>[];
+  }
+
+  /// 想看/应援投票(一人一票)。返回 {votes,target,progress,myVoted}。
+  static Future<Map<String, dynamic>> ixVote(String slug) =>
+      _postJson('/ingest/app/ix/vote', {'slug': slug}, auth: true);
+
+  /// 分支解锁(按 manifest 真价扣)。返回 {unlocked,balance,coins,free?,dedup?}。
+  static Future<Map<String, dynamic>> ixUnlock({
+    required String dramaId,
+    String? choiceTarget,
+    String? nodeId,
+    required String requestId,
+  }) =>
+      _postJson('/ingest/app/ix/unlock', {
+        'dramaId': dramaId,
+        if (choiceTarget != null) 'choiceTarget': choiceTarget,
+        if (nodeId != null) 'nodeId': nodeId,
+        'requestId': requestId,
+      }, auth: true);
+
+  /// 我在某剧已解锁的分支 key 列表。
+  static Future<Set<String>> ixUnlocks(String dramaId) async {
+    final b = await _getJson(
+        '/ingest/app/ix/unlocks?dramaId=${Uri.encodeQueryComponent(dramaId)}',
+        auth: true);
+    final d = b['data'];
+    return d is List ? d.map((e) => e.toString()).toSet() : <String>{};
+  }
+
+  /// AI 定制结局:付费生成(异步)。返回 {jobId,status}。
+  static Future<Map<String, dynamic>> ixGenerateEnding({
+    required String dramaId,
+    required String nodeId,
+    String? pathSummary,
+    String? cameoFaceId,
+    required String requestId,
+  }) =>
+      _postJson('/ingest/app/ix/ending/generate', {
+        'dramaId': dramaId,
+        'nodeId': nodeId,
+        if (pathSummary != null) 'pathSummary': pathSummary,
+        if (cameoFaceId != null) 'cameoFaceId': cameoFaceId,
+        'requestId': requestId,
+      }, auth: true);
+
+  static Future<Map<String, dynamic>> ixEndingStatus(int jobId) =>
+      _getJson('/ingest/app/ix/ending/status?jobId=$jobId', auth: true);
+
+  // ═══════════ AI Spark 客串 ═══════════
+  static Future<List<Map<String, dynamic>>> sparkModes() async {
+    final b = await _getJson('/ingest/app/spark/modes');
+    final d = b['data'];
+    return d is List ? d.cast<Map<String, dynamic>>() : <Map<String, dynamic>>[];
+  }
+
+  /// 生成(异步):先扣币建单。返回 {jobId,status,coins}。
+  static Future<Map<String, dynamic>> sparkGenerate({
+    required String mode,
+    required String photoUrl,
+    String? style,
+    required String requestId,
+  }) =>
+      _postJson('/ingest/app/spark/generate', {
+        'mode': mode,
+        'photoUrl': photoUrl,
+        if (style != null) 'style': style,
+        'requestId': requestId,
+      }, auth: true);
+
+  static Future<Map<String, dynamic>> sparkJob(int id) =>
+      _getJson('/ingest/app/spark/job/$id', auth: true);
+
+  static Future<List<Map<String, dynamic>>> sparkHistory() async {
+    final b = await _getJson('/ingest/app/spark/history', auth: true);
+    final d = b['data'];
+    return d is List ? d.cast<Map<String, dynamic>>() : <Map<String, dynamic>>[];
+  }
+
+  // ═══════════ AI 陪聊大脑(数字人文字聊天,接 dh-relay 真 LLM)═══════════
+  /// 发一句给角色,返回 AI 回复文本。history: [{role:'user'|'assistant', content}]。
+  static Future<String> brainChat({
+    required String characterId,
+    required String message,
+    List<Map<String, String>> history = const [],
+  }) async {
+    final b = await _postJson('/dh/api/brain/chat',
+        {'characterId': characterId, 'message': message, 'history': history}, auth: true);
+    return b['reply']?.toString() ?? '……';
+  }
 }

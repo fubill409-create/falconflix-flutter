@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../api/api.dart';
 import '../app_config.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
 import '../models/privilege.dart';
@@ -11,9 +13,12 @@ import '../widgets/content_filter.dart';
 import '../widgets/ugc_actions.dart';
 import '../ui/level_gate.dart';
 import 'digital_human_call_screen.dart';
+import 'login_screen.dart';
 
-/// 数字人陪聊（v0 空壳）。能量条挂在角色身上（显示成「能量/电量」不是冷冰冰剩X分钟）；
-/// 聊天耗能，快用完时角色撒娇催充。v0 = 本地 mock 回复，不接 LLM、不真计费。
+/// 数字人陪聊。能量条挂在角色身上（显示成「能量/电量」不是冷冰冰剩X分钟）；
+/// 聊天耗能，快用完时角色撒娇催充。回复走真 LLM 大脑（Api.brainChat，按 characterId
+/// 套人设，服务端 gpt-4o）；充能真扣鹰币（Api.spendCoins，reason:'chat_energy'）。
+/// 能量耗尽前的「每条扣能」只是客户端限速门，真正花钱的只有「充能」这一步。
 class AiChatScreen extends StatefulWidget {
   final AiCharacter character;
   const AiChatScreen({super.key, required this.character});
@@ -26,15 +31,22 @@ class _Msg {
   final String text;
   final bool me;
   final bool nag; // 催充能量气泡
-  const _Msg(this.text, this.me, {this.nag = false});
+  final bool error; // 网络/接口出错气泡（可重试）
+  const _Msg(this.text, this.me, {this.nag = false, this.error = false});
 }
 
 class _AiChatScreenState extends State<AiChatScreen> {
+  static const int _energyPerMsg = 9; // 每条消息耗能（客户端限速门）
+  static const int _refillCost = 30; // 一次充能花的鹰币
+  static const int _historyTurns = 16; // 发给大脑的最近上下文轮数
+
   final _ctrl = TextEditingController();
   final _scroll = ScrollController();
   final List<_Msg> _msgs = [];
-  int _energy = 88; // 0..100 能量（mock）
-  int _replyIdx = 0;
+  int _energy = 88; // 0..100 能量
+  bool _typing = false; // AI 正在回复（typing 指示）
+  bool _busy = false; // 防重复发送 / 充能进行中
+  String? _lastSent; // 最近一条失败消息，供重试
 
   @override
   void initState() {
@@ -49,34 +61,144 @@ class _AiChatScreenState extends State<AiChatScreen> {
     super.dispose();
   }
 
-  void _send() {
+  /// 把已发的对话整理成大脑要的 history（最近 N 轮，去掉催充/出错气泡）。
+  List<Map<String, String>> _history() {
+    final turns = <Map<String, String>>[];
+    for (final m in _msgs) {
+      if (m.nag || m.error) continue;
+      turns.add({'role': m.me ? 'user' : 'assistant', 'content': m.text});
+    }
+    if (turns.length > _historyTurns) {
+      return turns.sublist(turns.length - _historyTurns);
+    }
+    return turns;
+  }
+
+  Future<void> _send() async {
+    if (_busy || _typing) return;
     final t = _ctrl.text.trim();
     if (t.isEmpty) return;
     // 内容过滤(苹果 G1.2):违规输入拦截,不发给 AI
     if (!ContentFilter.guard(context, t)) return;
-    final l = AppLocalizations.of(context);
+    // 能量耗尽：挡住发送，引导去充能（不偷偷扣币）。
+    if (_energy <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: FF.panel,
+        content: Text('能量耗尽啦，先充能再继续聊~',
+            style: TextStyle(color: FF.text)),
+      ));
+      return;
+    }
     FocusScope.of(context).unfocus();
     _ctrl.clear();
-    final c = widget.character;
-    final pool = [c.greeting, ...c.lines];
     setState(() {
       _msgs.add(_Msg(t, true));
-      _energy = (_energy - 9).clamp(0, 100);
-      _msgs.add(_Msg(pool[_replyIdx % pool.length], false));
-      _replyIdx++;
-      if (_energy <= 20) {
-        _msgs.add(_Msg(l.aic_lowEnergyNag, false, nag: true));
-      }
+      _energy = (_energy - _energyPerMsg).clamp(0, 100);
     });
+    _scrollDown();
+    await _ask(t);
+  }
+
+  /// 调真 LLM 大脑取回复。history 不含当前这条（已在 _msgs 末尾，调用前排除它）。
+  Future<void> _ask(String userText) async {
+    final c = widget.character;
+    final l = AppLocalizations.of(context);
+    // 上下文取「当前这条之前」的轮次。
+    final hist = _history();
+    if (hist.isNotEmpty && hist.last['role'] == 'user') {
+      hist.removeLast();
+    }
+    setState(() {
+      _typing = true;
+      _busy = true;
+      _lastSent = null;
+    });
+    _scrollDown();
+    try {
+      final reply = await Api.brainChat(
+        characterId: c.id,
+        message: userText,
+        history: hist,
+      );
+      if (!mounted) return;
+      setState(() {
+        _typing = false;
+        _busy = false;
+        _msgs.add(_Msg(reply, false));
+        if (_energy <= 20) {
+          _msgs.add(_Msg(l.aic_lowEnergyNag, false, nag: true));
+        }
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _typing = false;
+        _busy = false;
+        _lastSent = userText; // 留着供「重试」
+        _msgs.add(const _Msg('没连上，点这里重试', false, error: true));
+      });
+    }
     _scrollDown();
   }
 
-  void _recharge() {
-    final l = AppLocalizations.of(context);
+  /// 重试上一条失败的消息（去掉出错气泡，重新问大脑）。
+  Future<void> _retry() async {
+    if (_busy || _typing) return;
+    final text = _lastSent;
+    if (text == null) return;
     setState(() {
+      _msgs.removeWhere((m) => m.error);
+      _lastSent = null;
+    });
+    await _ask(text);
+  }
+
+  /// 充能：真扣鹰币（reason:'chat_energy'）。未登录先登录；鹰币不足提示去充值。
+  Future<void> _buyEnergy() async {
+    if (_busy) return;
+    final l = AppLocalizations.of(context);
+    // 未登录：先去登录，登录后不自动续扣（让用户重新点充能）。
+    if (!auth.loggedIn) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      );
+      return;
+    }
+    setState(() => _busy = true);
+    String? errMsg;
+    try {
+      await Api.spendCoins(
+        amount: _refillCost,
+        reason: 'chat_energy',
+        refId: widget.character.id,
+        requestId:
+            '${DateTime.now().microsecondsSinceEpoch}_${widget.character.id}',
+      );
+    } on ApiException catch (e) {
+      errMsg = e.message;
+    } catch (_) {
+      errMsg = '充能失败，请稍后再试';
+    }
+    if (!mounted) return;
+    if (errMsg != null) {
+      setState(() => _busy = false);
+      final insufficient = errMsg.contains('鹰币不足');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: FF.panel,
+        content: Text(insufficient ? '鹰币不足，去充值~' : errMsg,
+            style: const TextStyle(color: FF.text)),
+      ));
+      return;
+    }
+    // 扣币成功：本地满能 + 同步最新余额。
+    setState(() {
+      _busy = false;
       _energy = 100;
       _msgs.add(_Msg(l.aic_chargedReply, false));
     });
+    auth.refresh(); // 同步最新鹰币余额（充能真扣了币）。
     _scrollDown();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       behavior: SnackBarBehavior.floating,
@@ -114,8 +236,13 @@ class _AiChatScreenState extends State<AiChatScreen> {
                   child: ListView.builder(
                     controller: _scroll,
                     padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-                    itemCount: _msgs.length,
-                    itemBuilder: (_, i) => _bubble(c, _msgs[i]),
+                    itemCount: _msgs.length + (_typing ? 1 : 0),
+                    itemBuilder: (_, i) {
+                      if (_typing && i == _msgs.length) {
+                        return _typingBubble(c);
+                      }
+                      return _bubble(c, _msgs[i]);
+                    },
                   ),
                 ),
                 if (low) _nagBar(c),
@@ -297,12 +424,52 @@ class _AiChatScreenState extends State<AiChatScreen> {
         ),
       ).animate().fadeIn(duration: 300.ms).slideX(begin: 0.12, curve: Curves.easeOut);
     }
-    final accent = m.nag ? FF.hot : c.aura.first;
+    final accent = (m.nag || m.error) ? FF.hot : c.aura.first;
+    final bubble = Container(
+      margin: const EdgeInsets.only(top: 8, right: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xCC15101F),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(16),
+        ),
+        border: Border.all(color: accent.withValues(alpha: 0.45)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (m.error) ...[
+            const Icon(Icons.refresh_rounded, color: FF.hot, size: 16),
+            const SizedBox(width: 6),
+          ],
+          Flexible(
+            child: Text(m.text,
+                style: TextStyle(
+                    color: m.error ? FF.hot : Colors.white,
+                    fontSize: 14,
+                    height: 1.4)),
+          ),
+        ],
+      ),
+    );
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: m.error
+          ? GestureDetector(onTap: _retry, child: bubble)
+          : bubble,
+    ).animate().fadeIn(duration: 300.ms).slideX(begin: -0.12, curve: Curves.easeOut);
+  }
+
+  /// AI 正在打字的指示气泡（三个跳动的点）。
+  Widget _typingBubble(AiCharacter c) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.only(top: 8, right: 50),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: const Color(0xCC15101F),
           borderRadius: const BorderRadius.only(
@@ -311,13 +478,33 @@ class _AiChatScreenState extends State<AiChatScreen> {
             bottomLeft: Radius.circular(4),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: accent.withValues(alpha: 0.45)),
+          border: Border.all(color: c.aura.first.withValues(alpha: 0.45)),
         ),
-        child: Text(m.text,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 14, height: 1.4)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (var i = 0; i < 3; i++)
+              Padding(
+                padding: EdgeInsets.only(right: i == 2 ? 0 : 5),
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: c.aura.first,
+                  ),
+                )
+                    .animate(
+                        onPlay: (ctrl) => ctrl.repeat(),
+                        delay: (i * 160).ms)
+                    .fadeIn(duration: 300.ms)
+                    .then()
+                    .fadeOut(duration: 300.ms),
+              ),
+          ],
+        ),
       ),
-    ).animate().fadeIn(duration: 300.ms).slideX(begin: -0.12, curve: Curves.easeOut);
+    ).animate().fadeIn(duration: 200.ms);
   }
 
   Widget _nagBar(AiCharacter c) {
@@ -330,7 +517,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
         gradient: const LinearGradient(colors: [FF.hot, FF.orange]),
         glow: FF.hot,
         shimmer: true,
-        onTap: _recharge,
+        onTap: _buyEnergy, // 内部按 _busy 早返回，防重复扣币
       ),
     );
   }
@@ -369,21 +556,31 @@ class _AiChatScreenState extends State<AiChatScreen> {
           const SizedBox(width: 10),
           GestureDetector(
             onTap: _send,
-            child: Container(
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(colors: c.aura),
-                boxShadow: [
-                  BoxShadow(
-                      color: c.aura.first.withValues(alpha: 0.45),
-                      blurRadius: 16),
-                ],
+            child: Opacity(
+              opacity: (_busy || _typing) ? 0.5 : 1,
+              child: Container(
+                width: 48,
+                height: 48,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(colors: c.aura),
+                  boxShadow: [
+                    BoxShadow(
+                        color: c.aura.first.withValues(alpha: 0.45),
+                        blurRadius: 16),
+                  ],
+                ),
+                child: (_busy || _typing)
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
+                      )
+                    : const Icon(Icons.arrow_upward_rounded,
+                        color: Colors.white, size: 22),
               ),
-              child: const Icon(Icons.arrow_upward_rounded,
-                  color: Colors.white, size: 22),
             ),
           ),
         ],

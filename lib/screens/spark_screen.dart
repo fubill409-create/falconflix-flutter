@@ -1,19 +1,117 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../api/api.dart';
+import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
+import 'login_screen.dart';
 import 'spark_flow_screen.dart';
 
-/// AI 玩法（Spark）页 — 和短剧观看连接的轻量 AI 玩法。UI 先行。
+/// AI 玩法（Spark）页 — 和短剧观看连接的轻量 AI 玩法。已接真实后端：
+/// 玩法卡从 Api.sparkModes() 拉取，明码标价；商城卡改为「我的创作」入口。
 /// 从首页/播放页「AI 入戏」进入时带 [contextTitle]（当前短剧），顶部显示创作横幅。
-class SparkScreen extends StatelessWidget {
+class SparkScreen extends StatefulWidget {
   final String? contextTitle;
   const SparkScreen({super.key, this.contextTitle});
 
   @override
+  State<SparkScreen> createState() => _SparkScreenState();
+}
+
+class _SparkScreenState extends State<SparkScreen> {
+  List<Map<String, dynamic>> _modes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadModes();
+  }
+
+  Future<void> _loadModes() async {
+    try {
+      final m = await Api.sparkModes();
+      if (mounted && m.isNotEmpty) setState(() => _modes = m);
+    } catch (_) {
+      // 失败保持空：网格隐藏，hero 仍可点（用兜底 poster）。
+    }
+  }
+
+  // 每个玩法的图标与简介（按 mode key 映射；文案取已有 l10n）。
+  IconData _iconFor(String mode) {
+    switch (mode) {
+      case 'avatar':
+        return Icons.face_retouching_natural_outlined;
+      case 'makeover':
+        return Icons.auto_fix_high_outlined;
+      case 'poster':
+      default:
+        return Icons.image_outlined;
+    }
+  }
+
+  String _descFor(AppLocalizations l, String mode) {
+    switch (mode) {
+      case 'avatar':
+        return l.sp_toolAvatarDesc;
+      case 'makeover':
+        return l.sp_toolMakeoverDesc;
+      case 'poster':
+      default:
+        return l.sp_toolPosterDesc;
+    }
+  }
+
+  void _launch(Map<String, dynamic> m) {
+    final mode = m['mode']?.toString() ?? 'poster';
+    final label = m['label']?.toString() ?? '';
+    final coins = (m['coins'] as num?)?.toInt() ?? 0;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => SparkFlowScreen(
+          mode: mode,
+          label: label,
+          coins: coins,
+          contextTitle: widget.contextTitle,
+        ),
+      ),
+    );
+  }
+
+  void _launchFirst() {
+    if (_modes.isNotEmpty) {
+      _launch(_modes.first);
+    } else {
+      // modes 未拉到：用 poster 兜底（flow 内会再拉一次拿到权威价）。
+      _launch({'mode': 'poster', 'label': '剧照海报', 'coins': 25});
+    }
+  }
+
+  void _openHistory() {
+    if (!auth.loggedIn) {
+      Navigator.push<bool>(
+              context, MaterialPageRoute(builder: (_) => const LoginScreen()))
+          .then((ok) {
+        if (ok == true) auth.refresh();
+      });
+      return;
+    }
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: FF.panel,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      ),
+      builder: (_) => const _MyCreationsSheet(),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    final contextTitle = widget.contextTitle;
     return Scaffold(
       backgroundColor: FF.bg,
       body: Stack(
@@ -61,7 +159,7 @@ class SparkScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (contextTitle != null && contextTitle!.isNotEmpty) ...[
+                if (contextTitle != null && contextTitle.isNotEmpty) ...[
                   const SizedBox(height: 12),
                   Glass(
                     radius: 14,
@@ -73,7 +171,7 @@ class SparkScreen extends StatelessWidget {
                             color: FF.teal, size: 18),
                         const SizedBox(width: 10),
                         Expanded(
-                          child: Text(l.sp_creatingFmt(contextTitle ?? ''),
+                          child: Text(l.sp_creatingFmt(contextTitle),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -86,12 +184,14 @@ class SparkScreen extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(height: 18),
-            _hero(context).animate().fadeIn(duration: 450.ms).slideY(
-                begin: 0.1, curve: Curves.easeOut),
-            const SizedBox(height: 14),
-            _mallEntry().animate(delay: 120.ms).fadeIn(duration: 450.ms).slideY(
-                begin: 0.1, curve: Curves.easeOut),
-            const SizedBox(height: 14),
+                _hero(context).animate().fadeIn(duration: 450.ms).slideY(
+                    begin: 0.1, curve: Curves.easeOut),
+                const SizedBox(height: 14),
+                _historyEntry(l)
+                    .animate(delay: 120.ms)
+                    .fadeIn(duration: 450.ms)
+                    .slideY(begin: 0.1, curve: Curves.easeOut),
+                const SizedBox(height: 14),
                 _featureGrid(context)
                     .animate(delay: 240.ms)
                     .fadeIn(duration: 500.ms)
@@ -100,16 +200,6 @@ class SparkScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void _launch(BuildContext context, String toolName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            SparkFlowScreen(toolName: toolName, contextTitle: contextTitle),
       ),
     );
   }
@@ -141,7 +231,7 @@ class SparkScreen extends StatelessWidget {
                   color: FF.muted, fontSize: 13, height: 1.4)),
           const SizedBox(height: 16),
           GestureDetector(
-            onTap: () => _launch(context, l.sp_toolPosterName),
+            onTap: _launchFirst,
             child: Container(
               height: 44,
               width: 150,
@@ -162,59 +252,42 @@ class SparkScreen extends StatelessWidget {
     );
   }
 
-  Widget _mallEntry() {
-    return Builder(
-      builder: (context) {
-        final l = AppLocalizations.of(context);
-        return Glass(
-          radius: 16,
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _miniChip(l.sp_chipMall),
-                    const SizedBox(height: 10),
-                    Text(l.sp_sceneMallTitle,
-                        style: const TextStyle(
-                            color: FF.text,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700)),
-                    const SizedBox(height: 4),
-                    Text(l.sp_sceneMallBody,
-                        style:
-                            const TextStyle(color: FF.muted, fontSize: 12)),
-                  ],
-                ),
+  /// 「我的创作」入口（原场景商城死卡复用为真实历史入口）。
+  Widget _historyEntry(AppLocalizations l) {
+    return GestureDetector(
+      onTap: _openHistory,
+      child: Glass(
+        radius: 16,
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            const Icon(Icons.collections_outlined, color: FF.gold, size: 22),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('我的创作',
+                      style: TextStyle(
+                          color: FF.text,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 4),
+                  const Text('查看你用 AI 生成的全部作品。',
+                      style: TextStyle(color: FF.muted, fontSize: 12)),
+                ],
               ),
-              const Icon(Icons.chevron_right, color: FF.dim, size: 20),
-            ],
-          ),
-        );
-      },
+            ),
+            const Icon(Icons.chevron_right, color: FF.dim, size: 20),
+          ],
+        ),
+      ),
     );
   }
 
   Widget _featureGrid(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final flowNames = [
-      l.sp_toolPosterName,
-      l.sp_toolVideoNameShort,
-      l.sp_toolMakeoverName,
-      l.sp_toolAvatarName,
-    ];
-    final features = [
-      ('Drama-linked', l.sp_toolPosterName, l.sp_toolPosterDesc,
-          '5-25 cr / 10-30s', Icons.image_outlined),
-      ('Video', l.sp_toolVideoName, l.sp_toolVideoDesc,
-          '40 cr / 30-120s', Icons.movie_creation_outlined),
-      ('Viral', l.sp_toolMakeoverName, l.sp_toolMakeoverDesc,
-          '25 cr / 15-60s', Icons.auto_fix_high_outlined),
-      ('Profile', l.sp_toolAvatarName, l.sp_toolAvatarDesc,
-          '5-25 cr / 8-25s', Icons.face_retouching_natural_outlined),
-    ];
+    if (_modes.isEmpty) return const SizedBox.shrink();
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -224,61 +297,68 @@ class SparkScreen extends StatelessWidget {
         crossAxisSpacing: 14,
         childAspectRatio: 0.62,
       ),
-      itemCount: features.length,
+      itemCount: _modes.length,
       itemBuilder: (_, i) {
-        final f = features[i];
+        final m = _modes[i];
+        final mode = m['mode']?.toString() ?? '';
+        final label = m['label']?.toString() ?? '';
+        final coins = (m['coins'] as num?)?.toInt() ?? 0;
         return GestureDetector(
-          onTap: () => _launch(context, flowNames[i]),
+          onTap: () => _launch(m),
           child: Glass(
-          radius: 16,
-          padding: EdgeInsets.zero,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 88,
-                decoration: BoxDecoration(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(16)),
-                  gradient: LinearGradient(
-                    colors: [
-                      FF.gold.withValues(alpha: 0.18),
-                      FF.teal.withValues(alpha: 0.12),
+            radius: 16,
+            padding: EdgeInsets.zero,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 88,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(16)),
+                    gradient: LinearGradient(
+                      colors: [
+                        FF.gold.withValues(alpha: 0.18),
+                        FF.teal.withValues(alpha: 0.12),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                      child: Icon(_iconFor(mode),
+                          color: FF.brightGold, size: 30)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _miniChip(l.sp_chipLinked),
+                      const SizedBox(height: 8),
+                      Text(label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: FF.text,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700)),
+                      const SizedBox(height: 4),
+                      Text(_descFor(l, mode),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: FF.muted, fontSize: 11, height: 1.35)),
+                      const SizedBox(height: 8),
+                      Text('$coins 鹰币',
+                          style: const TextStyle(
+                              color: FF.gold,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700)),
                     ],
                   ),
                 ),
-                child: Center(child: Icon(f.$5, color: FF.brightGold, size: 30)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _miniChip(f.$1),
-                    const SizedBox(height: 8),
-                    Text(f.$2,
-                        style: const TextStyle(
-                            color: FF.text,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700)),
-                    const SizedBox(height: 4),
-                    Text(f.$3,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            color: FF.muted, fontSize: 11, height: 1.35)),
-                    const SizedBox(height: 8),
-                    Text(f.$4,
-                        style: const TextStyle(
-                            color: FF.gold,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700)),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
         );
       },
     );
@@ -294,4 +374,133 @@ class SparkScreen extends StatelessWidget {
             style: const TextStyle(
                 color: FF.text, fontSize: 11, fontWeight: FontWeight.w600)),
       );
+}
+
+/// 「我的创作」底部弹窗：真接 Api.sparkHistory()，网格展示历史成片。
+class _MyCreationsSheet extends StatefulWidget {
+  const _MyCreationsSheet();
+
+  @override
+  State<_MyCreationsSheet> createState() => _MyCreationsSheetState();
+}
+
+class _MyCreationsSheetState extends State<_MyCreationsSheet> {
+  List<Map<String, dynamic>>? _items; // null = 加载中
+  bool _error = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final h = await Api.sparkHistory();
+      if (mounted) setState(() => _items = h);
+    } catch (_) {
+      if (mounted) setState(() => _error = true);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                    color: FF.dim, borderRadius: BorderRadius.circular(2)),
+              ),
+            ),
+            const SizedBox(height: 18),
+            const Text('我的创作',
+                style: TextStyle(
+                    color: FF.text,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800)),
+            const SizedBox(height: 16),
+            _body(),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('关闭', style: TextStyle(color: FF.dim)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _body() {
+    if (_error) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 40),
+        child: Center(
+          child: Text('加载失败，请稍后重试',
+              style: TextStyle(color: FF.muted, fontSize: 13)),
+        ),
+      );
+    }
+    final items = _items;
+    if (items == null) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 40),
+        child: Center(
+          child: CircularProgressIndicator(strokeWidth: 2.4, color: FF.hot),
+        ),
+      );
+    }
+    if (items.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 40),
+        child: Center(
+          child: Text('还没有作品，去生成第一张吧。',
+              style: TextStyle(color: FF.muted, fontSize: 13)),
+        ),
+      );
+    }
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.55),
+      child: GridView.builder(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          childAspectRatio: 0.7,
+        ),
+        itemCount: items.length,
+        itemBuilder: (_, i) {
+          final url = items[i]['resultUrl']?.toString() ?? '';
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              color: Colors.black26,
+              child: url.isEmpty
+                  ? const Center(
+                      child: Icon(Icons.image_not_supported_outlined,
+                          color: FF.dim, size: 22))
+                  : Image.network(
+                      url,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => const Center(
+                          child: Icon(Icons.broken_image_outlined,
+                              color: FF.dim, size: 22)),
+                    ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }

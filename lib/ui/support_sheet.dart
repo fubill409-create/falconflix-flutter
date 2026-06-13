@@ -5,16 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../api/api.dart';
 import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/ai_character.dart';
 import '../models/support_store.dart';
+import '../screens/login_screen.dart';
 import '../theme.dart';
 import 'kit.dart';
 
-/// 应援打投仪式（v0 = 本地体验）。
-/// 一处实现、详情页 / 应援榜共用：选鹰币档 → 庆祝弹层 → 把「我」叠进榜单。
+/// 应援打投仪式（已接真后端：真扣鹰币 + 真落榜）。
+/// 一处实现、详情页 / 应援榜共用：选鹰币档 → 调后端送礼 → 庆祝弹层（喂服务端结果）。
+/// 未登录先去登录；鹰币不足提示去充值。
 Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
+  // 未登录：先去登录，登录后不自动续投（让用户重新决策档位）。
+  if (!auth.loggedIn) {
+    await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const LoginScreen()),
+    );
+    return;
+  }
   supportStore.setMyName(auth.profile?.displayName);
   final tier = await showModalBottomSheet<_Tier>(
     context: context,
@@ -24,9 +34,48 @@ Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
   );
   if (tier == null || !context.mounted) return;
   HapticFeedback.mediumImpact();
-  final result = supportStore.support(c, tier.coins);
+
+  // 选完档：转圈遮罩 → 真送礼 → 关遮罩 → 成功庆祝 / 失败提示。
+  showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    barrierColor: Colors.black.withValues(alpha: 0.5),
+    builder: (_) => const Center(
+      child: CircularProgressIndicator(color: FF.gold),
+    ),
+  );
+
+  SupportResult? result;
+  String? errMsg;
+  try {
+    result = await supportStore.support(c, tier.coins);
+  } on ApiException catch (e) {
+    errMsg = e.message;
+  } catch (_) {
+    errMsg = '应援失败，请稍后再试';
+  }
+
   if (!context.mounted) return;
-  await _showCelebration(context, c, tier, result);
+  // 关掉转圈遮罩。
+  Navigator.of(context, rootNavigator: true).pop();
+  if (!context.mounted) return;
+
+  if (result != null) {
+    await auth.refresh(); // 同步最新鹰币余额（送礼后真扣了币）。
+    if (!context.mounted) return;
+    await _showCelebration(context, c, tier, result);
+    return;
+  }
+
+  // 失败：鹰币不足单独提示「去充值」，其它错误普通提示。
+  final insufficient = (errMsg ?? '').contains('鹰币不足');
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(insufficient ? '鹰币不足，去充值~' : (errMsg ?? '应援失败')),
+      backgroundColor: const Color(0xFF2A2233),
+      behavior: SnackBarBehavior.floating,
+    ),
+  );
 }
 
 // ───────────────────────── 鹰币档位（饭圈梗）─────────────────────────
@@ -280,7 +329,6 @@ class _CelebrationState extends State<_Celebration> {
     final t = widget.tier;
     final r = widget.result;
     final tier = levelTier(r.myLevel);
-    final deltaPct = (r.progressDelta * 100).toStringAsFixed(1);
     final nowPct = (r.newProgress * 100).round();
     final l = AppLocalizations.of(context);
     return GestureDetector(
@@ -380,7 +428,7 @@ class _CelebrationState extends State<_Celebration> {
                   .scaleXY(begin: 0.7, curve: Curves.easeOutBack),
               const SizedBox(height: 16),
               _infoLine(Icons.trending_up_rounded, c.aura.first,
-                  l.ss_progressFmt(deltaPct, nowPct.toString())),
+                  '出道进度 · 现 $nowPct%'),
               const SizedBox(height: 8),
               _infoLine(
                   r.isKing

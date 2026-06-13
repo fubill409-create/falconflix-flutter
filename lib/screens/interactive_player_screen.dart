@@ -9,12 +9,12 @@ import '../ui/daynight.dart';
 import '../ui/kit.dart';
 import '../ui/thinking_backdrop.dart';
 
-/// 互动剧 · manifest 驱动的树状播放器（FalconFlix ↔ Nova 对接的播放端）。
-/// 读 manifest（节点树/选项边/收费标记）→ 标题屏 → 场景(旁白) → 抉择(发光选择卡+投票%+锁+
-/// 预览诱饵) → 幕间转场(呼吸星·章节卡) → 结局(稀有度+图鉴)。
-/// ⚠️转场分两类：①预制内容(已生成好的视频)=短促章节卡，**不写「生成中」**；
-/// ②末端 2888 自定义结局=真烧 API 几分钟的异步活，走「需要时间·完成通知你」（占位 /generateEnding）。
-/// 当前喂的是包内 demo manifest；上线换成 `/interactive/import` 写库的真 manifest。
+/// 互动剧 · 包内「免费样板剧」播放器（manifest 驱动的树状播放）。
+/// 读包内 demo manifest（节点树/选项边）→ 标题屏 → 场景(旁白) → 抉择(发光选择卡+投票%+
+/// 钩子台词) → 幕间转场(呼吸星·章节卡) → 结局(稀有度+图鉴)。
+/// 这是一部**免费体验 demo**：所有分支直接进，全程不收费、不弹解锁层、无 AI 定制结局，
+/// 转场只切现成节点、**绝不写「生成中」**（没有任何东西在生成）。
+/// 真正的付费分支解锁 / AI 定制结局走真后端的剧（见 ix_player_screen + Api.ix*）。
 const String kDemoManifestAsset = 'assets/interactive/demo_manifest.json';
 
 class InteractivePlayerScreen extends StatefulWidget {
@@ -34,12 +34,10 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
   String? _err;
   _Phase _phase = _Phase.loading;
   String _nodeId = '';
-  // 转场/生成中：原地浮起星片 + 文案叠在上方空白区，正文留着、不整屏切白。
+  // 幕间转场：原地浮起一颗呼吸星，正文留着、不整屏切白。
+  // 这是免费样板剧——只切换现成节点，没有任何付费 / AI 生成，所以转场不显「生成中」文案。
   bool _busy = false;
-  String _busyLabel = '';
-  String? _busySub;
   final Set<String> _visitedEndings = {};
-  final Set<String> _unlocked = {}; // "nodeId>target"
 
   @override
   void initState() {
@@ -95,52 +93,12 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
     }
   }
 
-  /// 幕间转场（预制内容 = Nova 早生成好的视频，切下一段已缓存视频）。
-  /// 短促一瞬的「呼吸星」章节卡，label = 即将进入的章节名，**绝不写「生成中」**——
-  /// 因为没有任何东西在生成，就是加载下一段现成视频。真实版这里就是切下一个 videoUrl。
+  /// 幕间转场：切到下一段现成节点（免费样板剧，没有任何东西在生成）。
+  /// 短促一瞬的「呼吸星」章节卡——章节名在新场景自己的 chip 上有，**绝不写「生成中」**。
   Future<void> _advance(String targetId) async {
-    // 预制转场只留上方那颗呼吸星，**不显文案**——章节名在新场景自己的 chip 上有，
-    // 重复显会和正文「字压字」重叠（用户真机点破）。
-    setState(() {
-      _busy = true;
-      _busyLabel = '';
-      _busySub = null;
-    });
-    // 久一点足一点·要有"思考"的停顿感：进场→星呼吸几下→退场（动画时长铁律）。
+    setState(() => _busy = true);
+    // 一点停顿感：进场→星呼吸几下→退场。
     await Future.delayed(const Duration(milliseconds: 3400));
-    if (!mounted) return;
-    setState(() {
-      _nodeId = targetId;
-      _phaseForNode();
-      _busy = false;
-    });
-  }
-
-  /// 现场定制专属结局（2888 = 真·现场烧 API 给你一个人生成视频，几分钟的异步活）。
-  /// 讲清「需要时间 · 完成通知你 · 你可以先去逛逛」——不是拿个动画在那等几秒那么简单。
-  /// demo 没接后端 → 这里模拟「已提交→制作中→完成」几段；真实版 = POST /interactive/generateEnding
-  /// → 轮询 Nova 生成 → 完成推送通知 → 用户回来播放专属视频（[[project-monetization-redesign]]）。
-  Future<void> _customEnding(String targetId) async {
-    if (!mounted) return;
-    final l = AppLocalizations.of(context);
-    setState(() {
-      _busy = true;
-      _busyLabel = l.ip_busyAiCreatingTitle;
-      _busySub = l.ip_busyAiCreatingSub;
-    });
-    await Future.delayed(const Duration(milliseconds: 2800));
-    if (!mounted) return;
-    setState(() {
-      _busyLabel = l.ip_busyDirectorTitle;
-      _busySub = l.ip_busyDirectorSub;
-    });
-    await Future.delayed(const Duration(milliseconds: 2800));
-    if (!mounted) return;
-    setState(() {
-      _busyLabel = l.ip_busyDoneTitle;
-      _busySub = l.ip_busyDoneSub;
-    });
-    await Future.delayed(const Duration(milliseconds: 1600));
     if (!mounted) return;
     setState(() {
       _nodeId = targetId;
@@ -154,37 +112,10 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
     if (n?.next != null) _advance(n!.next!);
   }
 
+  // 免费样板剧：所有选项直接进，不扣费、不弹解锁层、不假装在生成。
+  // 真正的付费解锁 / AI 定制结局走真后端的剧（ix_player_screen / Api.ix*），不在这部 demo 上。
   void _choose(IxChoice c) {
-    final key = '$_nodeId>${c.target}';
-    if (c.price > 0 && !_unlocked.contains(key)) {
-      _openUnlock(c, key);
-    } else {
-      _advance(c.target);
-    }
-  }
-
-  // ─── 收费埋点：预制分支(60) 解锁 / 末端开放式结局(2888) 定制仪式 ───
-  void _openUnlock(IxChoice c, String key) {
-    final target = _m?.node(c.target);
-    final isAiSlot = target?.type == IxNodeType.endingAiSlot || c.price >= 2888;
-    showModalBottomSheet<void>(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (ctx) => _UnlockSheet(
-        choice: c,
-        isAiSlot: isAiSlot,
-        onConfirm: () {
-          Navigator.pop(ctx);
-          setState(() => _unlocked.add(key));
-          if (isAiSlot) {
-            _customEnding(c.target); // 真异步生成：需要时间·完成通知你
-          } else {
-            _advance(c.target); // 预制分支：切已生成好的视频
-          }
-        },
-      ),
-    );
+    _advance(c.target);
   }
 
   void _replay() {
@@ -247,49 +178,15 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
     );
   }
 
-  /// 转场/生成中的浮起星片层：上方空白区一颗呼吸星 + 文案，正文留在下面照常可见。
+  /// 幕间转场的浮起星片层：上方空白区一颗呼吸星，正文留在下面照常可见。
+  /// 免费样板剧只切现成节点，转场不显任何「生成中」文案（章节名在新场景 chip 上）。
   Widget _busyOverlay() {
-    final p = Pal.now();
-    return Align(
-      key: const ValueKey('busy'),
-      alignment: const Alignment(0, -0.46),
+    return const Align(
+      key: ValueKey('busy'),
+      alignment: Alignment(0, -0.46),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 36),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const FloatingAiStar(size: 152),
-            // 预制转场无文案时只显星；2888 定制等有文案才显（且那时正文已淡出，不会压字）。
-            if (_busyLabel.isNotEmpty) ...[
-              const SizedBox(height: 26),
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 420),
-                child: Column(
-                  key: ValueKey('$_busyLabel|$_busySub'),
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(_busyLabel,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: p.text,
-                            fontSize: 15.5,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1)),
-                    if (_busySub != null) ...[
-                      const SizedBox(height: 10),
-                      Text(_busySub!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: p.textMuted,
-                              fontSize: 12.5,
-                              height: 1.7)),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ],
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 36),
+        child: FloatingAiStar(size: 152),
       ),
     );
   }
@@ -339,6 +236,21 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
                       height: 1.7))
               .animate()
               .fadeIn(delay: 350.ms, duration: 700.ms),
+          const SizedBox(height: 14),
+          // 明确标注：这是免费样板剧，全程不收费、无 AI 定制（真付费体验在真后端的剧上）。
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+            decoration: BoxDecoration(
+              color: FF.gold.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(color: FF.gold.withValues(alpha: 0.4)),
+            ),
+            child: Text(l.aid_demoBadge,
+                style: const TextStyle(
+                    color: FF.gold,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w800)),
+          ).animate().fadeIn(delay: 500.ms, duration: 600.ms),
           const Spacer(),
           Text(l.ip_titleSub,
               style: TextStyle(color: p.textMuted, fontSize: 12.5)),
@@ -444,13 +356,10 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
     );
   }
 
+  // 免费样板剧：选项卡统一样式——无锁、无价（不展示任何不会真扣的价格）。
+  // 钩子台词 + 人群投票% 是诚实的「社会认同」元素，保留。
   Widget _choiceCard(IxChoice c, int i) {
-    final unlocked = _unlocked.contains('$_nodeId>${c.target}');
-    final locked = c.price > 0 && !unlocked;
-    final isAi = c.price >= 2888; // 2888 卡始终暗金（premium），不跟日夜
     final p = Pal.now();
-    final onCard = isAi ? Colors.white : p.text;
-    final onCardMuted = isAi ? Colors.white60 : p.textMuted;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: GestureDetector(
@@ -459,64 +368,29 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
           padding: const EdgeInsets.fromLTRB(16, 14, 14, 14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            gradient: isAi
-                ? const LinearGradient(
-                    colors: [Color(0xFF3A2A12), Color(0xFF2A1840)])
-                : null,
-            color: isAi
-                ? null
-                : (p.day ? Colors.white : Colors.white.withValues(alpha: 0.05)),
+            color: p.day ? Colors.white : Colors.white.withValues(alpha: 0.05),
             border: Border.all(
-                color: isAi
-                    ? FF.gold.withValues(alpha: 0.6)
-                    : (locked
-                        ? FF.gold.withValues(alpha: 0.32)
-                        : (p.day
-                            ? Colors.black.withValues(alpha: 0.10)
-                            : Colors.white.withValues(alpha: 0.14)))),
-            boxShadow: isAi
-                ? [BoxShadow(color: FF.gold.withValues(alpha: 0.22), blurRadius: 18)]
-                : null,
+                color: p.day
+                    ? Colors.black.withValues(alpha: 0.10)
+                    : Colors.white.withValues(alpha: 0.14)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  if (locked)
-                    Icon(isAi ? Icons.auto_awesome : Icons.lock_rounded,
-                        color: FF.gold, size: 18),
-                  if (locked) const SizedBox(width: 8),
                   Expanded(
                     child: Text(c.label,
                         style: TextStyle(
-                            color: onCard,
+                            color: p.text,
                             fontSize: 15.5,
                             fontWeight: FontWeight.w800,
                             height: 1.3)),
                   ),
-                  if (locked) ...[
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 9, vertical: 4),
-                      decoration: BoxDecoration(
-                        gradient: FF.goldGradient,
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: Text(
-                          AppLocalizations.of(context)
-                              .sheets_coinsFmt(c.price.toString()),
-                          style: const TextStyle(
-                              color: Color(0xFF2A1B00),
-                              fontSize: 11,
-                              fontWeight: FontWeight.w900)),
-                    ),
-                  ],
                 ],
               ),
-              // 预览诱饵（锁前钩子台词）
-              if (locked && (c.teaserLine?.isNotEmpty ?? false)) ...[
+              // 钩子台词（悬念峰值，免费可见）
+              if (c.teaserLine?.isNotEmpty ?? false) ...[
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -546,11 +420,10 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
                         child: LinearProgressIndicator(
                           value: c.vote / 100.0,
                           minHeight: 4,
-                          backgroundColor: (isAi || !p.day)
-                              ? Colors.white.withValues(alpha: 0.1)
-                              : Colors.black.withValues(alpha: 0.08),
-                          valueColor: AlwaysStoppedAnimation(
-                              locked ? FF.gold : FF.teal),
+                          backgroundColor: p.day
+                              ? Colors.black.withValues(alpha: 0.08)
+                              : Colors.white.withValues(alpha: 0.1),
+                          valueColor: const AlwaysStoppedAnimation(FF.teal),
                         ),
                       ),
                     ),
@@ -558,7 +431,7 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
                     Text(
                         AppLocalizations.of(context)
                             .ip_voteFmt(c.vote.toString()),
-                        style: TextStyle(color: onCardMuted, fontSize: 11)),
+                        style: TextStyle(color: p.textMuted, fontSize: 11)),
                   ],
                 ),
               ],
@@ -842,108 +715,5 @@ class _InteractivePlayerScreenState extends State<InteractivePlayerScreen> {
     if (rarity.contains('稀有')) return [FF.blue, FF.teal];
     if (rarity.contains('好')) return [FF.teal, FF.gold];
     return [FF.dim, FF.weak]; // 坏/普通
-  }
-}
-
-/// 解锁弹层：预制分支(60) / 末端开放式定制结局(2888)。
-/// demo = 样板剧，不真扣鹰币（标注「样板剧免费体验」）；上线接 Nova 内容时走真扣费/真生成。
-class _UnlockSheet extends StatelessWidget {
-  final IxChoice choice;
-  final bool isAiSlot;
-  final VoidCallback onConfirm;
-  const _UnlockSheet(
-      {required this.choice, required this.isAiSlot, required this.onConfirm});
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Color(0xF2141019),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
-      ),
-      padding: EdgeInsets.fromLTRB(
-          24, 16, 24, 22 + MediaQuery.of(context).padding.bottom),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 44,
-            height: 5,
-            margin: const EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-                color: Colors.white24, borderRadius: BorderRadius.circular(999)),
-          ),
-          Container(
-            width: 70,
-            height: 70,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: FF.goldGradient,
-              boxShadow: [
-                BoxShadow(color: FF.gold.withValues(alpha: 0.5), blurRadius: 22),
-              ],
-            ),
-            child: Icon(isAiSlot ? Icons.auto_awesome : Icons.lock_open_rounded,
-                color: const Color(0xFF2A1B00), size: 32),
-          ),
-          const SizedBox(height: 16),
-          Text(isAiSlot ? l.ip_unlockTitleAi : l.ip_unlockTitle,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900)),
-          const SizedBox(height: 8),
-          if (choice.teaserLine?.isNotEmpty ?? false)
-            Text(choice.teaserLine!,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: FF.gold.withValues(alpha: 0.9),
-                    fontSize: 13,
-                    height: 1.6,
-                    fontStyle: FontStyle.italic)),
-          const SizedBox(height: 18),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.monetization_on_rounded,
-                    color: FF.gold, size: 18),
-                const SizedBox(width: 8),
-                Text(l.sheets_coinsFmt(choice.price.toString()),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w900)),
-                const Spacer(),
-                Text(l.ip_demoFree,
-                    style: const TextStyle(color: FF.dim, fontSize: 11.5)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 18),
-          SizedBox(
-            width: double.infinity,
-            child: GradientButton(
-              label: isAiSlot ? l.ip_unlockBtnAi : l.ip_unlockBtn,
-              height: 52,
-              onTap: onConfirm,
-            ),
-          ),
-          const SizedBox(height: 4),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l.ip_unlockCancel,
-                style: const TextStyle(color: Colors.white54)),
-          ),
-        ],
-      ),
-    );
   }
 }
