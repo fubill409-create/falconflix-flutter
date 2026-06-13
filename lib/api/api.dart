@@ -530,6 +530,12 @@ class Api {
     _dramaById = null;
   }
 
+  /// 我收藏的剧目 id 集合(详情页收藏按钮判断初始态用)。
+  static Future<Set<String>> collectedIds() async {
+    await _ensureCatalog();
+    return Set<String>.from(_collectedIds ?? const {});
+  }
+
   /// 我收藏的剧目列表（「我的」页 → 我的收藏）。refresh=true 时先丢缓存重拉，
   /// 保证刚收藏/取消的剧立刻反映出来。
   static Future<List<ShortDrama>> collectedDramas({bool refresh = false}) async {

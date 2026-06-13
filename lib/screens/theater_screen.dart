@@ -26,19 +26,27 @@ class _TheaterScreenState extends State<TheaterScreen> {
   bool _loading = true;
   String? _error;
 
-  /// 题材标签（i18n 化，按 context 取本地化文案；下标固定，新加要同步 _genresFor 顺序）。
+  /// 分类标签:从真实剧目的 categoryName 动态聚合(去重),首项固定"全部"。
+  /// 不再硬编码——这样标签就是后台真分类,点了真能筛(零后端依赖)。
   List<String> _genresFor(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    return [
-      l.theater_genreAll,
-      l.home_chipAiTheater,
-      l.theater_genreRomance,
-      l.theater_genreUrban,
-      l.theater_genreInteractive,
-      l.theater_genreFinished,
-    ];
+    final all = AppLocalizations.of(context).theater_genreAll;
+    final cats = <String>{};
+    for (final d in _items) {
+      final c = d.categoryName.trim();
+      if (c.isNotEmpty) cats.add(c);
+    }
+    return [all, ...cats];
   }
   int _genre = 0;
+
+  /// 按当前选中分类过滤后的剧目(_genre==0 即"全部"=不过滤)。
+  List<ShortDrama> get _filtered {
+    if (_genre == 0) return _items;
+    final genres = _genresFor(context);
+    if (_genre >= genres.length) return _items;
+    final name = genres[_genre];
+    return _items.where((d) => d.categoryName.trim() == name).toList();
+  }
 
   @override
   void initState() {
@@ -135,10 +143,14 @@ class _TheaterScreenState extends State<TheaterScreen> {
       );
     }
 
-    final feature = _items.isNotEmpty ? _items.first : null;
-    final resume = _items.length > 1 ? _items[1] : null;
-    final trending = _items.skip(1).take(8).toList();
-    final series = _items.skip(1).toList();
+    // 用过滤后的列表(分类点了真生效);"全部"时即全部。
+    final list = _filtered;
+    // 只有"全部"页才显示"今日推荐"头牌;分类页直接铺该分类的剧。
+    final showFeature = _genre == 0;
+    final feature = showFeature && list.isNotEmpty ? list.first : null;
+    final rest = showFeature ? list.skip(1).toList() : list;
+    final trending = _genre == 0 ? rest.take(8).toList() : <ShortDrama>[];
+    final series = _genre == 0 ? rest : list;
 
     return ListView(
       padding: EdgeInsets.zero,
@@ -154,14 +166,8 @@ class _TheaterScreenState extends State<TheaterScreen> {
                 .fadeIn(duration: 500.ms, delay: 80.ms)
                 .slideY(begin: 0.05, curve: Curves.easeOut),
           ),
-        if (resume != null)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(6, 0, 6, 18),
-            child: _ContinueStrip(p: p, item: resume, onOpen: () => _open(resume))
-                .animate()
-                .fadeIn(duration: 450.ms, delay: 140.ms)
-                .slideX(begin: -0.04, curve: Curves.easeOut),
-          ),
+        // v1 砍掉"继续观看"假条(写死第3集·08:12、进度58%、拿列表第二部冒充)。
+        // 真观看进度后端还没写入接口,等接真再放回。看历史在"我的→历史"是真的。
         if (trending.isNotEmpty) ...[
           _sectionHeading(p, AppLocalizations.of(context).theater_sectionHot,
               AppLocalizations.of(context).theater_seeAll,

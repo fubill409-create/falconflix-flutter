@@ -696,22 +696,7 @@ void showShareSheet(
           shortId: shortId,
           link: _shareLandingUrl);
     }),
-    _ShareTarget(l.sheets_shareTargetCommunity, Icons.dynamic_feed_rounded,
-        ready: true, onTap: () async {
-      // 发动态 = V10 门槛（与社区页一致）。
-      if (!await requireLevel(context, Feature.postCommunity)) return;
-      if (!context.mounted) return;
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => PostComposerScreen(
-            dramaId: shortId,
-            dramaTitle: shareTitle,
-            dramaPoster: posterUrl,
-          ),
-        ),
-      );
-    }),
+    // v1 隐藏"分享到社区"——社区还是内存 mock,等真做好再放出来。
     _ShareTarget(l.sheets_shareTargetRemix, Icons.movie_creation_rounded,
         ready: false, onTap: () async {
       _toast(context, l.sheets_remixComingShort);

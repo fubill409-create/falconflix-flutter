@@ -912,9 +912,9 @@ class _MeScreenState extends State<MeScreen> {
               onTap: () => _push(const InviteScreen())),
         ]),
 
+        // v1 隐藏社区入口:社区(点赞/评论/发帖)还是内存 mock,真做好再放出来。
+        // 通知设置是真的,挪到这一组里单独留着。
         _section(pal, l.me_sectionCommunity, [
-          _row(Icons.forum_outlined, l.me_rowCommunity,
-              onTap: () => _push(const CommunityScreen())),
           _notifyRow(pal),
         ]),
 

@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:video_player/video_player.dart';
 
 import '../api/api.dart';
+import '../models/episode.dart';
 import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/commerce_cue.dart';
@@ -91,13 +92,21 @@ class _PlayerScreenState extends State<PlayerScreen> {
     super.initState();
     _liked = widget.initiallyLiked;
     _collected = widget.initiallyCollected;
-    // 兜底 mock：即使后端接不通或本集没标商品，幽灵条也照常可演示。
-    _cues = CommerceCueAdapter.forEpisode(
-      episodeId: widget.episodeId.isEmpty ? '${widget.title}#1' : widget.episodeId,
-      fallbackImage: widget.poster,
-    );
+    // v1:带货只走真后端时间轴,没有真商品就不显示幽灵条(不再灌 mock 假货)。
+    // 之前的假货+假AI匹配度+假结算是苹果 G2.1 高危,审核员点开就穿帮。
     _loadRealCues();
+    _loadEpisodes();
     _initVideo();
+  }
+
+  // 拉真实剧集列表(选集抽屉用,不再 List.generate 假 12 集)。
+  List<Episode> _eps = const [];
+  Future<void> _loadEpisodes() async {
+    if (widget.shortId.isEmpty) return;
+    try {
+      final eps = await Api.getEpisodes(widget.shortId);
+      if (mounted) setState(() => _eps = eps);
+    } catch (_) {/* 拉不到就不显示选集,不假装 */}
   }
 
   // 拉真实带货时间轴；拿到非空就替换 mock，失败/空则保持 mock（零回归）。
@@ -299,12 +308,41 @@ class _PlayerScreenState extends State<PlayerScreen> {
             title: widget.title,
             posterUrl: widget.poster);
       case '选集':
+        if (_eps.isEmpty) {
+          _toast(l.player_btnEpisodes);
+          return;
+        }
         showEpisodeDrawer(
           context,
           title: widget.title.isEmpty ? l.player_btnEpisodes : widget.title,
-          episodes: List.generate(
-              12, (i) => (n: i + 1, name: l.player_episodeNumFmt(i + 1), unlocked: i < 1)),
-          onPlay: (i) => _toast(l.player_switchEpFmt(i + 1)),
+          // 真实剧集:集号/集名/解锁态都来自后端(isBuy)。
+          episodes: [
+            for (final e in _eps)
+              (n: e.sort, name: e.name.isEmpty ? l.player_episodeNumFmt(e.sort) : e.name, unlocked: e.isBuy),
+          ],
+          onPlay: (i) {
+            // i 是抽屉里的下标。已解锁→真切到那集;未解锁→提示去详情页解锁(不假装能看)。
+            if (i < 0 || i >= _eps.length) return;
+            final ep = _eps[i];
+            if (!ep.isBuy) {
+              _toast(l.player_unlockHint);
+              return;
+            }
+            if (ep.videoUrl.isEmpty) return;
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => PlayerScreen(
+                  title: widget.title,
+                  videoUrl: ep.videoUrl,
+                  poster: widget.poster,
+                  episodeLabel: ep.name,
+                  episodeId: ep.id,
+                  shortId: widget.shortId,
+                ),
+              ),
+            );
+          },
           onUnlockAll: () => _toast(l.player_unlockHint),
         );
       default:

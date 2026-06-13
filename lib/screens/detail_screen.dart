@@ -46,11 +46,24 @@ class _DetailScreenState extends State<DetailScreen> {
   List<Episode> _episodes = [];
   bool _loadingEps = true;
   bool _celebrating = false;
+  bool _collected = false; // 是否已收藏(收藏按钮接真)
 
   @override
   void initState() {
     super.initState();
     _loadEpisodes();
+    _syncCollected();
+  }
+
+  // 同步收藏状态:登录用户拉一次收藏列表,判断本剧是否已收藏。
+  Future<void> _syncCollected() async {
+    if (widget.shortId.isEmpty || !auth.loggedIn) return;
+    try {
+      final ids = await Api.collectedIds();
+      if (mounted && ids.contains(widget.shortId)) {
+        setState(() => _collected = true);
+      }
+    } catch (_) {/* 拉不到就保持未收藏,用户仍可点收藏 */}
   }
 
   Future<void> _loadEpisodes() async {
@@ -499,11 +512,40 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
         const SizedBox(width: 12),
-        _softBtn(Icons.bookmark_border_rounded),
+        // 收藏(接真:Api.toggleCollect)——之前是死按钮
+        _softBtn(
+          _collected ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+          onTap: _toggleCollect,
+          highlight: _collected,
+        ),
         const SizedBox(width: 10),
-        _softBtn(Icons.share_outlined),
+        // 分享(接真:复用 showShareSheet)——之前是死按钮
+        _softBtn(Icons.share_outlined, onTap: () {
+          if (widget.shortId.isEmpty) return;
+          showShareSheet(context,
+              sceneLabel: widget.title,
+              shortId: widget.shortId,
+              title: widget.title,
+              posterUrl: widget.cover);
+        }),
       ],
     );
+  }
+
+  Future<void> _toggleCollect() async {
+    if (widget.shortId.isEmpty) return;
+    if (!auth.loggedIn) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const LoginScreen()));
+      return;
+    }
+    final next = !_collected;
+    setState(() => _collected = next); // 乐观更新
+    try {
+      await Api.toggleCollect(widget.shortId);
+    } catch (_) {
+      if (mounted) setState(() => _collected = !next); // 失败回滚
+    }
   }
 
   Widget _episodesView() {
@@ -595,14 +637,20 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
       );
 
-  Widget _softBtn(IconData icon) => Container(
-        width: 48,
-        height: 48,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.06),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: FF.line)),
-        child: Icon(icon, color: FF.text, size: 20),
+  Widget _softBtn(IconData icon, {VoidCallback? onTap, bool highlight = false}) =>
+      GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 48,
+          height: 48,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: highlight
+                  ? FF.gold.withValues(alpha: 0.18)
+                  : Colors.white.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: highlight ? FF.gold : FF.line)),
+          child: Icon(icon, color: highlight ? FF.gold : FF.text, size: 20),
+        ),
       );
 }
