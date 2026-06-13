@@ -8,6 +8,7 @@ import '../models/community_post.dart';
 import '../models/privilege.dart';
 import '../models/time_label.dart';
 import '../state/community_store.dart';
+import '../widgets/content_filter.dart';
 import '../widgets/ugc_actions.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
@@ -470,6 +471,8 @@ class _PostComposerScreenState extends State<PostComposerScreen> {
       return; // 登录回来后让用户再点一次发布，避免误发
     }
     if (!_canPublish) return;
+    // 内容过滤(苹果 G1.2):违规词即时拦截,发不出去
+    if (!ContentFilter.guard(context, _controller.text)) return;
     community.publish(
       text: _controller.text,
       dramaId: _attachDrama ? widget.dramaId : null,

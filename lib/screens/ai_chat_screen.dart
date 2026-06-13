@@ -7,6 +7,8 @@ import '../models/ai_character.dart';
 import '../models/privilege.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
+import '../widgets/content_filter.dart';
+import '../widgets/ugc_actions.dart';
 import '../ui/level_gate.dart';
 import 'digital_human_call_screen.dart';
 
@@ -50,6 +52,8 @@ class _AiChatScreenState extends State<AiChatScreen> {
   void _send() {
     final t = _ctrl.text.trim();
     if (t.isEmpty) return;
+    // 内容过滤(苹果 G1.2):违规输入拦截,不发给 AI
+    if (!ContentFilter.guard(context, t)) return;
     final l = AppLocalizations.of(context);
     FocusScope.of(context).unfocus();
     _ctrl.clear();
@@ -181,6 +185,16 @@ class _AiChatScreenState extends State<AiChatScreen> {
             const SizedBox(width: 8),
             _callButton(c),
           ],
+          // 举报 AI 对话(苹果 G1.2:AI 生成内容也要可举报)
+          IconButton(
+            iconSize: 20,
+            icon: const Icon(Icons.more_horiz, color: FF.dim),
+            onPressed: () => showUgcSheet(
+              context,
+              contentType: 'chat',
+              contentId: c.id,
+            ),
+          ),
         ],
       ),
     );
