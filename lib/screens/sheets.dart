@@ -752,17 +752,7 @@ void showShareSheet(
         ],
       ],
     ),
-    const SizedBox(height: 10),
-    Row(
-      children: [
-        const Icon(Icons.lightbulb_outline_rounded, color: _inkSoft, size: 14),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(l.sheets_remixComingFooter,
-              style: const TextStyle(color: _inkSoft, fontSize: 11)),
-        ),
-      ],
-    ),
+    // v1:不再展示"混剪即将上线"提示——这功能没做,也不预告没影的东西。
   ]));
 }
 
