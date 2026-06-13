@@ -128,6 +128,16 @@ class Api {
     await _saveToken(token);
   }
 
+  /// 原生 Sign in with Apple（iOS）：identityToken 交 Node 验签(只用 Apple 公钥)
+  /// → 桥到 Java 邮箱登录 → 拿我们的 JWT。无需 .p8/Services ID。
+  static Future<void> loginByAppleNative(String identityToken) async {
+    final body = await _postJson(
+        '/ingest/app/login/apple-native', {'identityToken': identityToken});
+    final token = body['data']?.toString() ?? '';
+    if (token.isEmpty) throw ApiException('Apple 登录失败：未返回令牌');
+    await _saveToken(token);
+  }
+
   /// LINE 第三方登录（网页授权码流）。
   /// 用 Channel ID 拉起 LINE 授权页 → LINE 带 ?code= 回跳后端 /call/login/line
   /// → 后端换 token + 拉 profile + 发我们 JWT → 302 跳

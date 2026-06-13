@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../api/api.dart';
 import '../app_config.dart';
@@ -568,6 +570,43 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Apple 真登录：网页授权拿回我们后端发的 JWT（流程见 Api.loginByApple）。
   /// 还没配 Service ID（kAppleServiceId 为空）时先走「正在接入中」，不报错。
   Future<void> _appleLogin() async {
+    // iOS：原生 Sign in with Apple（苹果 4.8 强制，给了 Google/LINE 就必须有它）。
+    if (Platform.isIOS) {
+      if (_socialBusy) return;
+      setState(() {
+        _socialBusy = true;
+        _error = null;
+      });
+      try {
+        final cred = await SignInWithApple.getAppleIDCredential(
+          scopes: const [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
+        final idt = cred.identityToken;
+        if (idt == null || idt.isEmpty) {
+          throw ApiException('Apple 未返回 identityToken');
+        }
+        await auth.loginByAppleNative(idt);
+        if (!mounted) return;
+        setState(() => _success = true);
+        await Future.delayed(const Duration(milliseconds: 850));
+        if (mounted) Navigator.pop(context, true);
+      } on SignInWithAppleAuthorizationException catch (e) {
+        // 用户取消：静默；其它授权错误：提示。
+        if (e.code == AuthorizationErrorCode.canceled) return;
+        if (mounted) setState(() => _error = 'Apple 登录失败：${e.code.name}');
+      } on ApiException catch (e) {
+        if (mounted) setState(() => _error = e.message);
+      } catch (_) {
+        if (mounted) setState(() => _error = 'Apple 登录失败，请稍后重试');
+      } finally {
+        if (mounted) setState(() => _socialBusy = false);
+      }
+      return;
+    }
+    // 非 iOS（Android 等）：维持网页授权流；未配 Service ID 时先走「正在接入」。
     if (kAppleServiceId.isEmpty) {
       _onSocial('Apple');
       return;
@@ -584,7 +623,6 @@ class _LoginScreenState extends State<LoginScreen> {
       await Future.delayed(const Duration(milliseconds: 850));
       if (mounted) Navigator.pop(context, true);
     } on PlatformException catch (e) {
-      // 用户主动取消授权：静默；其它平台错误：提示。
       if (e.code == 'CANCELED' || e.code == 'CANCELLED') return;
       if (mounted) setState(() => _error = 'Apple 登录失败：${e.code}');
     } on ApiException catch (e) {

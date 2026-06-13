@@ -49,6 +49,8 @@ dependencies:
   shared_preferences: ^2.5.5
   google_sign_in: ^7.2.0
   flutter_web_auth_2: ^4.1.0
+  # 原生 Sign in with Apple（苹果 4.8 强制：给了其它社交登录就必须有原生苹果登录）
+  sign_in_with_apple: ^6.1.0
   image_picker: ^1.1.2
   # Stripe 国际收款：原生 PaymentSheet（充值鹰币，美金信用卡）
   flutter_stripe: ^11.1.0

@@ -85,6 +85,12 @@ class AuthState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loginByAppleNative(String identityToken) async {
+    await Api.loginByAppleNative(identityToken);
+    await refresh();
+    notifyListeners();
+  }
+
   Future<void> loginByLine() async {
     await Api.loginByLine();
     await refresh();
