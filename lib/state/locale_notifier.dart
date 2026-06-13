@@ -17,7 +17,8 @@ class LocaleNotifier extends ValueNotifier<Locale> {
     Locale('fr'),
   ];
 
-  LocaleNotifier() : super(const Locale('zh'));
+  // 默认英语（首次启动 / 未手动选语言时）——产品定位国际/英文优先。
+  LocaleNotifier() : super(const Locale('en'));
 
   /// 启动时从本地恢复上次选的语言。
   Future<void> load() async {

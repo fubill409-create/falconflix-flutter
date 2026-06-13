@@ -18,6 +18,7 @@ import 'character_detail_screen.dart';
 import 'character_universe_intro_screen.dart';
 import 'detail_screen.dart';
 import 'interactive_player_screen.dart';
+import 'spark_screen.dart';
 
 /// AI 互动 · 角色星球（招牌核心功能落地页 / v0 框架壳）。
 /// 一级 = 「角色星云」：数字人发光头像锚在一个松散的星座阵里，只在小范围内轻轻游离
@@ -143,6 +144,7 @@ class _AiInteractiveScreenState extends State<AiInteractiveScreen> {
             child: Column(
               children: [
                 _header(),
+                _sparkEntry(), // AI 客串入口（用户反馈角色页找不到 Spark，补在这）
                 // 角色星云舞台：占满中间所有剩余空间，绝不留黑缝
                 Expanded(
                   child: _Constellation(
@@ -161,6 +163,53 @@ class _AiInteractiveScreenState extends State<AiInteractiveScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _openSpark() => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (_) => const SparkScreen()));
+
+  // AI 客串入口卡（用户反馈角色页没 Spark 入口，补在 header 下）。
+  Widget _sparkEntry() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(6, 0, 6, 4),
+      child: Bounce(
+        onTap: _openSpark,
+        child: Glass(
+          radius: 16,
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          child: Row(
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                    gradient: FF.goldGradient, shape: BoxShape.circle),
+                child: const Icon(Icons.auto_awesome_rounded,
+                    color: Color(0xFF3A2700), size: 18),
+              ),
+              const SizedBox(width: 12),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('AI Cameo',
+                        style: TextStyle(
+                            color: FF.text,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900)),
+                    SizedBox(height: 2),
+                    Text('Upload a selfie — star in your own poster',
+                        style: TextStyle(color: FF.dim, fontSize: 11)),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded, color: FF.dim, size: 22),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -85,7 +85,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen>
     final c = VideoPlayerController.networkUrl(Uri.parse(url));
     _intro = c;
     try {
-      await c.initialize();
+      await c.initialize().timeout(const Duration(seconds: 15)); // 加超时:视频挂死不再一直转圈
       if (!mounted || _intro != c) {
         c.dispose();
         return;

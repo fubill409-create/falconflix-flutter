@@ -39,7 +39,7 @@ Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
   showDialog<void>(
     context: context,
     barrierDismissible: false,
-    barrierColor: Colors.black.withValues(alpha: 0.5),
+    barrierColor: Colors.black.withValues(alpha: 0.92), // 近不透明:盖住后面角色页的视频加载圈,不再"两个圈叠一起"
     builder: (_) => const Center(
       child: CircularProgressIndicator(color: FF.gold),
     ),
