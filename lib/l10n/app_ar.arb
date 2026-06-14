@@ -1099,6 +1099,7 @@
   },
   "ss_localNote": "تجريبي · الدعم محفوظ محليًا، التسوية بالعملات عند الإطلاق الرسمي",
   "ss_celebTitle": "تم الدعم!",
+  "ss_backFailed": "فشل الدعم، يرجى المحاولة لاحقًا",
   "ss_forFmt": "{name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1312,6 +1313,9 @@
   "spf_uploadPhoto": "ارفع صورتك",
   "spf_photoTapToReplace": "اضغط للاستبدال",
   "spf_photoHint": "وجهك أو جسمك كاملاً، وجه واضح",
+  "spf_photoSourceTitle": "إضافة صورة",
+  "spf_takePhoto": "التقاط صورة",
+  "spf_chooseFromAlbum": "اختيار من الألبوم",
   "spf_generating": "AI ينشئ…",
   "spf_generatingSub": "نضعك في الدراما، انتظر قليلاً",
   "spf_genDoneTag": "تم",
@@ -1324,8 +1328,10 @@
     }
   },
   "spf_genDoneBody": "احفظ في أعمالك، شارك، أو أعد الإنشاء.",
-  "spf_btnSave": "احفظ في أعمالي",
-  "spf_savedToast": "تم الحفظ (قيد التطوير)",
+  "spf_btnSave": "حفظ في الألبوم",
+  "spf_savedToast": "تم الحفظ في الألبوم",
+  "spf_saveFail": "فشل الحفظ، يرجى المحاولة مرة أخرى",
+  "spf_saveNoPerm": "يرجى السماح بالوصول إلى الصور في الإعدادات للحفظ",
   "spf_shareLabel": "إبداع AI",
   "cui_chipAI": "تفاعلي AI",
   "cui_chipMetaverse": "عالم الميتافيرس",

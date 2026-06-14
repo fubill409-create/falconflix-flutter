@@ -1099,6 +1099,7 @@
   },
   "ss_localNote": "Beta · soutiens enregistrés localement, paiement en pièces au lancement",
   "ss_celebTitle": "Soutien envoyé !",
+  "ss_backFailed": "Échec du soutien, veuillez réessayer",
   "ss_forFmt": "Pour {name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1312,6 +1313,9 @@
   "spf_uploadPhoto": "Charge ta photo",
   "spf_photoTapToReplace": "Touche pour remplacer",
   "spf_photoHint": "De face ou corps entier, visage net",
+  "spf_photoSourceTitle": "Ajouter une photo",
+  "spf_takePhoto": "Prendre une photo",
+  "spf_chooseFromAlbum": "Choisir dans l’album",
   "spf_generating": "L'IA génère…",
   "spf_generatingSub": "On te place dans le drama, patience",
   "spf_genDoneTag": "Terminé",
@@ -1324,8 +1328,10 @@
     }
   },
   "spf_genDoneBody": "Sauve dans tes œuvres, partage, ou régénère.",
-  "spf_btnSave": "Enregistrer dans mes œuvres",
-  "spf_savedToast": "Enregistré (à venir)",
+  "spf_btnSave": "Enregistrer dans la galerie",
+  "spf_savedToast": "Enregistré dans la galerie",
+  "spf_saveFail": "Échec de l'enregistrement, veuillez réessayer",
+  "spf_saveNoPerm": "Autorisez l'accès aux photos dans les Réglages pour enregistrer",
   "spf_shareLabel": "Création IA",
   "cui_chipAI": "Interactif IA",
   "cui_chipMetaverse": "Univers métavers",

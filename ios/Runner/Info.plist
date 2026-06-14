@@ -34,6 +34,8 @@
 	<string>FalconFlix uses the camera to take a photo for your profile picture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>FalconFlix accesses your photo library so you can choose a profile picture.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>FalconFlix saves the AI images you create to your photo library.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

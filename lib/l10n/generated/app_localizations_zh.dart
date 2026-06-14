@@ -916,17 +916,17 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get cb_sectionSupport => '应援榜 · 谁在为 TA 打投';
+  String get cb_sectionSupport => '助推榜 · 谁在为 TA 助推';
 
   @override
-  String get cb_goSupport => '去应援 · 助 TA 出道';
+  String get cb_goSupport => '去助推 · 助 TA 出道';
 
   @override
   String get cb_seeBio => '看 TA 简介 ›';
 
   @override
   String cb_pollHeatPct(String pct) {
-    return '打投热度 $pct%';
+    return '助推热度 $pct%';
   }
 
   @override
@@ -938,7 +938,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get cb_totalSupport => '累计应援';
+  String get cb_totalSupport => '累计助推';
 
   @override
   String cb_coinsFmt(String coins) {
@@ -949,11 +949,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cb_topBacker => '本剧榜一大哥';
 
   @override
-  String get cb_emptyBackers => '还没有人打 call · 快来当 TA 的第一位榜一大哥';
+  String get cb_emptyBackers => '还没有人助推 · 快来当 TA 的第一位榜一大哥';
 
   @override
   String cb_titleSupportFmt(String name) {
-    return '$name · 应援榜';
+    return '$name · 助推榜';
   }
 
   @override
@@ -1034,10 +1034,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aid_step3Sub => '把你的脸、你的名字写进这部剧。';
 
   @override
-  String get aid_step4Title => '应援出道';
+  String get aid_step4Title => '助推出道';
 
   @override
-  String get aid_step4Sub => '为心动的角色打投，把 TA 推上舞台。';
+  String get aid_step4Sub => '为心动的角色助推，把 TA 推上舞台。';
 
   @override
   String get aid_step5Title => '决策元宇宙';
@@ -1179,7 +1179,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get login_pwHint => '首次用密码登录将自动注册并设置该密码';
 
-
   @override
   String get login_quickLogin => '快捷登录';
 
@@ -1275,7 +1274,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wallet_chooseRecharge => '选择充值包';
 
   @override
-  String get wallet_introNote => '鹰币用于解锁剧集、互动玩法与应援';
+  String get wallet_introNote => '鹰币用于解锁剧集、互动玩法与助推';
 
   @override
   String get wallet_menuAutoUnlock => '自动解锁设置';
@@ -1960,7 +1959,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String ss_callForFmt(String name) {
-    return '为 $name 打 call';
+    return '助推 $name';
   }
 
   @override
@@ -1972,10 +1971,13 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get ss_localNote => '内测体验 · 应援先本地记录，正式上线后从鹰币结算';
+  String get ss_localNote => '内测体验 · 助推先本地记录，正式上线后从鹰币结算';
 
   @override
-  String get ss_celebTitle => '应援成功';
+  String get ss_celebTitle => '助推成功';
+
+  @override
+  String get ss_backFailed => '助推失败，请稍后再试';
 
   @override
   String ss_forFmt(String name, String label) {
@@ -2009,7 +2011,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get air_title => '角色机会榜';
 
   @override
-  String get air_sub => '热度攒满就开机出道 · 打投越猛排名越靠前';
+  String get air_sub => '热度攒满就开机出道 · 助推越猛排名越靠前';
 
   @override
   String get air_segCharRank => '角色榜';
@@ -2049,7 +2051,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String air_heatFmt(String pct) {
-    return '打投热度 $pct%';
+    return '助推热度 $pct%';
   }
 
   @override
@@ -2062,7 +2064,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String air_supportKingFmt(String name) {
-    return '本剧应援王 $name';
+    return '本剧头号助推 $name';
   }
 
   @override
@@ -2095,20 +2097,20 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String cd_secBoardFmt(String n) {
-    return '应援榜 · $n 位支持者';
+    return '助推榜 · $n 位支持者';
   }
 
   @override
   String get cd_actImInToo => '我也要上榜 ›';
 
   @override
-  String get cd_swipeHint => '下滑了解 TA · 打 call · 解锁';
+  String get cd_swipeHint => '下滑了解 TA · 助推 · 解锁';
 
   @override
   String get cd_introBadge => 'TA 的自我介绍';
 
   @override
-  String get cd_debutProgress => '出道打投进度';
+  String get cd_debutProgress => '出道助推进度';
 
   @override
   String get cd_debutHint => '攒满即触发开机 · 真人＋AI 结合的精品互动剧';
@@ -2129,10 +2131,10 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get cd_kingBadge => '本剧应援王';
+  String get cd_kingBadge => '本剧头号助推';
 
   @override
-  String get cd_btnSupport => '应援';
+  String get cd_btnSupport => '助推';
 
   @override
   String get cd_btnChat => '聊天 · 解锁';
@@ -2240,6 +2242,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get spf_photoHint => '正面或全身，确保人脸清晰';
 
   @override
+  String get spf_photoSourceTitle => '添加照片';
+
+  @override
+  String get spf_takePhoto => '拍照';
+
+  @override
+  String get spf_chooseFromAlbum => '从相册选择';
+
+  @override
   String get spf_generating => 'AI 正在生成…';
 
   @override
@@ -2257,10 +2268,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get spf_genDoneBody => '保存到作品、分享，或重新生成。';
 
   @override
-  String get spf_btnSave => '保存到我的作品';
+  String get spf_btnSave => '保存到相册';
 
   @override
-  String get spf_savedToast => '已保存（功能开发中）';
+  String get spf_savedToast => '已保存到相册';
+
+  @override
+  String get spf_saveFail => '保存失败，请重试';
+
+  @override
+  String get spf_saveNoPerm => '请在系统设置里允许访问相册后再保存';
 
   @override
   String get spf_shareLabel => 'AI 成片';
@@ -2279,7 +2296,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get cui_body =>
-      '每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 打 call，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。';
+      '每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 助推，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。';
 
   @override
   String get cui_step1Title => '遇见 & 私聊';
@@ -2288,16 +2305,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cui_step1Desc => '长按角色听 TA 说话，进去与 TA 一对一聊天。能量陪伴，越聊越懂你。';
 
   @override
-  String get cui_step2Title => '应援 & 打投';
+  String get cui_step2Title => '助推 & 投票';
 
   @override
-  String get cui_step2Desc => '为心动的 TA 投出鹰币，实名登上应援榜，成为 TA 的「应援王」。';
+  String get cui_step2Desc => '为心动的 TA 投出鹰币，实名登上助推榜，成为 TA 的「头号助推」。';
 
   @override
   String get cui_step3Title => '开机 & 出道';
 
   @override
-  String get cui_step3Desc => '打投进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。';
+  String get cui_step3Desc => '助推进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。';
 
   @override
   String get cui_step4Title => '客串 & 深入';

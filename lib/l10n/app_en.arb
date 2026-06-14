@@ -421,7 +421,7 @@
       }
     }
   },
-  "cb_sectionSupport": "Top Supporters · Who's voting for them",
+  "cb_sectionSupport": "Top Backers · Who's voting for them",
   "cb_goSupport": "Vote · Send them to set",
   "cb_seeBio": "See bio ›",
   "cb_pollHeatPct": "Backing {pct}%",
@@ -441,7 +441,7 @@
       }
     }
   },
-  "cb_totalSupport": "Total Support",
+  "cb_totalSupport": "Total backing",
   "cb_coinsFmt": "{coins} Eagle Coins",
   "@cb_coinsFmt": {
     "placeholders": {
@@ -451,8 +451,8 @@
     }
   },
   "cb_topBacker": "Top Backer",
-  "cb_emptyBackers": "No backers yet · Be the first to support",
-  "cb_titleSupportFmt": "{name} · Support Board",
+  "cb_emptyBackers": "No backers yet · Be the first to back",
+  "cb_titleSupportFmt": "{name} · Backers board",
   "@cb_titleSupportFmt": {
     "placeholders": {
       "name": {
@@ -1079,8 +1079,8 @@
   "ss_tier3344_label": "Eternity",
   "ss_tier3344_meaning": "Spoil them",
   "ss_tier9999_label": "Legendary",
-  "ss_tier9999_meaning": "Top fan",
-  "ss_callForFmt": "Cheer for {name}",
+  "ss_tier9999_meaning": "Top Backer",
+  "ss_callForFmt": "Back {name}",
   "@ss_callForFmt": {
     "placeholders": {
       "name": {
@@ -1097,8 +1097,9 @@
       }
     }
   },
-  "ss_localNote": "Beta · cheers are saved locally; coin settle at official launch",
-  "ss_celebTitle": "Cheers sent!",
+  "ss_localNote": "Beta · backing is saved locally; coin settle at official launch",
+  "ss_celebTitle": "Backed!",
+  "ss_backFailed": "Backing failed, please try again",
   "ss_forFmt": "For {name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1129,7 +1130,7 @@
       }
     }
   },
-  "ss_kingFmt": "👑 You're TA's #1 fan! V{level} {tier}",
+  "ss_kingFmt": "👑 You're their #1 fan! V{level} {tier}",
   "@ss_kingFmt": {
     "placeholders": {
       "level": {
@@ -1140,7 +1141,7 @@
       }
     }
   },
-  "ss_guardianFmt": "You're TA's #{rank} guardian · V{level} {tier}",
+  "ss_guardianFmt": "You're their #{rank} guardian · V{level} {tier}",
   "@ss_guardianFmt": {
     "placeholders": {
       "rank": {
@@ -1156,9 +1157,9 @@
   },
   "ss_tapToContinue": "Tap anywhere to continue",
   "air_title": "Casting Leaderboard",
-  "air_sub": "Hit the heat goal to debut · the bigger the cheers, the higher you rank",
+  "air_sub": "Hit the heat goal to debut · the bigger the backing, the higher you rank",
   "air_segCharRank": "Characters",
-  "air_segKingRank": "Top fans",
+  "air_segKingRank": "Top Backers",
   "air_chipAll": "All",
   "air_chipFemale": "Girls",
   "air_chipMale": "Boys",
@@ -1186,7 +1187,7 @@
       }
     }
   },
-  "air_supportKingFmt": "Top fan: {name}",
+  "air_supportKingFmt": "Top Backer: {name}",
   "@air_supportKingFmt": {
     "placeholders": {
       "name": {
@@ -1195,7 +1196,7 @@
     }
   },
   "air_emptyKingPlaceholder": "Awaiting a champion",
-  "air_globalKing": "Global #1 fan",
+  "air_globalKing": "Global Top Backer",
   "air_tierBackFmt": "{tier} · backs {name}",
   "@air_tierBackFmt": {
     "placeholders": {
@@ -1215,11 +1216,11 @@
       }
     }
   },
-  "cd_secVideos": "TA's videos",
+  "cd_secVideos": "Their videos",
   "cd_secMoments": "Deeper moments",
   "cd_actUnlock": "Unlock with coins",
-  "cd_secCredits": "TA's dramas",
-  "cd_secBoardFmt": "Support board · {n} backers",
+  "cd_secCredits": "Their dramas",
+  "cd_secBoardFmt": "Backers board · {n} backers",
   "@cd_secBoardFmt": {
     "placeholders": {
       "n": {
@@ -1228,8 +1229,8 @@
     }
   },
   "cd_actImInToo": "I'm in too ›",
-  "cd_swipeHint": "Scroll for TA · cheer · unlock",
-  "cd_introBadge": "TA's intro",
+  "cd_swipeHint": "Scroll for more · back · unlock",
+  "cd_introBadge": "Their intro",
   "cd_debutProgress": "Debut campaign",
   "cd_debutHint": "Fill up to greenlight · live actors + AI premium interactive drama",
   "cd_clipToastFmt": "Play clip \"{name}\" · coming soon",
@@ -1256,8 +1257,8 @@
       }
     }
   },
-  "cd_kingBadge": "Top fan",
-  "cd_btnSupport": "Cheer",
+  "cd_kingBadge": "Top Backer",
+  "cd_btnSupport": "Back",
   "cd_btnChat": "Chat · unlock",
   "sp_toolPosterName": "Drama poster maker",
   "sp_toolPosterDesc": "Upload a face to generate a vertical poster of you in this drama.",
@@ -1312,6 +1313,9 @@
   "spf_uploadPhoto": "Upload your photo",
   "spf_photoTapToReplace": "Tap to replace",
   "spf_photoHint": "Front-facing or full body, with a clear face",
+  "spf_photoSourceTitle": "Add a photo",
+  "spf_takePhoto": "Take a photo",
+  "spf_chooseFromAlbum": "Choose from album",
   "spf_generating": "AI is generating…",
   "spf_generatingSub": "Placing you into the drama, hang tight",
   "spf_genDoneTag": "Done",
@@ -1324,18 +1328,20 @@
     }
   },
   "spf_genDoneBody": "Save to your works, share, or generate again.",
-  "spf_btnSave": "Save to my works",
-  "spf_savedToast": "Saved (coming soon)",
+  "spf_btnSave": "Save to album",
+  "spf_savedToast": "Saved to album",
+  "spf_saveFail": "Save failed, please try again",
+  "spf_saveNoPerm": "Allow Photos access in Settings to save",
   "spf_shareLabel": "AI creation",
   "cui_chipAI": "AI interactive",
   "cui_chipMetaverse": "Metaverse lore",
   "cui_title": "Character Metaverse",
   "cui_lead": "Here, who you meet isn't an actor — it's someone who responds to you.",
-  "cui_body": "Every character has their own personality, voice and story. You can chat with them, cheer them on, push the one who steals your heart onto the stage — from a single line to a premium interactive drama that belongs to both of you.",
+  "cui_body": "Every character has their own personality, voice and story. You can chat with them, back them, push the one who steals your heart onto the stage — from a single line to a premium interactive drama that belongs to both of you.",
   "cui_step1Title": "Meet & DM",
   "cui_step1Desc": "Long-press a character to hear them speak, then dive into a 1-on-1 chat. Companionship powered by AI, getting smarter the more you talk.",
-  "cui_step2Title": "Cheer & vote",
-  "cui_step2Desc": "Spend coins to vote for the one you love, climb the support board, become their #1 fan.",
+  "cui_step2Title": "Back & vote",
+  "cui_step2Desc": "Spend coins to back the one you love, climb the Backers board, become their Top Backer.",
   "cui_step3Title": "Greenlight & debut",
   "cui_step3Desc": "When the campaign fills, they officially debut — a premium drama by real actors + AI, lit by you.",
   "cui_step4Title": "Cameo & dive deeper",

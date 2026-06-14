@@ -1843,13 +1843,13 @@ abstract class AppLocalizations {
   /// No description provided for @cb_sectionSupport.
   ///
   /// In zh, this message translates to:
-  /// **'应援榜 · 谁在为 TA 打投'**
+  /// **'助推榜 · 谁在为 TA 助推'**
   String get cb_sectionSupport;
 
   /// No description provided for @cb_goSupport.
   ///
   /// In zh, this message translates to:
-  /// **'去应援 · 助 TA 出道'**
+  /// **'去助推 · 助 TA 出道'**
   String get cb_goSupport;
 
   /// No description provided for @cb_seeBio.
@@ -1861,7 +1861,7 @@ abstract class AppLocalizations {
   /// No description provided for @cb_pollHeatPct.
   ///
   /// In zh, this message translates to:
-  /// **'打投热度 {pct}%'**
+  /// **'助推热度 {pct}%'**
   String cb_pollHeatPct(String pct);
 
   /// No description provided for @cb_debuted.
@@ -1879,7 +1879,7 @@ abstract class AppLocalizations {
   /// No description provided for @cb_totalSupport.
   ///
   /// In zh, this message translates to:
-  /// **'累计应援'**
+  /// **'累计助推'**
   String get cb_totalSupport;
 
   /// No description provided for @cb_coinsFmt.
@@ -1897,13 +1897,13 @@ abstract class AppLocalizations {
   /// No description provided for @cb_emptyBackers.
   ///
   /// In zh, this message translates to:
-  /// **'还没有人打 call · 快来当 TA 的第一位榜一大哥'**
+  /// **'还没有人助推 · 快来当 TA 的第一位榜一大哥'**
   String get cb_emptyBackers;
 
   /// No description provided for @cb_titleSupportFmt.
   ///
   /// In zh, this message translates to:
-  /// **'{name} · 应援榜'**
+  /// **'{name} · 助推榜'**
   String cb_titleSupportFmt(String name);
 
   /// No description provided for @aid_titleHeader.
@@ -2059,13 +2059,13 @@ abstract class AppLocalizations {
   /// No description provided for @aid_step4Title.
   ///
   /// In zh, this message translates to:
-  /// **'应援出道'**
+  /// **'助推出道'**
   String get aid_step4Title;
 
   /// No description provided for @aid_step4Sub.
   ///
   /// In zh, this message translates to:
-  /// **'为心动的角色打投，把 TA 推上舞台。'**
+  /// **'为心动的角色助推，把 TA 推上舞台。'**
   String get aid_step4Sub;
 
   /// No description provided for @aid_step5Title.
@@ -2320,7 +2320,6 @@ abstract class AppLocalizations {
   /// **'首次用密码登录将自动注册并设置该密码'**
   String get login_pwHint;
 
-
   /// No description provided for @login_quickLogin.
   ///
   /// In zh, this message translates to:
@@ -2486,7 +2485,7 @@ abstract class AppLocalizations {
   /// No description provided for @wallet_introNote.
   ///
   /// In zh, this message translates to:
-  /// **'鹰币用于解锁剧集、互动玩法与应援'**
+  /// **'鹰币用于解锁剧集、互动玩法与助推'**
   String get wallet_introNote;
 
   /// No description provided for @wallet_menuAutoUnlock.
@@ -3734,7 +3733,7 @@ abstract class AppLocalizations {
   /// No description provided for @ss_callForFmt.
   ///
   /// In zh, this message translates to:
-  /// **'为 {name} 打 call'**
+  /// **'助推 {name}'**
   String ss_callForFmt(String name);
 
   /// No description provided for @ss_subtitle.
@@ -3752,14 +3751,20 @@ abstract class AppLocalizations {
   /// No description provided for @ss_localNote.
   ///
   /// In zh, this message translates to:
-  /// **'内测体验 · 应援先本地记录，正式上线后从鹰币结算'**
+  /// **'内测体验 · 助推先本地记录，正式上线后从鹰币结算'**
   String get ss_localNote;
 
   /// No description provided for @ss_celebTitle.
   ///
   /// In zh, this message translates to:
-  /// **'应援成功'**
+  /// **'助推成功'**
   String get ss_celebTitle;
+
+  /// No description provided for @ss_backFailed.
+  ///
+  /// In zh, this message translates to:
+  /// **'助推失败，请稍后再试'**
+  String get ss_backFailed;
 
   /// No description provided for @ss_forFmt.
   ///
@@ -3806,7 +3811,7 @@ abstract class AppLocalizations {
   /// No description provided for @air_sub.
   ///
   /// In zh, this message translates to:
-  /// **'热度攒满就开机出道 · 打投越猛排名越靠前'**
+  /// **'热度攒满就开机出道 · 助推越猛排名越靠前'**
   String get air_sub;
 
   /// No description provided for @air_segCharRank.
@@ -3884,7 +3889,7 @@ abstract class AppLocalizations {
   /// No description provided for @air_heatFmt.
   ///
   /// In zh, this message translates to:
-  /// **'打投热度 {pct}%'**
+  /// **'助推热度 {pct}%'**
   String air_heatFmt(String pct);
 
   /// No description provided for @air_doneShoot.
@@ -3902,7 +3907,7 @@ abstract class AppLocalizations {
   /// No description provided for @air_supportKingFmt.
   ///
   /// In zh, this message translates to:
-  /// **'本剧应援王 {name}'**
+  /// **'本剧头号助推 {name}'**
   String air_supportKingFmt(String name);
 
   /// No description provided for @air_emptyKingPlaceholder.
@@ -3956,7 +3961,7 @@ abstract class AppLocalizations {
   /// No description provided for @cd_secBoardFmt.
   ///
   /// In zh, this message translates to:
-  /// **'应援榜 · {n} 位支持者'**
+  /// **'助推榜 · {n} 位支持者'**
   String cd_secBoardFmt(String n);
 
   /// No description provided for @cd_actImInToo.
@@ -3968,7 +3973,7 @@ abstract class AppLocalizations {
   /// No description provided for @cd_swipeHint.
   ///
   /// In zh, this message translates to:
-  /// **'下滑了解 TA · 打 call · 解锁'**
+  /// **'下滑了解 TA · 助推 · 解锁'**
   String get cd_swipeHint;
 
   /// No description provided for @cd_introBadge.
@@ -3980,7 +3985,7 @@ abstract class AppLocalizations {
   /// No description provided for @cd_debutProgress.
   ///
   /// In zh, this message translates to:
-  /// **'出道打投进度'**
+  /// **'出道助推进度'**
   String get cd_debutProgress;
 
   /// No description provided for @cd_debutHint.
@@ -4010,13 +4015,13 @@ abstract class AppLocalizations {
   /// No description provided for @cd_kingBadge.
   ///
   /// In zh, this message translates to:
-  /// **'本剧应援王'**
+  /// **'本剧头号助推'**
   String get cd_kingBadge;
 
   /// No description provided for @cd_btnSupport.
   ///
   /// In zh, this message translates to:
-  /// **'应援'**
+  /// **'助推'**
   String get cd_btnSupport;
 
   /// No description provided for @cd_btnChat.
@@ -4217,6 +4222,24 @@ abstract class AppLocalizations {
   /// **'正面或全身，确保人脸清晰'**
   String get spf_photoHint;
 
+  /// No description provided for @spf_photoSourceTitle.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加照片'**
+  String get spf_photoSourceTitle;
+
+  /// No description provided for @spf_takePhoto.
+  ///
+  /// In zh, this message translates to:
+  /// **'拍照'**
+  String get spf_takePhoto;
+
+  /// No description provided for @spf_chooseFromAlbum.
+  ///
+  /// In zh, this message translates to:
+  /// **'从相册选择'**
+  String get spf_chooseFromAlbum;
+
   /// No description provided for @spf_generating.
   ///
   /// In zh, this message translates to:
@@ -4250,14 +4273,26 @@ abstract class AppLocalizations {
   /// No description provided for @spf_btnSave.
   ///
   /// In zh, this message translates to:
-  /// **'保存到我的作品'**
+  /// **'保存到相册'**
   String get spf_btnSave;
 
   /// No description provided for @spf_savedToast.
   ///
   /// In zh, this message translates to:
-  /// **'已保存（功能开发中）'**
+  /// **'已保存到相册'**
   String get spf_savedToast;
+
+  /// No description provided for @spf_saveFail.
+  ///
+  /// In zh, this message translates to:
+  /// **'保存失败，请重试'**
+  String get spf_saveFail;
+
+  /// No description provided for @spf_saveNoPerm.
+  ///
+  /// In zh, this message translates to:
+  /// **'请在系统设置里允许访问相册后再保存'**
+  String get spf_saveNoPerm;
 
   /// No description provided for @spf_shareLabel.
   ///
@@ -4292,7 +4327,7 @@ abstract class AppLocalizations {
   /// No description provided for @cui_body.
   ///
   /// In zh, this message translates to:
-  /// **'每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 打 call，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。'**
+  /// **'每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 助推，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。'**
   String get cui_body;
 
   /// No description provided for @cui_step1Title.
@@ -4310,13 +4345,13 @@ abstract class AppLocalizations {
   /// No description provided for @cui_step2Title.
   ///
   /// In zh, this message translates to:
-  /// **'应援 & 打投'**
+  /// **'助推 & 投票'**
   String get cui_step2Title;
 
   /// No description provided for @cui_step2Desc.
   ///
   /// In zh, this message translates to:
-  /// **'为心动的 TA 投出鹰币，实名登上应援榜，成为 TA 的「应援王」。'**
+  /// **'为心动的 TA 投出鹰币，实名登上助推榜，成为 TA 的「头号助推」。'**
   String get cui_step2Desc;
 
   /// No description provided for @cui_step3Title.
@@ -4328,7 +4363,7 @@ abstract class AppLocalizations {
   /// No description provided for @cui_step3Desc.
   ///
   /// In zh, this message translates to:
-  /// **'打投进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。'**
+  /// **'助推进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。'**
   String get cui_step3Desc;
 
   /// No description provided for @cui_step4Title.

@@ -944,7 +944,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cb_sectionSupport => 'Top Supporters · Who\'s voting for them';
+  String get cb_sectionSupport => 'Top Backers · Who\'s voting for them';
 
   @override
   String get cb_goSupport => 'Vote · Send them to set';
@@ -966,7 +966,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cb_totalSupport => 'Total Support';
+  String get cb_totalSupport => 'Total backing';
 
   @override
   String cb_coinsFmt(String coins) {
@@ -977,11 +977,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cb_topBacker => 'Top Backer';
 
   @override
-  String get cb_emptyBackers => 'No backers yet · Be the first to support';
+  String get cb_emptyBackers => 'No backers yet · Be the first to back';
 
   @override
   String cb_titleSupportFmt(String name) {
-    return '$name · Support Board';
+    return '$name · Backers board';
   }
 
   @override
@@ -1217,7 +1217,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get login_pwHint =>
       'First-time password sign-in will auto-register and set this password';
-
 
   @override
   String get login_quickLogin => 'Quick Sign-in';
@@ -2016,11 +2015,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ss_tier9999_label => 'Legendary';
 
   @override
-  String get ss_tier9999_meaning => 'Top fan';
+  String get ss_tier9999_meaning => 'Top Backer';
 
   @override
   String ss_callForFmt(String name) {
-    return 'Cheer for $name';
+    return 'Back $name';
   }
 
   @override
@@ -2033,10 +2032,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ss_localNote =>
-      'Beta · cheers are saved locally; coin settle at official launch';
+      'Beta · backing is saved locally; coin settle at official launch';
 
   @override
-  String get ss_celebTitle => 'Cheers sent!';
+  String get ss_celebTitle => 'Backed!';
+
+  @override
+  String get ss_backFailed => 'Backing failed, please try again';
 
   @override
   String ss_forFmt(String name, String label) {
@@ -2055,12 +2057,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String ss_kingFmt(String level, String tier) {
-    return '👑 You\'re TA\'s #1 fan! V$level $tier';
+    return '👑 You\'re their #1 fan! V$level $tier';
   }
 
   @override
   String ss_guardianFmt(String rank, String level, String tier) {
-    return 'You\'re TA\'s #$rank guardian · V$level $tier';
+    return 'You\'re their #$rank guardian · V$level $tier';
   }
 
   @override
@@ -2071,13 +2073,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get air_sub =>
-      'Hit the heat goal to debut · the bigger the cheers, the higher you rank';
+      'Hit the heat goal to debut · the bigger the backing, the higher you rank';
 
   @override
   String get air_segCharRank => 'Characters';
 
   @override
-  String get air_segKingRank => 'Top fans';
+  String get air_segKingRank => 'Top Backers';
 
   @override
   String get air_chipAll => 'All';
@@ -2124,14 +2126,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String air_supportKingFmt(String name) {
-    return 'Top fan: $name';
+    return 'Top Backer: $name';
   }
 
   @override
   String get air_emptyKingPlaceholder => 'Awaiting a champion';
 
   @override
-  String get air_globalKing => 'Global #1 fan';
+  String get air_globalKing => 'Global Top Backer';
 
   @override
   String air_tierBackFmt(String tier, String name) {
@@ -2144,7 +2146,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cd_secVideos => 'TA\'s videos';
+  String get cd_secVideos => 'Their videos';
 
   @override
   String get cd_secMoments => 'Deeper moments';
@@ -2153,21 +2155,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cd_actUnlock => 'Unlock with coins';
 
   @override
-  String get cd_secCredits => 'TA\'s dramas';
+  String get cd_secCredits => 'Their dramas';
 
   @override
   String cd_secBoardFmt(String n) {
-    return 'Support board · $n backers';
+    return 'Backers board · $n backers';
   }
 
   @override
   String get cd_actImInToo => 'I\'m in too ›';
 
   @override
-  String get cd_swipeHint => 'Scroll for TA · cheer · unlock';
+  String get cd_swipeHint => 'Scroll for more · back · unlock';
 
   @override
-  String get cd_introBadge => 'TA\'s intro';
+  String get cd_introBadge => 'Their intro';
 
   @override
   String get cd_debutProgress => 'Debut campaign';
@@ -2192,10 +2194,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cd_kingBadge => 'Top fan';
+  String get cd_kingBadge => 'Top Backer';
 
   @override
-  String get cd_btnSupport => 'Cheer';
+  String get cd_btnSupport => 'Back';
 
   @override
   String get cd_btnChat => 'Chat · unlock';
@@ -2310,6 +2312,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get spf_photoHint => 'Front-facing or full body, with a clear face';
 
   @override
+  String get spf_photoSourceTitle => 'Add a photo';
+
+  @override
+  String get spf_takePhoto => 'Take a photo';
+
+  @override
+  String get spf_chooseFromAlbum => 'Choose from album';
+
+  @override
   String get spf_generating => 'AI is generating…';
 
   @override
@@ -2327,10 +2338,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get spf_genDoneBody => 'Save to your works, share, or generate again.';
 
   @override
-  String get spf_btnSave => 'Save to my works';
+  String get spf_btnSave => 'Save to album';
 
   @override
-  String get spf_savedToast => 'Saved (coming soon)';
+  String get spf_savedToast => 'Saved to album';
+
+  @override
+  String get spf_saveFail => 'Save failed, please try again';
+
+  @override
+  String get spf_saveNoPerm => 'Allow Photos access in Settings to save';
 
   @override
   String get spf_shareLabel => 'AI creation';
@@ -2350,7 +2367,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cui_body =>
-      'Every character has their own personality, voice and story. You can chat with them, cheer them on, push the one who steals your heart onto the stage — from a single line to a premium interactive drama that belongs to both of you.';
+      'Every character has their own personality, voice and story. You can chat with them, back them, push the one who steals your heart onto the stage — from a single line to a premium interactive drama that belongs to both of you.';
 
   @override
   String get cui_step1Title => 'Meet & DM';
@@ -2360,11 +2377,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Long-press a character to hear them speak, then dive into a 1-on-1 chat. Companionship powered by AI, getting smarter the more you talk.';
 
   @override
-  String get cui_step2Title => 'Cheer & vote';
+  String get cui_step2Title => 'Back & vote';
 
   @override
   String get cui_step2Desc =>
-      'Spend coins to vote for the one you love, climb the support board, become their #1 fan.';
+      'Spend coins to back the one you love, climb the Backers board, become their Top Backer.';
 
   @override
   String get cui_step3Title => 'Greenlight & debut';

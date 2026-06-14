@@ -62,9 +62,22 @@ class _SparkScreenState extends State<SparkScreen> {
     }
   }
 
+  // 玩法名取本地化文案（按 mode 映射），不用服务端 label——否则切英语仍显示中文。
+  String _nameFor(AppLocalizations l, String mode) {
+    switch (mode) {
+      case 'avatar':
+        return l.sp_toolAvatarName;
+      case 'makeover':
+        return l.sp_toolMakeoverName;
+      case 'poster':
+      default:
+        return l.sp_toolPosterName;
+    }
+  }
+
   void _launch(Map<String, dynamic> m) {
     final mode = m['mode']?.toString() ?? 'poster';
-    final label = m['label']?.toString() ?? '';
+    final label = _nameFor(AppLocalizations.of(context), mode);
     final coins = (m['coins'] as num?)?.toInt() ?? 0;
     Navigator.push(
       context,
@@ -84,7 +97,7 @@ class _SparkScreenState extends State<SparkScreen> {
       _launch(_modes.first);
     } else {
       // modes 未拉到：用 poster 兜底（flow 内会再拉一次拿到权威价）。
-      _launch({'mode': 'poster', 'label': '剧照海报', 'coins': 25});
+      _launch({'mode': 'poster', 'label': 'Drama poster', 'coins': 25});
     }
   }
 
@@ -267,13 +280,13 @@ class _SparkScreenState extends State<SparkScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('我的创作',
+                  const Text('My Creations',
                       style: TextStyle(
                           color: FF.text,
                           fontSize: 17,
                           fontWeight: FontWeight.w700)),
                   const SizedBox(height: 4),
-                  const Text('查看你用 AI 生成的全部作品。',
+                  const Text("See everything you've made with AI.",
                       style: TextStyle(color: FF.muted, fontSize: 12)),
                 ],
               ),
@@ -301,7 +314,7 @@ class _SparkScreenState extends State<SparkScreen> {
       itemBuilder: (_, i) {
         final m = _modes[i];
         final mode = m['mode']?.toString() ?? '';
-        final label = m['label']?.toString() ?? '';
+        final label = _nameFor(l, mode);
         final coins = (m['coins'] as num?)?.toInt() ?? 0;
         return GestureDetector(
           onTap: () => _launch(m),
@@ -348,7 +361,7 @@ class _SparkScreenState extends State<SparkScreen> {
                           style: const TextStyle(
                               color: FF.muted, fontSize: 11, height: 1.35)),
                       const SizedBox(height: 8),
-                      Text('$coins 鹰币',
+                      Text('$coins coins',
                           style: const TextStyle(
                               color: FF.gold,
                               fontSize: 12,
@@ -421,7 +434,7 @@ class _MyCreationsSheetState extends State<_MyCreationsSheet> {
               ),
             ),
             const SizedBox(height: 18),
-            const Text('我的创作',
+            const Text('My Creations',
                 style: TextStyle(
                     color: FF.text,
                     fontSize: 18,
@@ -431,7 +444,7 @@ class _MyCreationsSheetState extends State<_MyCreationsSheet> {
             const SizedBox(height: 8),
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('关闭', style: TextStyle(color: FF.dim)),
+              child: const Text('Close', style: TextStyle(color: FF.dim)),
             ),
           ],
         ),
@@ -444,7 +457,7 @@ class _MyCreationsSheetState extends State<_MyCreationsSheet> {
       return const Padding(
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Center(
-          child: Text('加载失败，请稍后重试',
+          child: Text('Couldn\'t load, please try again.',
               style: TextStyle(color: FF.muted, fontSize: 13)),
         ),
       );
@@ -462,7 +475,7 @@ class _MyCreationsSheetState extends State<_MyCreationsSheet> {
       return const Padding(
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Center(
-          child: Text('还没有作品，去生成第一张吧。',
+          child: Text('Nothing here yet — go make your first one.',
               style: TextStyle(color: FF.muted, fontSize: 13)),
         ),
       );

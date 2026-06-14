@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -33,6 +32,36 @@ Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
     builder: (_) => _SupportSheet(character: c),
   );
   if (tier == null || !context.mounted) return;
+
+  // 先确认再扣（防误按 + 让用户看清扣多少、余额够不够）。
+  final l = AppLocalizations.of(context);
+  final bal = (auth.profile?.balance ?? 0).round();
+  final confirmed = await showDialog<bool>(
+    context: context,
+    barrierDismissible: true,
+    builder: (dctx) => AlertDialog(
+      backgroundColor: const Color(0xFF1C1726),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      title: Text('${l.ss_callForFmt(c.name)}?',
+          style: const TextStyle(
+              color: FF.text, fontSize: 18, fontWeight: FontWeight.w900)),
+      content: Text(
+        '${tier.label} · ${tier.coins} ${l.sheets_coinsShort}\n${l.ss_balanceFmt(bal.toString())}',
+        style: const TextStyle(color: FF.dim, fontSize: 14, height: 1.5),
+      ),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.pop(dctx, false),
+            child: Text(l.common_cancel, style: const TextStyle(color: FF.dim))),
+        TextButton(
+            onPressed: () => Navigator.pop(dctx, true),
+            child: Text(l.cd_btnSupport,
+                style: const TextStyle(
+                    color: FF.brightGold, fontWeight: FontWeight.w900))),
+      ],
+    ),
+  );
+  if (confirmed != true || !context.mounted) return;
   HapticFeedback.mediumImpact();
 
   // 选完档：转圈遮罩 → 真送礼 → 关遮罩 → 成功庆祝 / 失败提示。
@@ -52,7 +81,7 @@ Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
   } on ApiException catch (e) {
     errMsg = e.message;
   } catch (_) {
-    errMsg = '应援失败，请稍后再试';
+    errMsg = 'error';
   }
 
   if (!context.mounted) return;
@@ -68,10 +97,13 @@ Future<void> openSupportSheet(BuildContext context, AiCharacter c) async {
   }
 
   // 失败：鹰币不足单独提示「去充值」，其它错误普通提示。
-  final insufficient = (errMsg ?? '').contains('鹰币不足');
+  // 不足检测匹配服务端返回（中文/英文），但展示一律用本地化文案，绝不外露服务端中文。
+  final lower = (errMsg ?? '').toLowerCase();
+  final insufficient =
+      (errMsg ?? '').contains('鹰币不足') || lower.contains('not enough');
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(insufficient ? '鹰币不足，去充值~' : (errMsg ?? '应援失败')),
+      content: Text(insufficient ? l.sheets_coinsNotEnough : l.ss_backFailed),
       backgroundColor: const Color(0xFF2A2233),
       behavior: SnackBarBehavior.floating,
     ),
@@ -286,7 +318,12 @@ Future<void> _showCelebration(
     barrierLabel: AppLocalizations.of(context).ss_celebTitle,
     barrierColor: Colors.black.withValues(alpha: 0.64),
     transitionDuration: const Duration(milliseconds: 300),
-    pageBuilder: (_, _, _) => _Celebration(character: c, tier: t, result: r),
+    // 必须裹一层 Material：showGeneralDialog 的内容没有 Material 祖先时，
+    // Flutter 会给所有 Text 加"缺失 Material"的黄色双下划线调试样式（就是看到的那条横线）。
+    pageBuilder: (_, _, _) => Material(
+      type: MaterialType.transparency,
+      child: _Celebration(character: c, tier: t, result: r),
+    ),
     transitionBuilder: (_, anim, _, child) => FadeTransition(
       opacity: CurvedAnimation(parent: anim, curve: Curves.easeOut),
       child: child,
@@ -306,22 +343,7 @@ class _Celebration extends StatefulWidget {
 }
 
 class _CelebrationState extends State<_Celebration> {
-  Timer? _auto;
-
-  @override
-  void initState() {
-    super.initState();
-    // 庆祝停留够久（足一点），到点慢慢退场。
-    _auto = Timer(const Duration(milliseconds: 3200), () {
-      if (mounted) Navigator.of(context).maybePop();
-    });
-  }
-
-  @override
-  void dispose() {
-    _auto?.cancel();
-    super.dispose();
-  }
+  // 不自动退场：画面定住，让用户看清成果，点一下才关（防误按 + 看清扣了多少）。
 
   @override
   Widget build(BuildContext context) {
@@ -428,7 +450,7 @@ class _CelebrationState extends State<_Celebration> {
                   .scaleXY(begin: 0.7, curve: Curves.easeOutBack),
               const SizedBox(height: 16),
               _infoLine(Icons.trending_up_rounded, c.aura.first,
-                  '出道进度 · 现 $nowPct%'),
+                  '${l.cd_debutProgress} · $nowPct%'),
               const SizedBox(height: 8),
               _infoLine(
                   r.isKing

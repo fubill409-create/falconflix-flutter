@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:gal/gal.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +12,7 @@ import '../auth.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../theme.dart';
 import '../ui/kit.dart';
+import '../ui/thinking_backdrop.dart';
 import 'login_screen.dart';
 
 /// AI Spark 客串三步流程：设置 → 生成中 → 结果。
@@ -79,7 +80,8 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
           orElse: () => <String, dynamic>{},
         );
         if (cur.isNotEmpty) {
-          _label = cur['label']?.toString() ?? _label;
+          // 名字用本地化（不取服务端中文 label），只同步权威价格。
+          _label = _nameFor(_mode);
           _coins = (cur['coins'] as num?)?.toInt() ?? _coins;
         }
       });
@@ -100,10 +102,24 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
     }
   }
 
+  // 玩法名取本地化文案（按 mode 映射），不用服务端 label——否则切英语仍显示中文。
+  String _nameFor(String mode) {
+    final l = AppLocalizations.of(context);
+    switch (mode) {
+      case 'avatar':
+        return l.sp_toolAvatarName;
+      case 'makeover':
+        return l.sp_toolMakeoverName;
+      case 'poster':
+      default:
+        return l.sp_toolPosterName;
+    }
+  }
+
   void _selectMode(Map<String, dynamic> m) {
     setState(() {
       _mode = m['mode']?.toString() ?? _mode;
-      _label = m['label']?.toString() ?? _label;
+      _label = _nameFor(_mode);
       _coins = (m['coins'] as num?)?.toInt() ?? _coins;
     });
   }
@@ -117,12 +133,67 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
     ));
   }
 
-  // ── 选图 + 上传 ────────────────────────────────
+  // ── 选图来源选择（拍照 / 相册）────────────────────
+  Future<ImageSource?> _chooseSource() {
+    final l = AppLocalizations.of(context);
+    return showModalBottomSheet<ImageSource>(
+      context: context,
+      backgroundColor: FF.panel,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                    color: FF.dim, borderRadius: BorderRadius.circular(2))),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 14, 20, 4),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(l.spf_photoSourceTitle,
+                    style: const TextStyle(
+                        color: FF.text,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800)),
+              ),
+            ),
+            _sourceTile(ctx, Icons.photo_camera_rounded, l.spf_takePhoto,
+                ImageSource.camera),
+            _sourceTile(ctx, Icons.photo_library_rounded,
+                l.spf_chooseFromAlbum, ImageSource.gallery),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _sourceTile(
+      BuildContext ctx, IconData icon, String label, ImageSource src) {
+    return ListTile(
+      leading: Icon(icon, color: FF.brightGold),
+      title: Text(label,
+          style: const TextStyle(
+              color: FF.text, fontSize: 15, fontWeight: FontWeight.w600)),
+      onTap: () => Navigator.pop(ctx, src),
+    );
+  }
+
+  // ── 选图 + 上传（拍照用前置摄像头，相机界面内可切前/后）────────────
   Future<void> _pickPhoto() async {
     if (_uploading) return;
+    final source = await _chooseSource();
+    if (source == null || !mounted) return;
     try {
       final x = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
+        source: source,
+        preferredCameraDevice: CameraDevice.front,
         maxWidth: 1280,
         maxHeight: 1280,
         imageQuality: 90,
@@ -147,7 +218,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _uploading = false);
-      _toast('上传失败，请检查网络后重试');
+      _toast('Upload failed, please check your network and try again.');
     }
   }
 
@@ -195,14 +266,14 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
       // 鹰币不足 → 回到设置页提示去充值，不进结果页。
       setState(() => _phase = _Phase.setup);
       if (e.message.contains('鹰币不足')) {
-        _toast('鹰币不足，去充值');
+        _toast('Not enough coins — top up to continue.');
       } else {
         _toast(e.message);
       }
     } catch (_) {
       if (!mounted) return;
       setState(() => _phase = _Phase.setup);
-      _toast('生成失败，请稍后重试');
+      _toast('Generation failed, please try again.');
     }
   }
 
@@ -263,13 +334,35 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
   }
 
   // ── 保存 / 分享 ────────────────────────────────
+  // 保存：直接存进系统相册（不是分享面板）。gal 跨 Android/iOS，自动申请相册写入权限。
+  Future<void> _saveToGallery() async {
+    final url = _resultUrl;
+    if (url == null || _sharing) return;
+    final l = AppLocalizations.of(context);
+    setState(() => _sharing = true);
+    try {
+      final res = await http.get(Uri.parse(url));
+      if (res.statusCode != 200) throw 'download failed';
+      await Gal.putImageBytes(res.bodyBytes, album: 'FalconFlix');
+      if (mounted) _toast(l.spf_savedToast);
+    } on GalException catch (e) {
+      // 多半是相册权限被拒
+      _toast(e.type == GalExceptionType.accessDenied ? l.spf_saveNoPerm : l.spf_saveFail);
+    } catch (_) {
+      _toast(l.spf_saveFail);
+    } finally {
+      if (mounted) setState(() => _sharing = false);
+    }
+  }
+
+  // 分享：调系统分享面板（发给微信/相册/其它 App）。与「保存到相册」分开。
   Future<void> _shareResult() async {
     final url = _resultUrl;
     if (url == null || _sharing) return;
     setState(() => _sharing = true);
     try {
       final res = await http.get(Uri.parse(url));
-      if (res.statusCode != 200) throw '下载失败';
+      if (res.statusCode != 200) throw 'download failed';
       final dir = await getTemporaryDirectory();
       final ext = url.toLowerCase().endsWith('.png') ? 'png' : 'jpg';
       final file = File(
@@ -280,7 +373,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
         subject: 'FalconFlix',
       );
     } catch (_) {
-      _toast('分享失败，请稍后重试');
+      _toast('Sharing failed, please try again.');
     } finally {
       if (mounted) setState(() => _sharing = false);
     }
@@ -295,11 +388,11 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
       await auth.refresh();
       if (!mounted) return;
       setState(() => _avatarSet = true);
-      _toast('已设为头像');
+      _toast('Set as avatar');
     } on ApiException catch (e) {
       _toast(e.message);
     } catch (_) {
-      _toast('设置失败，请稍后重试');
+      _toast('Update failed, please try again.');
     } finally {
       if (mounted) setState(() => _sharing = false);
     }
@@ -369,7 +462,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
           itemBuilder: (_, i) {
             final m = _modes[i];
             final mode = m['mode']?.toString() ?? '';
-            final label = m['label']?.toString() ?? '';
+            final label = _nameFor(mode);
             final coins = (m['coins'] as num?)?.toInt() ?? 0;
             final sel = mode == _mode;
             return GestureDetector(
@@ -400,7 +493,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
                                   color: sel ? Colors.white : FF.text,
                                   fontSize: 13,
                                   fontWeight: FontWeight.w800)),
-                          Text('$coins 鹰币',
+                          Text('$coins coins',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -434,10 +527,10 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
               ),
               child: Text(
                   _uploading
-                      ? '照片上传中…'
+                      ? 'Uploading photo…'
                       : (_photoUrl == null
                           ? l.spf_noPhotoBtn
-                          : l.spf_genBtnFmt('$_coins 鹰币')),
+                          : l.spf_genBtnFmt('$_coins coins')),
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -446,7 +539,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
           ),
         ),
         const SizedBox(height: 10),
-        Text('生成将扣除 $_coins 鹰币；若生成失败将自动退还。',
+        Text('Costs $_coins coins · auto-refunded if generation fails.',
             textAlign: TextAlign.center,
             style: const TextStyle(color: FF.dim, fontSize: 11)),
       ],
@@ -483,7 +576,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
             const SizedBox(height: 14),
             Text(
                 _uploading
-                    ? '正在上传…'
+                    ? 'Uploading…'
                     : (hasPhoto ? l.spf_photoReady : l.spf_uploadPhoto),
                 style: const TextStyle(
                     color: FF.text, fontSize: 18, fontWeight: FontWeight.w900)),
@@ -511,20 +604,8 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
       children: [
         _topbar('AI Spark', showBack: false),
         const Spacer(),
-        Container(
-          width: 96,
-          height: 96,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle, gradient: FF.brandGradient),
-          child: const Text('AI',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900)),
-        )
-            .animate(onPlay: (c) => c.repeat(reverse: true))
-            .scaleXY(end: 1.08, duration: 900.ms, curve: Curves.easeInOut),
+        // 统一的「AI 等待」动画：呼吸四角星（与互动剧转场一致）。
+        const FloatingAiStar(size: 140),
         const SizedBox(height: 24),
         gradientText(l.spf_generating, size: 22),
         const SizedBox(height: 8),
@@ -591,7 +672,7 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
                             const Icon(Icons.error_outline_rounded,
                                 color: Colors.white, size: 56),
                             const SizedBox(height: 14),
-                            const Text('生成失败，鹰币已退',
+                            const Text('Generation failed · coins refunded',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -650,15 +731,15 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
                 ),
                 const SizedBox(height: 12),
                 if (_failed) ...[
-                  Text('生成失败',
+                  Text('Generation failed',
                       style: const TextStyle(color: FF.dim, fontSize: 12)),
                   const SizedBox(height: 4),
-                  gradientText('鹰币已退还', size: 22),
+                  gradientText('Coins refunded', size: 22),
                   const SizedBox(height: 6),
-                  const Text('请重新生成，或稍后再试。',
+                  const Text('Please try generating again, or come back later.',
                       style: TextStyle(color: FF.muted, fontSize: 12)),
                   const SizedBox(height: 16),
-                  _btn('重新生成', FF.brandGradient, _regenerate),
+                  _btn('Generate again', FF.brandGradient, _regenerate),
                 ] else ...[
                   Text(l.spf_genDoneTag,
                       style: const TextStyle(color: FF.dim, fontSize: 12)),
@@ -673,12 +754,12 @@ class _SparkFlowScreenState extends State<SparkFlowScreen> {
                       Expanded(
                         child: isAvatar
                             ? _btn(
-                                _avatarSet ? '已设为头像' : '设为头像',
+                                _avatarSet ? 'Avatar set' : 'Set as avatar',
                                 FF.brandGradient,
                                 _avatarSet ? () {} : _setAsAvatar,
                                 busy: _sharing)
                             : _btn(l.spf_btnSave, FF.brandGradient,
-                                _shareResult,
+                                _saveToGallery,
                                 busy: _sharing),
                       ),
                       const SizedBox(width: 10),

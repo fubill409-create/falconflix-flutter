@@ -1099,6 +1099,7 @@
   },
   "ss_localNote": "ベータ · 応援はローカル保存、正式版でコイン決済",
   "ss_celebTitle": "応援完了！",
+  "ss_backFailed": "応援に失敗しました。あとでもう一度お試しください",
   "ss_forFmt": "{name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1312,6 +1313,9 @@
   "spf_uploadPhoto": "写真をアップロード",
   "spf_photoTapToReplace": "タップで再選択",
   "spf_photoHint": "正面または全身、顔がはっきり",
+  "spf_photoSourceTitle": "写真を追加",
+  "spf_takePhoto": "写真を撮る",
+  "spf_chooseFromAlbum": "アルバムから選ぶ",
   "spf_generating": "AI が生成中…",
   "spf_generatingSub": "あなたをドラマに入れています、少々お待ちを",
   "spf_genDoneTag": "完了",
@@ -1324,8 +1328,10 @@
     }
   },
   "spf_genDoneBody": "作品に保存、シェア、または再生成。",
-  "spf_btnSave": "マイ作品に保存",
-  "spf_savedToast": "保存しました（開発中）",
+  "spf_btnSave": "アルバムに保存",
+  "spf_savedToast": "アルバムに保存しました",
+  "spf_saveFail": "保存に失敗しました。もう一度お試しください",
+  "spf_saveNoPerm": "保存するには設定で写真へのアクセスを許可してください",
   "spf_shareLabel": "AI 作品",
   "cui_chipAI": "AI インタラクティブ",
   "cui_chipMetaverse": "メタバース世界観",

@@ -1180,7 +1180,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get login_pwHint => '初回パスワードログインで自動登録されます';
 
-
   @override
   String get login_quickLogin => '簡単ログイン';
 
@@ -1980,6 +1979,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get ss_celebTitle => '応援完了！';
 
   @override
+  String get ss_backFailed => '応援に失敗しました。あとでもう一度お試しください';
+
+  @override
   String ss_forFmt(String name, String label) {
     return '$name · $label';
   }
@@ -2242,6 +2244,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get spf_photoHint => '正面または全身、顔がはっきり';
 
   @override
+  String get spf_photoSourceTitle => '写真を追加';
+
+  @override
+  String get spf_takePhoto => '写真を撮る';
+
+  @override
+  String get spf_chooseFromAlbum => 'アルバムから選ぶ';
+
+  @override
   String get spf_generating => 'AI が生成中…';
 
   @override
@@ -2259,10 +2270,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String get spf_genDoneBody => '作品に保存、シェア、または再生成。';
 
   @override
-  String get spf_btnSave => 'マイ作品に保存';
+  String get spf_btnSave => 'アルバムに保存';
 
   @override
-  String get spf_savedToast => '保存しました（開発中）';
+  String get spf_savedToast => 'アルバムに保存しました';
+
+  @override
+  String get spf_saveFail => '保存に失敗しました。もう一度お試しください';
+
+  @override
+  String get spf_saveNoPerm => '保存するには設定で写真へのアクセスを許可してください';
 
   @override
   String get spf_shareLabel => 'AI 作品';

@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <!-- 推送通知（Android 13+ 需要用户授权才能展示通知；之前版本静默允许） -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <!-- 把 AI 成片存到系统相册（gal）：Android 9 及以下需要写外部存储；Android 10+ 走分区存储不需要 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
     <application
         android:label="FalconFlix"
         android:name="${applicationName}"

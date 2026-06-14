@@ -1226,7 +1226,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_pwHint =>
       'La première connexion par mot de passe crée le compte avec ce mot de passe';
 
-
   @override
   String get login_quickLogin => 'Connexion rapide';
 
@@ -2053,6 +2052,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get ss_celebTitle => 'Soutien envoyé !';
 
   @override
+  String get ss_backFailed => 'Échec du soutien, veuillez réessayer';
+
+  @override
   String ss_forFmt(String name, String label) {
     return 'Pour $name · $label';
   }
@@ -2323,6 +2325,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get spf_photoHint => 'De face ou corps entier, visage net';
 
   @override
+  String get spf_photoSourceTitle => 'Ajouter une photo';
+
+  @override
+  String get spf_takePhoto => 'Prendre une photo';
+
+  @override
+  String get spf_chooseFromAlbum => 'Choisir dans l’album';
+
+  @override
   String get spf_generating => 'L\'IA génère…';
 
   @override
@@ -2340,10 +2351,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get spf_genDoneBody => 'Sauve dans tes œuvres, partage, ou régénère.';
 
   @override
-  String get spf_btnSave => 'Enregistrer dans mes œuvres';
+  String get spf_btnSave => 'Enregistrer dans la galerie';
 
   @override
-  String get spf_savedToast => 'Enregistré (à venir)';
+  String get spf_savedToast => 'Enregistré dans la galerie';
+
+  @override
+  String get spf_saveFail => 'Échec de l\'enregistrement, veuillez réessayer';
+
+  @override
+  String get spf_saveNoPerm =>
+      'Autorisez l\'accès aux photos dans les Réglages pour enregistrer';
 
   @override
   String get spf_shareLabel => 'Création IA';

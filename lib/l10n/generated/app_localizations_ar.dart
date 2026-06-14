@@ -1204,7 +1204,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login_pwHint =>
       'أول تسجيل دخول بكلمة مرور يُنشئ الحساب تلقائيًا بهذه الكلمة';
 
-
   @override
   String get login_quickLogin => 'دخول سريع';
 
@@ -1361,10 +1360,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get wallet_payFail => 'فشل الدفع، يرجى إعادة المحاولة';
 
   @override
-  String get wallet_iapUnavailable => 'تعذّر الاتصال بـ App Store، يرجى إعادة المحاولة';
+  String get wallet_iapUnavailable =>
+      'تعذّر الاتصال بـ App Store، يرجى إعادة المحاولة';
 
   @override
-  String get wallet_iapVerifyFail => 'فشل تأكيد الدفع، ستتم إعادة المحاولة عند التشغيل القادم';
+  String get wallet_iapVerifyFail =>
+      'فشل تأكيد الدفع، ستتم إعادة المحاولة عند التشغيل القادم';
 
   @override
   String get wallet_balanceLabel => 'رصيد عملة النسر';
@@ -2019,6 +2020,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get ss_celebTitle => 'تم الدعم!';
 
   @override
+  String get ss_backFailed => 'فشل الدعم، يرجى المحاولة لاحقًا';
+
+  @override
   String ss_forFmt(String name, String label) {
     return '$name · $label';
   }
@@ -2286,6 +2290,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get spf_photoHint => 'وجهك أو جسمك كاملاً، وجه واضح';
 
   @override
+  String get spf_photoSourceTitle => 'إضافة صورة';
+
+  @override
+  String get spf_takePhoto => 'التقاط صورة';
+
+  @override
+  String get spf_chooseFromAlbum => 'اختيار من الألبوم';
+
+  @override
   String get spf_generating => 'AI ينشئ…';
 
   @override
@@ -2303,10 +2316,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get spf_genDoneBody => 'احفظ في أعمالك، شارك، أو أعد الإنشاء.';
 
   @override
-  String get spf_btnSave => 'احفظ في أعمالي';
+  String get spf_btnSave => 'حفظ في الألبوم';
 
   @override
-  String get spf_savedToast => 'تم الحفظ (قيد التطوير)';
+  String get spf_savedToast => 'تم الحفظ في الألبوم';
+
+  @override
+  String get spf_saveFail => 'فشل الحفظ، يرجى المحاولة مرة أخرى';
+
+  @override
+  String get spf_saveNoPerm =>
+      'يرجى السماح بالوصول إلى الصور في الإعدادات للحفظ';
 
   @override
   String get spf_shareLabel => 'إبداع AI';

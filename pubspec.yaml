@@ -52,6 +52,8 @@ dependencies:
   # 原生 Sign in with Apple（苹果 4.8 强制：给了其它社交登录就必须有原生苹果登录）
   sign_in_with_apple: ^6.1.0
   image_picker: ^1.1.2
+  # 把 AI 生成的成片直接存到系统相册（保存按钮，跨 Android/iOS）
+  gal: ^2.3.0
   # Stripe 国际收款：原生 PaymentSheet（充值鹰币，美金信用卡）
   flutter_stripe: ^11.1.0
   # iOS 充值走苹果内购（App Store 审核 3.1.1：数字内容必须 StoreKit）；Android 不用

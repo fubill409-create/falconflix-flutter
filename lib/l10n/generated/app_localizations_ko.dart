@@ -1180,7 +1180,6 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get login_pwHint => '최초 비밀번호 로그인 시 자동 가입되어 해당 비밀번호로 설정됩니다';
 
-
   @override
   String get login_quickLogin => '간편 로그인';
 
@@ -1209,7 +1208,8 @@ class AppLocalizationsKo extends AppLocalizations {
   String get login_codeSent => '인증번호를 보냈습니다. 메일을 확인해주세요.';
 
   @override
-  String get login_emailNotConfigured => '이메일 발송이 일시적으로 불가합니다. 잠시 후 다시 시도해 주세요.';
+  String get login_emailNotConfigured =>
+      '이메일 발송이 일시적으로 불가합니다. 잠시 후 다시 시도해 주세요.';
 
   @override
   String get login_networkError => '로그인 실패. 네트워크 확인 후 다시 시도하세요';
@@ -1979,6 +1979,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get ss_celebTitle => '응원 완료!';
 
   @override
+  String get ss_backFailed => '응원에 실패했어요. 잠시 후 다시 시도해 주세요';
+
+  @override
   String ss_forFmt(String name, String label) {
     return '$name · $label';
   }
@@ -2241,6 +2244,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get spf_photoHint => '정면 또는 전신, 얼굴이 또렷이';
 
   @override
+  String get spf_photoSourceTitle => '사진 추가';
+
+  @override
+  String get spf_takePhoto => '사진 촬영';
+
+  @override
+  String get spf_chooseFromAlbum => '앨범에서 선택';
+
+  @override
   String get spf_generating => 'AI가 생성 중…';
 
   @override
@@ -2258,10 +2270,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String get spf_genDoneBody => '내 작품에 저장, 공유, 또는 다시 생성.';
 
   @override
-  String get spf_btnSave => '내 작품에 저장';
+  String get spf_btnSave => '앨범에 저장';
 
   @override
-  String get spf_savedToast => '저장됨 (개발 중)';
+  String get spf_savedToast => '앨범에 저장했어요';
+
+  @override
+  String get spf_saveFail => '저장에 실패했어요. 다시 시도해 주세요';
+
+  @override
+  String get spf_saveNoPerm => '저장하려면 설정에서 사진 접근을 허용해 주세요';
 
   @override
   String get spf_shareLabel => 'AI 작품';

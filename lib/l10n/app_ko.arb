@@ -1099,6 +1099,7 @@
   },
   "ss_localNote": "베타 · 응원은 로컬 저장, 정식 출시 후 코인 결제",
   "ss_celebTitle": "응원 완료!",
+  "ss_backFailed": "응원에 실패했어요. 잠시 후 다시 시도해 주세요",
   "ss_forFmt": "{name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1312,6 +1313,9 @@
   "spf_uploadPhoto": "사진 업로드",
   "spf_photoTapToReplace": "탭하여 재선택",
   "spf_photoHint": "정면 또는 전신, 얼굴이 또렷이",
+  "spf_photoSourceTitle": "사진 추가",
+  "spf_takePhoto": "사진 촬영",
+  "spf_chooseFromAlbum": "앨범에서 선택",
   "spf_generating": "AI가 생성 중…",
   "spf_generatingSub": "당신을 드라마에 넣고 있어요, 잠시만요",
   "spf_genDoneTag": "완료",
@@ -1324,8 +1328,10 @@
     }
   },
   "spf_genDoneBody": "내 작품에 저장, 공유, 또는 다시 생성.",
-  "spf_btnSave": "내 작품에 저장",
-  "spf_savedToast": "저장됨 (개발 중)",
+  "spf_btnSave": "앨범에 저장",
+  "spf_savedToast": "앨범에 저장했어요",
+  "spf_saveFail": "저장에 실패했어요. 다시 시도해 주세요",
+  "spf_saveNoPerm": "저장하려면 설정에서 사진 접근을 허용해 주세요",
   "spf_shareLabel": "AI 작품",
   "cui_chipAI": "AI 인터랙티브",
   "cui_chipMetaverse": "메타버스 세계관",

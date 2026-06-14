@@ -424,10 +424,10 @@
       }
     }
   },
-  "cb_sectionSupport": "应援榜 · 谁在为 TA 打投",
-  "cb_goSupport": "去应援 · 助 TA 出道",
+  "cb_sectionSupport": "助推榜 · 谁在为 TA 助推",
+  "cb_goSupport": "去助推 · 助 TA 出道",
   "cb_seeBio": "看 TA 简介 ›",
-  "cb_pollHeatPct": "打投热度 {pct}%",
+  "cb_pollHeatPct": "助推热度 {pct}%",
   "@cb_pollHeatPct": {
     "placeholders": {
       "pct": {
@@ -444,7 +444,7 @@
       }
     }
   },
-  "cb_totalSupport": "累计应援",
+  "cb_totalSupport": "累计助推",
   "cb_coinsFmt": "{coins} 鹰币",
   "@cb_coinsFmt": {
     "placeholders": {
@@ -454,8 +454,8 @@
     }
   },
   "cb_topBacker": "本剧榜一大哥",
-  "cb_emptyBackers": "还没有人打 call · 快来当 TA 的第一位榜一大哥",
-  "cb_titleSupportFmt": "{name} · 应援榜",
+  "cb_emptyBackers": "还没有人助推 · 快来当 TA 的第一位榜一大哥",
+  "cb_titleSupportFmt": "{name} · 助推榜",
   "@cb_titleSupportFmt": {
     "placeholders": {
       "name": {
@@ -495,8 +495,8 @@
   "aid_step2Sub": "在岔路口替角色做决定，剧情就此分叉。",
   "aid_step3Title": "客串自己",
   "aid_step3Sub": "把你的脸、你的名字写进这部剧。",
-  "aid_step4Title": "应援出道",
-  "aid_step4Sub": "为心动的角色打投，把 TA 推上舞台。",
+  "aid_step4Title": "助推出道",
+  "aid_step4Sub": "为心动的角色助推，把 TA 推上舞台。",
   "aid_step5Title": "决策元宇宙",
   "aid_step5Sub": "终点，是一个你说了算的世界。",
   "aid_ladderHeader": "从一次选择，到一个世界",
@@ -660,7 +660,7 @@
   },
   "wallet_title": "充值鹰币",
   "wallet_chooseRecharge": "选择充值包",
-  "wallet_introNote": "鹰币用于解锁剧集、互动玩法与应援",
+  "wallet_introNote": "鹰币用于解锁剧集、互动玩法与助推",
   "wallet_menuAutoUnlock": "自动解锁设置",
   "wallet_menuHistory": "充值记录",
   "wallet_menuReceipt": "发票邮箱",
@@ -1083,7 +1083,7 @@
   "ss_tier3344_meaning": "宠 TA 到底",
   "ss_tier9999_label": "封神助攻",
   "ss_tier9999_meaning": "榜一就是你",
-  "ss_callForFmt": "为 {name} 打 call",
+  "ss_callForFmt": "助推 {name}",
   "@ss_callForFmt": {
     "placeholders": {
       "name": {
@@ -1100,8 +1100,9 @@
       }
     }
   },
-  "ss_localNote": "内测体验 · 应援先本地记录，正式上线后从鹰币结算",
-  "ss_celebTitle": "应援成功",
+  "ss_localNote": "内测体验 · 助推先本地记录，正式上线后从鹰币结算",
+  "ss_celebTitle": "助推成功",
+  "ss_backFailed": "助推失败，请稍后再试",
   "ss_forFmt": "为 {name} · {label}",
   "@ss_forFmt": {
     "placeholders": {
@@ -1159,7 +1160,7 @@
   },
   "ss_tapToContinue": "轻触任意处继续",
   "air_title": "角色机会榜",
-  "air_sub": "热度攒满就开机出道 · 打投越猛排名越靠前",
+  "air_sub": "热度攒满就开机出道 · 助推越猛排名越靠前",
   "air_segCharRank": "角色榜",
   "air_segKingRank": "榜一大哥",
   "air_chipAll": "全部",
@@ -1172,7 +1173,7 @@
   "air_emptyKing": "这个段位暂时虚位以待",
   "air_debuted": "已开机出道",
   "air_leading": "出道领跑",
-  "air_heatFmt": "打投热度 {pct}%",
+  "air_heatFmt": "助推热度 {pct}%",
   "@air_heatFmt": {
     "placeholders": {
       "pct": {
@@ -1189,7 +1190,7 @@
       }
     }
   },
-  "air_supportKingFmt": "本剧应援王 {name}",
+  "air_supportKingFmt": "本剧头号助推 {name}",
   "@air_supportKingFmt": {
     "placeholders": {
       "name": {
@@ -1222,7 +1223,7 @@
   "cd_secMoments": "深入沟通的时刻",
   "cd_actUnlock": "鹰币解锁",
   "cd_secCredits": "TA 参演的剧",
-  "cd_secBoardFmt": "应援榜 · {n} 位支持者",
+  "cd_secBoardFmt": "助推榜 · {n} 位支持者",
   "@cd_secBoardFmt": {
     "placeholders": {
       "n": {
@@ -1231,9 +1232,9 @@
     }
   },
   "cd_actImInToo": "我也要上榜 ›",
-  "cd_swipeHint": "下滑了解 TA · 打 call · 解锁",
+  "cd_swipeHint": "下滑了解 TA · 助推 · 解锁",
   "cd_introBadge": "TA 的自我介绍",
-  "cd_debutProgress": "出道打投进度",
+  "cd_debutProgress": "出道助推进度",
   "cd_debutHint": "攒满即触发开机 · 真人＋AI 结合的精品互动剧",
   "cd_clipToastFmt": "播放片段「{name}」· 开发中",
   "@cd_clipToastFmt": {
@@ -1259,8 +1260,8 @@
       }
     }
   },
-  "cd_kingBadge": "本剧应援王",
-  "cd_btnSupport": "应援",
+  "cd_kingBadge": "本剧头号助推",
+  "cd_btnSupport": "助推",
   "cd_btnChat": "聊天 · 解锁",
   "sp_toolPosterName": "剧照海报生成",
   "sp_toolPosterDesc": "上传人脸，生成你在这部剧里的竖版海报。",
@@ -1315,6 +1316,9 @@
   "spf_uploadPhoto": "上传你的照片",
   "spf_photoTapToReplace": "可点击重新选择",
   "spf_photoHint": "正面或全身，确保人脸清晰",
+  "spf_photoSourceTitle": "添加照片",
+  "spf_takePhoto": "拍照",
+  "spf_chooseFromAlbum": "从相册选择",
   "spf_generating": "AI 正在生成…",
   "spf_generatingSub": "正在把你放进短剧，请稍候",
   "spf_genDoneTag": "生成完成",
@@ -1327,20 +1331,22 @@
     }
   },
   "spf_genDoneBody": "保存到作品、分享，或重新生成。",
-  "spf_btnSave": "保存到我的作品",
-  "spf_savedToast": "已保存（功能开发中）",
+  "spf_btnSave": "保存到相册",
+  "spf_savedToast": "已保存到相册",
+  "spf_saveFail": "保存失败，请重试",
+  "spf_saveNoPerm": "请在系统设置里允许访问相册后再保存",
   "spf_shareLabel": "AI 成片",
   "cui_chipAI": "AI 互动",
   "cui_chipMetaverse": "元宇宙世界观",
   "cui_title": "角色元宇宙",
   "cui_lead": "在这里，你遇见的不是演员，是会回应你的人。",
-  "cui_body": "每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 打 call，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。",
+  "cui_body": "每一个角色，都有自己的性格、声音和故事。你可以陪 TA 聊天，为 TA 助推，把心动的那一个亲手推上舞台——从一句台词，到一部属于你们的精品互动剧。",
   "cui_step1Title": "遇见 & 私聊",
   "cui_step1Desc": "长按角色听 TA 说话，进去与 TA 一对一聊天。能量陪伴，越聊越懂你。",
-  "cui_step2Title": "应援 & 打投",
-  "cui_step2Desc": "为心动的 TA 投出鹰币，实名登上应援榜，成为 TA 的「应援王」。",
+  "cui_step2Title": "助推 & 投票",
+  "cui_step2Desc": "为心动的 TA 投出鹰币，实名登上助推榜，成为 TA 的「头号助推」。",
   "cui_step3Title": "开机 & 出道",
-  "cui_step3Desc": "打投进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。",
+  "cui_step3Desc": "助推进度攒满，TA 正式出道——真人＋AI 打造的精品互动剧，由你点燃。",
   "cui_step4Title": "客串 & 深入",
   "cui_step4Desc": "解锁与 TA 专属的剧情和「深入沟通的时刻」，甚至把自己写进这部剧里。",
   "cui_footer": "你投出的每一票，都在改写谁会成为下一个主角。",

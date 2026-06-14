@@ -914,7 +914,11 @@ Future<void> showRechargeCelebration(BuildContext context, int coins) {
     barrierLabel: AppLocalizations.of(context).wallet_successBarrier,
     barrierColor: Colors.black.withValues(alpha: 0.64),
     transitionDuration: const Duration(milliseconds: 460),
-    pageBuilder: (_, _, _) => _RechargeCelebration(coins: coins),
+    // 裹 Material：否则 showGeneralDialog 内的 Text 会出现"缺失 Material"的黄色下划线。
+    pageBuilder: (_, _, _) => Material(
+      type: MaterialType.transparency,
+      child: _RechargeCelebration(coins: coins),
+    ),
     transitionBuilder: (_, anim, _, child) => FadeTransition(
       opacity: CurvedAnimation(
         parent: anim,
